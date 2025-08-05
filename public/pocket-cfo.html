@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... copy <head> section from previous file ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket CFO | EcoSaerthi</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!-- ... copy <header> section from previous file ... -->
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/career-compass.html">Career</a></li>
+                <li class="nav-item"><a href="/pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="/tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="/genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="/future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="/economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="/opportunity-engine.html">Schemes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Pocket CFO</h1>
+            <p>Monitor, manage, and optimize your daily spending.</p>
+        </div>
+        
+        <div class="grid-container" style="grid-template-columns: 1fr 1fr 1fr;">
+            <div class="card" style="background-color: #D3F3E3;">
+                <h3>Total Income</h3>
+                <h2 style="color: var(--primary-color);">₹50,000 / month</h2>
+            </div>
+             <div class="card" style="background-color: #FCE6E6;">
+                <h3>Total Expenses</h3>
+                <h2 style="color: #c0392b;">₹35,000 / month</h2>
+            </div>
+             <div class="card" style="background-color: #E3F2FD;">
+                <h3>Net Savings</h3>
+                <h2 style="color: #2980b9;">₹15,000 / month</h2>
+            </div>
+        </div>
+
+        <div class="grid-container" style="grid-template-columns: 1fr 2fr;">
+            <div class="card">
+                <h3>Add Transaction</h3>
+                <form id="add-expense-form">
+                    <div class="form-group">
+                        <label for="desc">Description</label>
+                        <input type="text" id="desc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option>Food</option>
+                            <option>Transport</option>
+                            <option>Bills</option>
+                            <option>Entertainment</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">Add Expense</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>Recent Transactions</h3>
+                <!-- This div will be populated by JS -->
+                <div id="transactions-list">
+                    <p>Your recent transactions will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- ... copy <footer> section from previous file ... -->
+        <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
+    </footer>
+    <script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Compass | EcoSaerthi</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/career-compass.html">Career</a></li>
+                <li class="nav-item"><a href="/pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="/tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="/genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="/future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="/economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="/opportunity-engine.html">Schemes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- In public/career-compass.html -->
+
+<!-- In public/career-compass.html -->
+
+<main class="container">
+    <div class="page-header">
+        <h1>Career Compass</h1>
+        <p>Tell us where you are and where you want to go. We'll show you the path.</p>
+    </div>
+
+    <!-- Main two-column layout -->
+    <div class="grid-container" style="grid-template-columns: 1fr 1fr; align-items: flex-start;">
+
+        <!-- Left Column: Search Form and Job Results -->
+        <div>
+            <div class="card">
+                <h2>Build Your Career Path</h2>
+
+                <!-- !!! --- NEW SECTION: ASK FOR CURRENT ROLE --- !!! -->
+                <div class="form-group">
+                    <label for="current-role">First, what is your current role?</label>
+                    <select id="current-role">
+                        <!-- Options will be dynamically added by script.js -->
+                    </select>
+                </div>
+                <!-- !!! --- END OF NEW SECTION --- !!! -->
+
+                <hr style="margin: 1.5rem 0;">
+
+                <div class="form-group">
+                    <label for="job-title">Next, what is your desired job title?</label>
+                    <input type="text" id="job-title" placeholder="e.g., 'Senior Economist'">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="e.g., 'USA'">
+                </div>
+                <button class="btn btn-accent">Search & Analyze</button>
+            </div>
+            
+            <div id="job-results"></div>
+        </div>
+
+        <!-- Right Column: Analysis and Courses (Initially Hidden) -->
+        <div id="analysis-section" class="hidden">
+            <div class="card">
+                <h3>Your Career Path Analysis</h3>
+                <div id="skill-gap-results"></div>
+            </div>
+            <div class="card">
+                <h3>Recommended Courses to Bridge the Gap</h3>
+                <div id="course-recommendations"></div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+    <footer>
+        <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
+    </footer>
+    <script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... copy <head> section from previous file ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economy Radar | EcoSaerthi</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!-- ... copy <header> section from previous file ... -->
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/career-compass.html">Career</a></li>
+                <li class="nav-item"><a href="/pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="/tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="/genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="/future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="/economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="/opportunity-engine.html">Schemes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Inflation & Economy Radar</h1>
+            <p>Understand how macro-level economic shifts affect your personal finances.</p>
+        </div>
+
+        <div class="grid-container" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="card">
+                <h3>Inflation Rate (CPI)</h3>
+                <h2 id="inflation-rate">5.1%</h2>
+                <p>▲ Higher than last month</p>
+            </div>
+            <div class="card">
+                <h3>Repo Rate</h3>
+                <h2 id="repo-rate">6.5%</h2>
+                <p>▬ Unchanged</p>
+            </div>
+            <div class="card">
+                <h3>Unemployment Rate</h3>
+                <h2 id="unemployment-rate">7.8%</h2>
+                <p>▼ Lower than last quarter</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Personal Impact Calculator</h3>
+            <p>See how changes in economic indicators could affect you.</p>
+            <div class="form-group">
+                <label>If the interest rate on my home loan of ₹</label>
+                <input type="number" placeholder="5000000">
+                <label>goes up by</label>
+                <input type="number" step="0.1" placeholder="0.5" style="width: 80px;">
+                <label>% ...</label>
+            </div>
+            <button class="btn btn-primary">Calculate New EMI</button>
+            <div id="impact-result" style="margin-top: 1rem; font-weight: bold;"></div>
+        </div>
+        
+        <div class="card">
+            <h3>AI News Explainer</h3>
+            <div id="news-feed">
+                <h4>"RBI holds repo rate steady in latest policy meeting."</h4>
+                <p><strong>What this means for you:</strong> Your loan EMIs are unlikely to change for now. It's a stable time for borrowers, but your savings in Fixed Deposits won't earn higher interest either.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- ... copy <footer> section from previous file ... -->
+        <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
+    </footer>
+    <script src="/js/script.js"></script>
+</body>
+</html>

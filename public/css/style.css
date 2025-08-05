@@ -1,0 +1,169 @@
+/* public/css/style.css */
+
+/* --- Global & Variables --- */
+:root {
+    --primary-color: #2D6A4F;
+    --secondary-color: #40916C;
+    --accent-color: #FFC300;
+    --bg-color: #F7F9F9;
+    --text-color: #1B1B1B;
+    --light-gray: #e0e0e0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding-top: 80px; /* Space for fixed navbar */
+}
+
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: #fff;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.nav-logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 1.5rem 0;
+    transition: color 0.3s;
+}
+
+.nav-item a:hover {
+    color: var(--secondary-color);
+}
+
+/* --- Page Header --- */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 1rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0.5rem auto 0;
+    color: #555;
+}
+
+/* --- Cards and Grids --- */
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Forms & Buttons --- */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+.btn-accent:hover {
+    opacity: 0.9;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #e9ecef;
+    margin-top: 3rem;
+}
+/* Add this to the end of public/css/style.css */
+
+.hidden {
+    display: none;
+}
