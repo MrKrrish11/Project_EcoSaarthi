@@ -7,6 +7,12 @@ function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function markdownToHtml(text) {
+    // Basic markdown conversion for bolding and newlines
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convert **text** to <strong>text</strong>
+        .replace(/\n/g, '<br>'); // Convert newlines to <br> tags
+}
 // Main controller for the job search process
 function handleJobSearch() {
     const loggedInUserKey = localStorage.getItem('loggedInUserKey');
@@ -20,21 +26,38 @@ function handleJobSearch() {
     const location = document.getElementById('location').value;
     const resultsDiv = document.getElementById('job-results');
     const analysisSection = document.getElementById('analysis-section');
+    const aiAdvisorContent = document.getElementById('ai-advisor-content');
+
     resultsDiv.innerHTML = '<p>Searching for jobs...</p>';
+    aiAdvisorContent.innerHTML = '<p>🧠 Thinking... Our AI is generating personalized advice for you...</p>';
     analysisSection.classList.add('hidden');
 
-    fetch(`/api/jobs?query=${desiredJobTitle}&location=${location}`)
+    // NEW: We pass the user's profile to the backend so the AI knows who they are.
+    const userProfile = PROFILE_DATABASE[loggedInUserKey];
+    const encodedProfile = encodeURIComponent(JSON.stringify(userProfile));
+
+    fetch(`/api/jobs?query=${desiredJobTitle}&location=${location}&userProfile=${encodedProfile}`)
         .then(response => { if (!response.ok) throw new Error(`Server error: ${response.status}`); return response.json(); })
-        .then(jobs => {
+        .then(data => {
+            // The 'data' object now contains both 'jobs' and 'aiAdvice'
+            const jobs = data.jobs;
+            const aiAdvice = data.aiAdvice;
+
             resultsDiv.innerHTML = '';
             if (!jobs || jobs.length === 0) {
                 resultsDiv.innerHTML = '<p>No jobs found for this search.</p>';
+                aiAdvisorContent.innerHTML = '<p>Could not generate advice. Please try a different job title.</p>';
                 return;
             }
-            const userProfile = PROFILE_DATABASE[loggedInUserKey];
+
+            // Display the AI advice by converting markdown to HTML
+            aiAdvisorContent.innerHTML = markdownToHtml(aiAdvice);
+
+            // The rest of the logic remains the same
             const topJob = jobs[0];
             performAndDisplayAnalysis(topJob, userProfile);
             analysisSection.classList.remove('hidden');
+            
             jobs.forEach(job => {
                 const jobCard = document.createElement('div');
                 jobCard.className = 'card';
@@ -44,8 +67,8 @@ function handleJobSearch() {
         })
         .catch(error => {
             console.error('Error fetching jobs:', error);
-            const resultsDiv = document.getElementById('job-results');
-            resultsDiv.innerHTML = '<p class="error-message">Failed to load jobs. Please check the server console.</p>';
+            resultsDiv.innerHTML = '<p class="error-message">Failed to load jobs.</p>';
+            aiAdvisorContent.innerHTML = '<p class="error-message">Could not generate AI advice due to an error.</p>';
         });
 }
 
