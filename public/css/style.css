@@ -1,4 +1,4 @@
-/* public/css/style.css */
+/* public/css/style.css - FINAL PROFESSIONAL VERSION */
 
 /* --- Global & Variables --- */
 :root {
@@ -8,6 +8,8 @@
     --bg-color: #F7F9F9;
     --text-color: #1B1B1B;
     --light-gray: #e0e0e0;
+    --error-red: #c0392b;
+    --success-green: #27ae60;
 }
 
 body {
@@ -18,7 +20,7 @@ body {
     padding-top: 80px; /* Space for fixed navbar */
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: 'Poppins', sans-serif;
     color: var(--primary-color);
 }
@@ -27,6 +29,12 @@ h1, h2, h3 {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--light-gray);
+    margin: 1.5rem 0;
 }
 
 /* --- Navbar --- */
@@ -55,6 +63,7 @@ h1, h2, h3 {
 .nav-menu {
     list-style: none;
     display: flex;
+    align-items: center;
     gap: 1.5rem;
     margin: 0;
 }
@@ -79,17 +88,8 @@ h1, h2, h3 {
     padding-bottom: 1rem;
 }
 
-.page-header h1 {
-    font-size: 2.5rem;
-    margin: 0;
-}
-
-.page-header p {
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0.5rem auto 0;
-    color: #555;
-}
+.page-header h1 { font-size: 2.5rem; margin: 0; }
+.page-header p { font-size: 1.1rem; max-width: 700px; margin: 0.5rem auto 0; color: #555; }
 
 /* --- Cards and Grids --- */
 .card {
@@ -106,17 +106,14 @@ h1, h2, h3 {
     gap: 1.5rem;
 }
 
+.two-column-layout {
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+}
+
 /* --- Forms & Buttons --- */
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
 .form-group input, .form-group select {
     width: 100%;
     padding: 0.75rem;
@@ -137,33 +134,34 @@ h1, h2, h3 {
     transition: background-color 0.3s;
 }
 
-.btn-primary {
-    background-color: var(--secondary-color);
-    color: #fff;
-}
+.btn-primary { background-color: var(--secondary-color); color: #fff; }
+.btn-primary:hover { background-color: var(--primary-color); }
+.btn-accent { background-color: var(--accent-color); color: var(--text-color); }
+.btn-accent:hover { opacity: 0.9; }
+.btn-full-width { width: 100%; }
+.btn-nav-logout { padding: 0.5rem 1rem; }
 
-.btn-primary:hover {
-    background-color: var(--primary-color);
-}
+/* --- Utility Classes --- */
+.hidden { display: none; }
+.error-message { color: var(--error-red); font-weight: bold; }
+.success-message { color: var(--success-green); font-weight: bold; }
 
-.btn-accent {
-    background-color: var(--accent-color);
-    color: var(--text-color);
+/* --- Specific Component Styles --- */
+#course-recommendations ul, #skill-gap-results ul {
+    list-style-type: disc;
+    padding-left: 20px;
 }
-
-.btn-accent:hover {
-    opacity: 0.9;
+#course-recommendations li, #skill-gap-results li {
+    margin-bottom: 0.75rem;
+}
+#course-recommendations a {
+    margin: 0 4px;
+    text-decoration: none;
+    font-weight: 600;
+}
+#course-recommendations a:hover {
+    text-decoration: underline;
 }
 
 /* --- Footer --- */
-footer {
-    text-align: center;
-    padding: 2rem;
-    background-color: #e9ecef;
-    margin-top: 3rem;
-}
-/* Add this to the end of public/css/style.css */
-
-.hidden {
-    display: none;
-}
+footer { text-align: center; padding: 2rem; background-color: #e9ecef; margin-top: 3rem; }
