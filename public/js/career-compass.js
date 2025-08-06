@@ -1,19 +1,54 @@
-// public/js/career-compass.js - FINAL PROFESSIONAL VERSION
+// public/js/career-compass.js - FINAL VERSION WITH ALL LISTENERS CORRECTLY ATTACHED
 
 import { PROFILE_DATABASE, SKILL_KNOWLEDGE_BASE, ALL_SKILLS } from './common/data.js';
 
-// Helper function to escape special characters for Regex
+// --- HELPER FUNCTIONS ---
 function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function markdownToHtml(text) {
-    // Basic markdown conversion for bolding and newlines
-    return text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convert **text** to <strong>text</strong>
-        .replace(/\n/g, '<br>'); // Convert newlines to <br> tags
+// --- CORE LOGIC ---
+
+// Handles the specific internship search
+function handleInternshipSearch() {
+    const desiredJobTitle = document.getElementById('job-title').value;
+    const location = document.getElementById('location').value;
+    const resultsDiv = document.getElementById('job-results');
+    resultsDiv.innerHTML = '<p>Searching for internships...</p>';
+
+    const internshipQuery = `${desiredJobTitle} internship`;
+    const loggedInUserKey = localStorage.getItem('loggedInUserKey');
+    if (!loggedInUserKey) {
+        alert('Could not find user profile. Please try logging in again.');
+        return;
+    }
+    const userProfile = PROFILE_DATABASE[loggedInUserKey];
+    const encodedProfile = encodeURIComponent(JSON.stringify(userProfile));
+
+    fetch(`/api/jobs?query=${internshipQuery}&location=${location}&userProfile=${encodedProfile}`)
+        .then(response => { if (!response.ok) throw new Error(`Server error: ${response.status}`); return response.json(); })
+        .then(data => {
+            const jobs = data.jobs; 
+            resultsDiv.innerHTML = '';
+            if (!jobs || jobs.length === 0) {
+                resultsDiv.innerHTML = '<h4>Internship Results</h4><p>No internships found for this specific title. Try a broader search like "Marketing Internship".</p>';
+                return;
+            }
+            resultsDiv.innerHTML = '<h4>Internship Results</h4>';
+            jobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'card';
+                jobCard.innerHTML = `<h3>${job.job_title ?? 'No Title'}</h3><p><strong>Company:</strong> ${job.employer_name ?? 'N/A'}</p><a href="${job.job_apply_link}" class="btn btn-primary" target="_blank">View & Apply</a>`;
+                resultsDiv.appendChild(jobCard);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching internships:', error);
+            resultsDiv.innerHTML = '<p class="error-message">Failed to load internships.</p>';
+        });
 }
-// Main controller for the job search process
+
+// Main search handler
 function handleJobSearch() {
     const loggedInUserKey = localStorage.getItem('loggedInUserKey');
     if (!loggedInUserKey) {
@@ -32,14 +67,12 @@ function handleJobSearch() {
     aiAdvisorContent.innerHTML = '<p>🧠 Thinking... Our AI is generating personalized advice for you...</p>';
     analysisSection.classList.add('hidden');
 
-    // NEW: We pass the user's profile to the backend so the AI knows who they are.
     const userProfile = PROFILE_DATABASE[loggedInUserKey];
     const encodedProfile = encodeURIComponent(JSON.stringify(userProfile));
 
     fetch(`/api/jobs?query=${desiredJobTitle}&location=${location}&userProfile=${encodedProfile}`)
         .then(response => { if (!response.ok) throw new Error(`Server error: ${response.status}`); return response.json(); })
         .then(data => {
-            // The 'data' object now contains both 'jobs' and 'aiAdvice'
             const jobs = data.jobs;
             const aiAdvice = data.aiAdvice;
 
@@ -50,14 +83,13 @@ function handleJobSearch() {
                 return;
             }
 
-            // Display the AI advice by converting markdown to HTML
-            aiAdvisorContent.innerHTML = markdownToHtml(aiAdvice);
+            aiAdvisorContent.innerHTML = aiAdvice.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
 
-            // The rest of the logic remains the same
             const topJob = jobs[0];
             performAndDisplayAnalysis(topJob, userProfile);
             analysisSection.classList.remove('hidden');
             
+            resultsDiv.innerHTML = '<h4>Full-Time Job Results</h4>';
             jobs.forEach(job => {
                 const jobCard = document.createElement('div');
                 jobCard.className = 'card';
@@ -72,21 +104,26 @@ function handleJobSearch() {
         });
 }
 
-// Performs the analysis and updates the right-hand column
+// Analysis function now ONLY controls the visibility of the internship card
 function performAndDisplayAnalysis(job, userProfile) {
+    const internshipCard = document.getElementById('internship-finder-card');
+
+    if (userProfile.title.toLowerCase().includes('student')) {
+        internshipCard.classList.remove('hidden');
+    } else {
+        internshipCard.classList.add('hidden');
+    }
+
     const skillGapResultsDiv = document.getElementById('skill-gap-results');
     const courseRecsDiv = document.getElementById('course-recommendations');
-    
     const jobText = ((job.job_highlights?.Qualifications?.join(' ') ?? '') + ' ' + (job.job_highlights?.Responsibilities?.join(' ') ?? '') + ' ' + (job.job_description ?? '')).toLowerCase();
     let requiredSkills = new Set();
     ALL_SKILLS.forEach(skill => {
         const regex = new RegExp(`\\b${escapeRegex(skill)}\\b`, 'gi');
         if (regex.test(jobText)) requiredSkills.add(skill);
     });
-
     const userSkills = new Set(userProfile.skills);
     const skillGap = Array.from(requiredSkills).filter(skill => !userSkills.has(skill));
-
     let jobDetailsHtml = '<strong>Job Snapshot:</strong><ul>';
     if (job.job_title) jobDetailsHtml += `<li><strong>Title:</strong> ${job.job_title}</li>`;
     if (job.job_city) jobDetailsHtml += `<li><strong>Location:</strong> ${job.job_city}, ${job.job_state ?? ''} ${job.job_country ?? ''}</li>`;
@@ -94,19 +131,17 @@ function performAndDisplayAnalysis(job, userProfile) {
     const qualifications = job.job_highlights?.Qualifications;
     if (qualifications && qualifications.length > 0) jobDetailsHtml += `<li><strong>Key Qualification:</strong> ${qualifications[0]}</li>`;
     jobDetailsHtml += '</ul>';
-
     let gapContent = `<p><strong>Your Profile ("From"):</strong> ${userProfile.title}<br><strong>Target Role ("To"):</strong> ${job.job_title}</p><div>${jobDetailsHtml}</div><hr>`;
     if (requiredSkills.size === 0) {
-        gapContent += `<p>Could not automatically identify specific skills. Please review the job description manually.</p>`;
+        gapContent += `<p>Could not automatically identify specific skills.</p>`;
     } else if (skillGap.length === 0) {
-        gapContent += `<p class="success-message">Excellent Match! You have all the identified skills required for this role.</p>`;
+        gapContent += `<p class="success-message">Excellent Match! You have all the identified skills.</p>`;
     } else {
         gapContent += `<p>To upgrade to this role, you need to develop <strong>${skillGap.length}</strong> key skill(s):</p><ul>`;
         skillGap.forEach(skill => { gapContent += `<li>${skill.charAt(0).toUpperCase() + skill.slice(1)}</li>`; });
         gapContent += `</ul>`;
     }
     skillGapResultsDiv.innerHTML = gapContent;
-    
     let courseContent = '';
     if (skillGap.length > 0) {
         courseContent += '<ul>';
@@ -118,21 +153,27 @@ function performAndDisplayAnalysis(job, userProfile) {
         });
         courseContent += '</ul>';
     } else if (requiredSkills.size > 0) {
-        courseContent = `<p class="success-message">No new courses are essential. You are ready to apply!</p>`;
+        courseContent = `<p class="success-message">No new courses are essential.</p>`;
     } else {
-        courseContent = `<p>Review the analysis above to see your path.</p>`;
+        courseContent = `<p>Review the analysis above.</p>`;
     }
     courseRecsDiv.innerHTML = courseContent;
 }
 
-// --- THIS IS THE FIXED EVENT LISTENER ---
-// It now looks for the specific ID of the search button.
+// --- EVENT LISTENER ATTACHMENT ---
+// This robust version handles ALL buttons on the Career Compass page.
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('career-compass.html')) {
-        // Use the more specific getElementById to guarantee we get the right button
+        // Attach listener for the main search button
         const searchButton = document.getElementById('search-analyze-button');
         if (searchButton) {
             searchButton.addEventListener('click', handleJobSearch);
+        }
+
+        // Attach listener for the internship button
+        const internshipButton = document.getElementById('find-internships-button');
+        if (internshipButton) {
+            internshipButton.addEventListener('click', handleInternshipSearch);
         }
     }
 });
