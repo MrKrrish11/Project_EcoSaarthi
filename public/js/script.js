@@ -1,4 +1,4 @@
-// public/js/script.js - V9 (DEFINITIVE FIX) - Correctly passes the single top job for analysis
+// public/js/script.js - V11 (DEFINITIVE LOGIN) - Removes the call to the non-existent function.
 
 // ---= 1. DATA AND CONFIGURATION =---
 const PROFILE_DATABASE = {
@@ -32,34 +32,35 @@ function escapeRegex(string) {
 // ---= 3. INITIALIZATION & EVENT LISTENERS =---
 document.addEventListener('DOMContentLoaded', () => {
     const pagePath = window.location.pathname;
+    
     if (pagePath.includes('opportunity-engine.html')) {
         fetchAndDisplaySchemes();
     }
+    
+    // This listener now ONLY attaches the click event for the search button.
     if (pagePath.includes('career-compass.html')) {
-        populateCurrentRoleDropdown();
         const searchButton = document.querySelector('.btn-accent');
         if (searchButton) {
             searchButton.addEventListener('click', handleJobSearch);
         }
     }
 });
+// The populateCurrentRoleDropdown function is correctly removed from this file.
 
-function populateCurrentRoleDropdown() {
-    const dropdown = document.getElementById('current-role');
-    if (!dropdown) return;
-    for (const key in PROFILE_DATABASE) {
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = PROFILE_DATABASE[key].title;
-        dropdown.appendChild(option);
-    }
-}
 
 // ---= 4. CORE LOGIC =---
 function handleJobSearch() {
-    const currentRoleKey = document.getElementById('current-role').value;
+    const loggedInUserKey = localStorage.getItem('loggedInUserKey');
+
+    if (!loggedInUserKey) {
+        alert('Please login to use the Career Compass.');
+        window.location.href = '/login.html';
+        return;
+    }
+    
     const desiredJobTitle = document.getElementById('job-title').value;
     const location = document.getElementById('location').value;
+
     const resultsDiv = document.getElementById('job-results');
     const analysisSection = document.getElementById('analysis-section');
     resultsDiv.innerHTML = '<p>Searching for jobs...</p>';
@@ -74,9 +75,7 @@ function handleJobSearch() {
                 return;
             }
 
-            const userProfile = PROFILE_DATABASE[currentRoleKey];
-            
-            // --- THE FIX: We need the first OBJECT from the array, not the whole array. ---
+            const userProfile = PROFILE_DATABASE[loggedInUserKey];
             const topJob = jobs[0]; 
             
             performAndDisplayAnalysis(topJob, userProfile);

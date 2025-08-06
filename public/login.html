@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | EcoSaerthi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+        </nav>
+    </header>
+
+    <main class="container" style="max-width: 500px; margin-top: 5rem;">
+        <div class="card">
+            <div class="page-header">
+                <h1>Login to Your Profile</h1>
+                <p>Select a profile to simulate a logged-in experience.</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="user-profile">Select Your Profile</label>
+                    <select id="user-profile">
+                        <!-- Options will be populated by login.js -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login as this User</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
