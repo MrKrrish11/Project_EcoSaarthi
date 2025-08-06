@@ -1,3 +1,5 @@
+// public/js/career-compass.js - FINAL PROFESSIONAL VERSION
+
 import { PROFILE_DATABASE, SKILL_KNOWLEDGE_BASE, ALL_SKILLS } from './common/data.js';
 
 // Helper function to escape special characters for Regex
@@ -100,10 +102,12 @@ function performAndDisplayAnalysis(job, userProfile) {
     courseRecsDiv.innerHTML = courseContent;
 }
 
-// This is the "manager" that connects the button to the function.
+// --- THIS IS THE FIXED EVENT LISTENER ---
+// It now looks for the specific ID of the search button.
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('career-compass.html')) {
-        const searchButton = document.querySelector('.btn-accent');
+        // Use the more specific getElementById to guarantee we get the right button
+        const searchButton = document.getElementById('search-analyze-button');
         if (searchButton) {
             searchButton.addEventListener('click', handleJobSearch);
         }

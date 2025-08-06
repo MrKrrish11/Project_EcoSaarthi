@@ -11,19 +11,24 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="career-compass.html">Career</a></li>
-                <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
-                <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
-                <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
-                <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
-                <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
-                <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="career-compass.html">Career</a></li>
+            <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
+            <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
+            <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
+            <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
+            <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
+            <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
+            
+            <!-- NEW DYNAMIC BUTTONS -->
+            <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
+            <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
+        </ul>
+    </nav>
+</header>
 
     <!-- In public/career-compass.html -->
 
@@ -57,7 +62,7 @@
                     <label for="location">Location</label>
                     <input type="text" id="location" placeholder="e.g., 'USA'">
                 </div>
-                <button class="btn btn-accent">Search & Analyze</button>
+                <button id="search-analyze-button" class="btn btn-accent">Search & Analyze</button>
             </div>
             
             <div id="job-results"></div>
