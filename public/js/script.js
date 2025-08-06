@@ -1,4 +1,4 @@
-// public/js/script.js - V8 (DEFINITIVE & ACTIONABLE) - WITH DYNAMIC COURSE LINKS
+// public/js/script.js - V9 (DEFINITIVE FIX) - Correctly passes the single top job for analysis
 
 // ---= 1. DATA AND CONFIGURATION =---
 const PROFILE_DATABASE = {
@@ -73,10 +73,15 @@ function handleJobSearch() {
                 resultsDiv.innerHTML = '<p>No jobs found for this search.</p>';
                 return;
             }
+
             const userProfile = PROFILE_DATABASE[currentRoleKey];
-            const topJob = jobs[0];
+            
+            // --- THE FIX: We need the first OBJECT from the array, not the whole array. ---
+            const topJob = jobs[0]; 
+            
             performAndDisplayAnalysis(topJob, userProfile);
             analysisSection.classList.remove('hidden');
+
             jobs.forEach(job => {
                 const jobCard = document.createElement('div');
                 jobCard.className = 'card';
@@ -124,19 +129,13 @@ function performAndDisplayAnalysis(job, userProfile) {
     }
     skillGapResultsDiv.innerHTML = gapContent;
     
-    // --- FINAL UPGRADE: Generate dynamic, clickable course links ---
     let courseContent = '';
     if (skillGap.length > 0) {
         courseContent += '<ul>';
         skillGap.forEach(skill => {
-            // Use encodeURIComponent to make sure skills like "c++" work correctly in a URL
             const encodedSkill = encodeURIComponent(skill);
-            
-            // Create the search URLs
             const udemyUrl = `https://www.udemy.com/courses/search/?q=${encodedSkill}`;
             const courseraUrl = `https://www.coursera.org/search?query=${encodedSkill}`;
-
-            // Create the list item with links
             courseContent += `
                 <li>
                     <span>${skill.charAt(0).toUpperCase() + skill.slice(1)}:</span>

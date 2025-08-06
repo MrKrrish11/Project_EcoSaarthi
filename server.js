@@ -4,7 +4,8 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const fetch = require('node-fetch');
+// Make sure you have run "npm install node-fetch@2"
+const fetch = require('node-fetch'); 
 
 // --- 2. INITIALIZE THE APP ---
 const app = express();
@@ -37,35 +38,27 @@ app.get('/api/jobs', async (req, res) => {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '6a0c5614e3msh4ebfeaf69679eadp115b05jsn5359c439f42c', // <-- PASTE YOUR KEY HERE
+            // !!! IMPORTANT: PASTE YOUR REAL API KEY HERE !!!
+            'X-RapidAPI-Key': '6a0c5614e3msh4ebfeaf69679eadp115b05jsn5359c439f42c', 
             'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
         }
     };
 
-    console.log('--- ATTEMPTING TO FETCH JOBS ---');
-    console.log('URL:', url);
-    
     try {
         const apiResponse = await fetch(url, options);
-        
-        if (!apiResponse.ok) {
-            console.error(`RapidAPI responded with status: ${apiResponse.status}`);
-            const errorBody = await apiResponse.text();
-            console.error(`Response body from RapidAPI: ${errorBody}`);
-            return res.status(apiResponse.status).json({ error: `RapidAPI Error: ${errorBody}` });
-        }
-
         const jobsData = await apiResponse.json();
 
-        if (jobsData && jobsData.data) {
-            res.json(jobsData.data);
-        } else {
-            console.error('JSearch API did not return the expected .data structure.');
-            res.status(500).json({ error: 'Unexpected API response structure.' });
+        if (!apiResponse.ok) {
+            console.error(`RapidAPI returned an error: ${apiResponse.status}`);
+            console.error('Response Body:', jobsData);
+            return res.status(apiResponse.status).json({ error: `RapidAPI Error: ${jobsData.message}` });
         }
+        
+        // The API returns the job list inside a 'data' property
+        res.json(jobsData.data);
 
     } catch (error) {
-        console.error('!!! FETCH FAILED - A NETWORK-LEVEL ERROR OCCURRED !!!');
+        console.error('!!! A CRITICAL NETWORK-LEVEL ERROR OCCURRED !!!');
         console.error('The full error object is:', error);
         res.status(500).json({ error: 'Failed to fetch job data due to a network or fetch error.' });
     }
@@ -74,4 +67,5 @@ app.get('/api/jobs', async (req, res) => {
 // --- 5. START THE SERVER ---
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+    console.log('Ready to receive requests at /api/schemes and /api/jobs');
 });
