@@ -1,96 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- ... copy <head> section from previous file ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pocket CFO | EcoSaerthi</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <header>
-    <nav class="navbar">
-        <a href="/" class="nav-logo">EcoSaerthi 📈</a>
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="career-compass.html">Career</a></li>
-            <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
-            <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
-            <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
-            <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
-            <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
-            <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
-            
-            <!-- NEW DYNAMIC BUTTONS -->
-            <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
-            <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
-            <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
-        </ul>
-    </nav>
-</header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="career-compass.html">Career</a></li>
+                <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
+
+                <!-- NEW DYNAMIC BUTTONS -->
+                <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button"
+                        class="btn btn-accent btn-nav-logout">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
 
     <main class="container">
         <div class="page-header">
             <h1>Pocket CFO</h1>
-            <p>Monitor, manage, and optimize your daily spending.</p>
+            <p>Your personal finance command center. Track, analyze, and plan your financial future.</p>
         </div>
-        
-        <div class="grid-container" style="grid-template-columns: 1fr 1fr 1fr;">
-            <div class="card" style="background-color: #D3F3E3;">
-                <h3>Total Income</h3>
-                <h2 style="color: var(--primary-color);">₹50,000 / month</h2>
+
+        <!-- Summary Cards -->
+        <!-- Summary Cards -->
+        <div class="grid-container summary-cards">
+            <div class="card summary-card-income">
+                <h3>Your Monthly Income</h3>
+                <!-- This now just displays the income set at login -->
+                <h2 id="summary-income">₹0 / month</h2>
             </div>
-             <div class="card" style="background-color: #FCE6E6;">
-                <h3>Total Expenses</h3>
-                <h2 style="color: #c0392b;">₹35,000 / month</h2>
+            <div class="card summary-card-expenses">
+                <h3>Total Monthly Expenses</h3>
+                <h2 id="summary-expenses">₹0</h2>
             </div>
-             <div class="card" style="background-color: #E3F2FD;">
-                <h3>Net Savings</h3>
-                <h2 style="color: #2980b9;">₹15,000 / month</h2>
+            <div class="card summary-card-savings">
+                <h3>Net Monthly Savings</h3>
+                <h2 id="summary-savings">₹0</h2>
             </div>
         </div>
 
-        <div class="grid-container" style="grid-template-columns: 1fr 2fr;">
-            <div class="card">
-                <h3>Add Transaction</h3>
-                <form id="add-expense-form">
-                    <div class="form-group">
-                        <label for="desc">Description</label>
-                        <input type="text" id="desc" required>
+        <!-- Main Two-Column Layout -->
+        <div class="grid-container two-column-layout">
+
+            <!-- Left Column: Transactions & AI Tips -->
+            <div>
+                <div class="card">
+                    <h3>Add Transaction</h3>
+                    <form id="transaction-form">
+                        <div class="form-group">
+                            <label for="transaction-description">Description</label>
+                            <input type="text" id="transaction-description" placeholder="e.g., Coffee with friends"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-amount">Amount (₹)</label>
+                            <input type="number" id="transaction-amount" placeholder="150" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-category">Category</label>
+                            <select id="transaction-category">
+                                <option>Food</option>
+                                <option>Transport</option>
+                                <option>Bills</option>
+                                <option>Entertainment</option>
+                                <option>Shopping</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Expense</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Recent Transactions</h3>
+                    <div id="transactions-list">
+                        <p>Your transactions will appear here.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="amount">Amount (₹)</label>
-                        <input type="number" id="amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select id="category">
-                            <option>Food</option>
-                            <option>Transport</option>
-                            <option>Bills</option>
-                            <option>Entertainment</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary">Add Expense</button>
-                </form>
+                </div>
             </div>
-            <div class="card">
-                <h3>Recent Transactions</h3>
-                <!-- This div will be populated by JS -->
-                <div id="transactions-list">
-                    <p>Your recent transactions will appear here.</p>
+
+            <!-- Right Column: Goals, Scenarios, and AI Tips -->
+            <div>
+                <div class="card">
+                    <h3>Visual Goals Board</h3>
+                    <div id="goals-list"></div>
+                    <form id="goal-form" class="goal-form-container">
+                        <input type="text" id="goal-name" placeholder="Goal Name (e.g., New Laptop)" required>
+                        <input type="number" id="goal-amount" placeholder="Target Amount (₹)" required>
+                        <button type="submit" class="btn btn-primary">Add Goal</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Financial Boosts</h3>
+                    <p>Simulate a bonus or salary increase.</p>
+                    <div class="form-group">
+                        <label for="boost-amount">Amount (₹)</label>
+                        <input type="number" id="boost-amount" placeholder="10000">
+                    </div>
+                    <div class="boost-buttons">
+                        <button id="add-bonus-btn" class="btn btn-accent">Add as One-Time Bonus</button>
+                        <button id="increase-salary-btn" class="btn btn-accent">Add to Monthly Income</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>What-If Scenario</h3>
+                    <p>Stress-test your budget over time.</p>
+                    <div class="form-group">
+                        <label for="what-if-increase">If my expenses increase by (₹):</label>
+                        <input type="number" id="what-if-increase" placeholder="5000">
+                    </div>
+
+                    <!-- !!! THIS IS THE MISSING INPUT FIELD !!! -->
+                    <div class="form-group">
+                        <label for="what-if-duration">For how many months?</label>
+                        <input type="number" id="what-if-duration" placeholder="6">
+                    </div>
+                    <!-- !!! END OF MISSING FIELD !!! -->
+
+                    <button id="what-if-button" class="btn btn-primary btn-full-width">Calculate Impact</button>
+                </div>
+
+                <div class="card">
+                    <h3>AI Savings Advisor</h3>
+                    <p>Get personalized tips from our AI to improve your savings.</p>
+                    <button id="get-ai-tips-button" class="btn btn-primary btn-full-width">Analyze My Spending & Get
+                        Tips</button>
+                    <div id="ai-tips-content" class="ai-tips-container"></div>
                 </div>
             </div>
         </div>
     </main>
 
+    <div id="scenario-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <h3>What-If Scenario Analysis</h3>
+            <div id="modal-results">
+                <!-- Results will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
     <footer>
-        <!-- ... copy <footer> section from previous file ... -->
         <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script src="js/pocket-cfo.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
+
 </html>

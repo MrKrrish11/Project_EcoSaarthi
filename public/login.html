@@ -19,17 +19,25 @@
     <main class="container" style="max-width: 500px; margin-top: 5rem;">
         <div class="card">
             <div class="page-header">
-                <h1>Login to Your Profile</h1>
-                <p>Select a profile to simulate a logged-in experience.</p>
+                <h1>Create Your Profile</h1>
+                <p>Select your role and set your income to begin.</p>
             </div>
             <form id="login-form">
                 <div class="form-group">
-                    <label for="user-profile">Select Your Profile</label>
+                    <label for="user-profile">Select Your Current Role</label>
                     <select id="user-profile">
                         <!-- Options will be populated by login.js -->
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login as this User</button>
+
+                <!-- !!! NEW INCOME INPUT FIELD !!! -->
+                <div class="form-group">
+                    <label for="user-income">Enter Your Monthly Income (₹)</label>
+                    <input type="number" id="user-income" placeholder="e.g., 50000" required>
+                </div>
+                <!-- !!! END OF NEW FIELD !!! -->
+
+                <button type="submit" class="btn btn-primary btn-full-width">Login & Start</button>
             </form>
         </div>
     </main>

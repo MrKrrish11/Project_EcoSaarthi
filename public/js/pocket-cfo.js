@@ -1,0 +1,234 @@
+// public/js/pocket-cfo.js - V4 (DEFINITIVE & FULLY FUNCTIONAL)
+
+// --- STATE MANAGEMENT ---
+let state = {
+    transactions: [],
+    goals: [],
+    income: 0
+};
+
+// --- DOM ELEMENT REFERENCES ---
+const elements = {
+    // Summary
+    summaryIncome: document.getElementById('summary-income'),
+    summaryExpenses: document.getElementById('summary-expenses'),
+    summarySavings: document.getElementById('summary-savings'),
+    // Transaction Form
+    transactionForm: document.getElementById('transaction-form'),
+    transactionDescription: document.getElementById('transaction-description'),
+    transactionAmount: document.getElementById('transaction-amount'),
+    transactionCategory: document.getElementById('transaction-category'),
+    transactionsList: document.getElementById('transactions-list'),
+    // Goal Form
+    goalForm: document.getElementById('goal-form'),
+    goalName: document.getElementById('goal-name'),
+    goalAmount: document.getElementById('goal-amount'),
+    goalsList: document.getElementById('goals-list'),
+    // Boosts
+    boostAmount: document.getElementById('boost-amount'),
+    addBonusBtn: document.getElementById('add-bonus-btn'),
+    increaseSalaryBtn: document.getElementById('increase-salary-btn'),
+    // What-If Scenario
+    whatIfIncrease: document.getElementById('what-if-increase'),
+    whatIfDuration: document.getElementById('what-if-duration'), // <-- THIS WAS THE MISSING LINE
+    whatIfButton: document.getElementById('what-if-button'),
+    // Modal
+    scenarioModal: document.getElementById('scenario-modal'),
+    modalCloseBtn: document.getElementById('modal-close-btn'),
+    modalResults: document.getElementById('modal-results'),
+    // AI Tips
+    getAiTipsButton: document.getElementById('get-ai-tips-button'),
+    aiTipsContent: document.getElementById('ai-tips-content'),
+};
+
+// --- DATA PERSISTENCE ---
+function saveState() {
+    localStorage.setItem('pocketCFOState', JSON.stringify({
+        transactions: state.transactions,
+        goals: state.goals
+    }));
+    localStorage.setItem('userIncome', state.income);
+}
+
+function loadState() {
+    const savedIncome = localStorage.getItem('userIncome');
+    if (savedIncome) state.income = parseFloat(savedIncome);
+
+    const savedCFOState = localStorage.getItem('pocketCFOState');
+    if (savedCFOState) {
+        const parsedState = JSON.parse(savedCFOState);
+        state.transactions = parsedState.transactions || [];
+        state.goals = parsedState.goals || [];
+    }
+}
+
+// --- UI RENDERING ---
+function render() {
+    const totalExpenses = state.transactions.reduce((sum, t) => sum + t.amount, 0);
+    const netSavings = state.income - totalExpenses;
+
+    elements.summaryIncome.textContent = `₹${state.income.toLocaleString()} / month`;
+    elements.summaryExpenses.textContent = `₹${totalExpenses.toLocaleString()}`;
+    elements.summarySavings.textContent = `₹${netSavings.toLocaleString()}`;
+
+    elements.transactionsList.innerHTML = state.transactions.length === 0 
+        ? '<p>No transactions yet.</p>' 
+        : `<ul>${state.transactions.slice().reverse().map(t => `<li><span>${t.description} <em>(${t.category})</em></span> <span>-₹${t.amount.toLocaleString()}</span> <button class="transaction-delete-btn" data-id="${t.id}">X</button></li>`).join('')}</ul>`;
+
+    elements.goalsList.innerHTML = state.goals.length === 0 
+        ? '<p>No goals yet. Add one to start saving!</p>' 
+        : state.goals.map(goal => {
+            const savedAmount = goal.saved || 0;
+            const progress = Math.min((savedAmount / goal.amount) * 100, 100).toFixed(0);
+            return `
+                <div class="goal-item">
+                    <p><strong>${goal.name}</strong> <span>₹${savedAmount.toLocaleString()} / ₹${goal.amount.toLocaleString()}</span></p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width: ${progress}%;">${progress}%</div>
+                    </div>
+                    <div class="goal-buttons">
+                        <button class="btn btn-primary" data-id="${goal.id}" data-action="achieve">Achieve</button>
+                        <button class="btn btn-accent" data-id="${goal.id}" data-action="drop">Drop</button>
+                    </div>
+                </div>`;
+        }).join('');
+}
+
+// --- EVENT HANDLER FUNCTIONS ---
+function handleAddTransaction(event) {
+    event.preventDefault();
+    const description = elements.transactionDescription.value;
+    const amount = parseFloat(elements.transactionAmount.value);
+    const category = elements.transactionCategory.value;
+
+    if (!description || isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid description and amount.');
+        return;
+    }
+    state.transactions.push({ id: Date.now(), description, amount, category });
+    saveState(); render();
+    elements.transactionForm.reset();
+}
+
+function handleDeleteTransaction(event) {
+    if (event.target.classList.contains('transaction-delete-btn')) {
+        const idToDelete = parseInt(event.target.dataset.id);
+        state.transactions = state.transactions.filter(t => t.id !== idToDelete);
+        saveState(); render();
+    }
+}
+
+function handleAddGoal(event) {
+    event.preventDefault();
+    const name = elements.goalName.value;
+    const amount = parseFloat(elements.goalAmount.value);
+
+    if (!name || isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid goal name and target amount.');
+        return;
+    }
+    state.goals.push({ id: Date.now(), name, amount, saved: 0 });
+    saveState(); render();
+    elements.goalForm.reset();
+}
+
+function handleManageGoal(event) {
+    const action = event.target.dataset.action;
+    if (!action) return;
+
+    const idToDelete = parseInt(event.target.dataset.id);
+    const goal = state.goals.find(g => g.id === idToDelete);
+
+    if (action === 'achieve') alert(`Congratulations on achieving your goal: "${goal.name}"!`);
+    else if (action === 'drop') alert(`Goal removed: "${goal.name}".`);
+
+    state.goals = state.goals.filter(g => g.id !== idToDelete);
+    saveState(); render();
+}
+
+function handleAddBonus() {
+    const amount = parseFloat(elements.boostAmount.value);
+    if (isNaN(amount) || amount <= 0 || state.goals.length === 0) {
+        alert('Please enter a valid bonus amount and add a goal first.');
+        return;
+    }
+    state.goals[0].saved = (state.goals[0].saved || 0) + amount;
+    alert(`Bonus of ₹${amount.toLocaleString()} applied to your "${state.goals[0].name}" goal!`);
+    saveState(); render();
+    elements.boostAmount.value = '';
+}
+
+function handleIncreaseSalary() {
+    const amount = parseFloat(elements.boostAmount.value);
+    if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid salary increase amount.');
+        return;
+    }
+    state.income += amount;
+    alert(`Your monthly income has been increased by ₹${amount.toLocaleString()}!`);
+    saveState(); render();
+    elements.boostAmount.value = '';
+}
+
+function handleShowWhatIf() {
+    const expenseIncrease = parseFloat(elements.whatIfIncrease.value);
+    const duration = parseInt(elements.whatIfDuration.value) || 1;
+
+    if (isNaN(expenseIncrease) || expenseIncrease <= 0) {
+        alert('Please enter a valid number for the expense increase.');
+        return;
+    }
+
+    const currentExpenses = state.transactions.reduce((sum, t) => sum + t.amount, 0);
+    const currentSavings = state.income - currentExpenses;
+    const projectedSavings = state.income - (currentExpenses + expenseIncrease);
+    
+    let resultsHtml = `<p><strong>Projection over ${duration} months:</strong></p><ul>`;
+    resultsHtml += `<li>Current Monthly Savings: <strong>₹${currentSavings.toLocaleString()}</strong></li>`;
+    resultsHtml += `<li>Projected Monthly Savings: <strong class="${projectedSavings < 0 ? 'error-message' : 'success-message'}">₹${projectedSavings.toLocaleString()}</strong></li>`;
+    resultsHtml += `<li>Total Savings Impact Over Period: <strong class="error-message">-₹${((currentSavings - projectedSavings) * duration).toLocaleString()}</strong></li>`;
+    resultsHtml += `</ul>`;
+    
+    elements.modalResults.innerHTML = resultsHtml;
+    elements.scenarioModal.classList.remove('hidden');
+}
+
+async function handleGetAiTips() {
+    elements.aiTipsContent.innerHTML = '<p>🧠 Thinking... Our AI is analyzing your spending habits...</p>';
+    try {
+        const response = await fetch('/api/financial-advice', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ spendingData: { income: state.income, transactions: state.transactions } })
+        });
+        if (!response.ok) throw new Error('AI server responded with an error.');
+        const data = await response.json();
+        elements.aiTipsContent.innerHTML = data.advice.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    } catch (error) {
+        console.error("Error fetching AI tips:", error);
+        elements.aiTipsContent.innerHTML = '<p class="error-message">Could not get AI tips at this time.</p>';
+    }
+}
+
+// --- INITIALIZATION ---
+function initialize() {
+    loadState();
+    
+    elements.transactionForm.addEventListener('submit', handleAddTransaction);
+    elements.transactionsList.addEventListener('click', handleDeleteTransaction);
+    elements.goalForm.addEventListener('submit', handleAddGoal);
+    elements.goalsList.addEventListener('click', handleManageGoal);
+    elements.addBonusBtn.addEventListener('click', handleAddBonus);
+    elements.increaseSalaryBtn.addEventListener('click', handleIncreaseSalary);
+    elements.whatIfButton.addEventListener('click', handleShowWhatIf);
+    elements.getAiTipsButton.addEventListener('click', handleGetAiTips);
+    
+    elements.modalCloseBtn.addEventListener('click', () => elements.scenarioModal.classList.add('hidden'));
+    elements.scenarioModal.addEventListener('click', (e) => {
+        if (e.target === elements.scenarioModal) elements.scenarioModal.classList.add('hidden');
+    });
+
+    render();
+}
+
+initialize();

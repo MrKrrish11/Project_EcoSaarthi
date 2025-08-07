@@ -17,10 +17,14 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     margin: 0;
-    padding-top: 80px; /* Space for fixed navbar */
+    padding-top: 80px;
+    /* Space for fixed navbar */
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: 'Poppins', sans-serif;
     color: var(--primary-color);
 }
@@ -44,7 +48,7 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
     width: 100%;
@@ -88,14 +92,23 @@ hr {
     padding-bottom: 1rem;
 }
 
-.page-header h1 { font-size: 2.5rem; margin: 0; }
-.page-header p { font-size: 1.1rem; max-width: 700px; margin: 0.5rem auto 0; color: #555; }
+.page-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0.5rem auto 0;
+    color: #555;
+}
 
 /* --- Cards and Grids --- */
 .card {
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
 }
@@ -112,9 +125,18 @@ hr {
 }
 
 /* --- Forms & Buttons --- */
-.form-group { margin-bottom: 1rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
-.form-group input, .form-group select {
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--light-gray);
@@ -134,34 +156,250 @@ hr {
     transition: background-color 0.3s;
 }
 
-.btn-primary { background-color: var(--secondary-color); color: #fff; }
-.btn-primary:hover { background-color: var(--primary-color); }
-.btn-accent { background-color: var(--accent-color); color: var(--text-color); }
-.btn-accent:hover { opacity: 0.9; }
-.btn-full-width { width: 100%; }
-.btn-nav-logout { padding: 0.5rem 1rem; }
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+.btn-accent:hover {
+    opacity: 0.9;
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+.btn-nav-logout {
+    padding: 0.5rem 1rem;
+}
 
 /* --- Utility Classes --- */
-.hidden { display: none; }
-.error-message { color: var(--error-red); font-weight: bold; }
-.success-message { color: var(--success-green); font-weight: bold; }
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: var(--error-red);
+    font-weight: bold;
+}
+
+.success-message {
+    color: var(--success-green);
+    font-weight: bold;
+}
 
 /* --- Specific Component Styles --- */
-#course-recommendations ul, #skill-gap-results ul {
+#course-recommendations ul,
+#skill-gap-results ul {
     list-style-type: disc;
     padding-left: 20px;
 }
-#course-recommendations li, #skill-gap-results li {
+
+#course-recommendations li,
+#skill-gap-results li {
     margin-bottom: 0.75rem;
 }
+
 #course-recommendations a {
     margin: 0 4px;
     text-decoration: none;
     font-weight: 600;
 }
+
 #course-recommendations a:hover {
     text-decoration: underline;
 }
 
 /* --- Footer --- */
-footer { text-align: center; padding: 2rem; background-color: #e9ecef; margin-top: 3rem; }
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #e9ecef;
+    margin-top: 3rem;
+}
+
+/* Add these to public/css/style.css */
+
+/* Pocket CFO Specific Styles */
+.summary-cards {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.summary-card-income {
+    background-color: #D3F3E3;
+}
+
+.summary-card-expenses {
+    background-color: #FCE6E6;
+}
+
+.summary-card-savings {
+    background-color: #E3F2FD;
+}
+
+.summary-card-income h2 {
+    color: var(--primary-color);
+}
+
+.summary-card-expenses h2 {
+    color: var(--error-red);
+}
+
+.summary-card-savings h2 {
+    color: var(--success-green);
+}
+
+#transactions-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#transactions-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+#transactions-list .transaction-delete-btn {
+    background: none;
+    border: none;
+    color: var(--error-red);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.goal-form-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.goal-form-container input {
+    flex-grow: 1;
+}
+
+.goal-form-container button {
+    flex-shrink: 0;
+}
+
+.goal-item {
+    margin-bottom: 1rem;
+}
+
+.goal-item p {
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: var(--light-gray);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-inner {
+    height: 20px;
+    background-color: var(--secondary-color);
+    text-align: center;
+    color: white;
+    line-height: 20px;
+    transition: width 0.5s ease;
+}
+
+.ai-tips-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 4px;
+}
+
+/* Add these to public/css/style.css */
+
+/* Pocket CFO Upgrades */
+.income-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.income-input-group input {
+    flex-grow: 1;
+}
+
+.income-input-group button {
+    flex-shrink: 0;
+}
+
+.boost-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.boost-buttons button {
+    flex-grow: 1;
+}
+
+/* Modal Styles */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-container:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #888;
+}
+
+#modal-results ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-results li {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
