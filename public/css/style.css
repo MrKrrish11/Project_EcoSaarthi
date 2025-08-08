@@ -1,12 +1,19 @@
-/* public/css/style.css - FINAL PROFESSIONAL VERSION */
+/* public/css/style.css - FINAL PROFESSIONAL VERSION (Updated with Ecosaarthi Theme) */
 
 /* --- Global & Variables --- */
 :root {
-    --primary-color: #2D6A4F;
-    --secondary-color: #40916C;
+    --primary-color: #5A2A8C;
+    /* Deep purple for headings */
+    --secondary-color: #6D28D9;
+    /* Brighter purple for buttons and accents */
     --accent-color: #FFC300;
-    --bg-color: #F7F9F9;
+    /* Kept from original for potential use */
+    --bg-color: #F3F0F7;
+    /* Light lavender page background */
+    --header-bg-color: #E9E6ED;
+    /* Slightly darker lavender for header/nav */
     --text-color: #1B1B1B;
+    /* Dark text for readability */
     --light-gray: #e0e0e0;
     --error-red: #c0392b;
     --success-green: #27ae60;
@@ -43,12 +50,13 @@ hr {
 
 /* --- Navbar --- */
 .navbar {
-    background-color: #fff;
+    background-color: var(--header-bg-color);
     padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    /* Removed shadow for a flatter look like the image */
     position: fixed;
     top: 0;
     width: 100%;
@@ -81,20 +89,25 @@ hr {
 }
 
 .nav-item a:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 /* --- Page Header --- */
 .page-header {
     text-align: center;
     margin-bottom: 3rem;
-    border-bottom: 2px solid var(--light-gray);
+    border-bottom: none;
+    /* Removed border for a cleaner look */
     padding-bottom: 1rem;
 }
 
 .page-header h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    /* Slightly larger to match image prominence */
+    font-weight: 700;
     margin: 0;
+    color: var(--primary-color);
+    /* Ensured it uses the main purple */
 }
 
 .page-header p {
@@ -107,10 +120,15 @@ hr {
 /* --- Cards and Grids --- */
 .card {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 1.5rem;
+    border-radius: 12px;
+    /* Slightly more rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* Softer shadow */
+    padding: 1.5rem 2rem;
+    /* Adjusted padding */
     margin-bottom: 1.5rem;
+    border: none;
+    /* Ensure no borders */
 }
 
 .grid-container {
@@ -133,6 +151,7 @@ hr {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
+    color: #333;
 }
 
 .form-group input,
@@ -140,7 +159,8 @@ hr {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--light-gray);
-    border-radius: 4px;
+    border-radius: 8px;
+    /* Rounded inputs */
     font-size: 1rem;
     box-sizing: border-box;
 }
@@ -148,12 +168,19 @@ hr {
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 8px;
+    /* Matching rounded corners */
     text-decoration: none;
     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    /* Add a slight lift on hover */
 }
 
 .btn-primary {
@@ -163,6 +190,7 @@ hr {
 
 .btn-primary:hover {
     background-color: var(--primary-color);
+    /* Darker purple on hover */
 }
 
 .btn-accent {
@@ -181,6 +209,7 @@ hr {
 .btn-nav-logout {
     padding: 0.5rem 1rem;
 }
+
 
 /* --- Utility Classes --- */
 .hidden {
@@ -223,31 +252,26 @@ hr {
 footer {
     text-align: center;
     padding: 2rem;
-    background-color: #e9ecef;
+    background-color: var(--header-bg-color);
+    /* Matching the header background */
     margin-top: 3rem;
+    color: #444;
 }
 
-/* Add these to public/css/style.css */
-
-/* Pocket CFO Specific Styles */
+/* --- Pocket CFO Specific Styles --- */
 .summary-cards {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.summary-card-income {
-    background-color: #D3F3E3;
-}
-
-.summary-card-expenses {
-    background-color: #FCE6E6;
-}
-
+.summary-card-income,
+.summary-card-expenses,
 .summary-card-savings {
-    background-color: #E3F2FD;
+    background-color: #F8F9FA;
+    /* A neutral off-white for these cards */
 }
 
 .summary-card-income h2 {
-    color: var(--primary-color);
+    color: var(--success-green);
 }
 
 .summary-card-expenses h2 {
@@ -255,7 +279,7 @@ footer {
 }
 
 .summary-card-savings h2 {
-    color: var(--success-green);
+    color: var(--primary-color);
 }
 
 #transactions-list ul {
@@ -277,6 +301,9 @@ footer {
     cursor: pointer;
     font-weight: bold;
 }
+
+/* --- Modal & Other Component Styles --- */
+/* (Keeping the rest of the functional styles as they were, they fit the new theme well) */
 
 .goal-form-container {
     display: flex;
@@ -321,13 +348,11 @@ footer {
 .ai-tips-container {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: var(--bg-color);
-    border-radius: 4px;
+    background-color: #E9E6ED;
+    /* Matching header bg */
+    border-radius: 8px;
 }
 
-/* Add these to public/css/style.css */
-
-/* Pocket CFO Upgrades */
 .income-input-group {
     display: flex;
     gap: 0.5rem;
@@ -351,7 +376,6 @@ footer {
     flex-grow: 1;
 }
 
-/* Modal Styles */
 .modal-container {
     position: fixed;
     top: 0;
@@ -403,86 +427,45 @@ footer {
     padding: 0.5rem;
     border-bottom: 1px solid var(--light-gray);
 }
-/* --- Tax Buddy Specific Styles (Definitive & Cleaned) --- */
 
-/* Invoice & Ledger */
-.invoice-preview-container {
-    border: 1px solid var(--light-gray);
-    padding: 1.5rem;
-    min-height: 200px;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-}
-.invoice-preview-container h4 { margin-top: 0; }
-.invoice-preview-container table { width: 100%; border-collapse: collapse; }
-.invoice-preview-container th, 
-.invoice-preview-container td { 
-    text-align: left; 
-    padding: 8px; 
-    border-bottom: 1px solid var(--light-gray); 
-}
-.invoice-preview-container .total { font-weight: bold; text-align: right; }
-
-.ledger-table { width: 100%; border-collapse: collapse; }
-.ledger-table th, 
-.ledger-table td { 
-    padding: 0.75rem; 
-    border-bottom: 1px solid var(--light-gray); 
-    text-align: left; 
-}
-.ledger-table th { font-family: 'Poppins', sans-serif; }
-.ledger-table .ledger-amount { text-align: right; font-weight: 600; }
-.ledger-table .status-paid { background-color: #e8f5e9; }
-.ledger-table .status-unpaid { font-weight: bold; }
-.ledger-table .action-btn { 
-    background: none; 
-    border: 1px solid var(--primary-color); 
-    color: var(--primary-color); 
-    padding: 4px 8px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-}
-.ledger-table .action-btn:hover { background-color: var(--primary-color); color: white; }
-
-/* Expense Tracker */
-#expense-list-container ul { list-style: none; padding: 0; margin-top: 1rem; }
-#expense-list-container li { 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 0.5rem 0; 
-    border-bottom: 1px solid var(--light-gray); 
-}
-#expense-list-container span:last-child { font-weight: 600; }
-
-/* Tax Calculator & AI */
-.tax-result-container {
+/* --- Tax Buddy Specific Styles --- */
+.tax-result-container,
+#inflation-result,
+#loan-result {
     margin-top: 1rem;
     padding: 1rem;
     background-color: var(--bg-color);
-    border-radius: 4px;
+    border-radius: 8px;
     font-weight: bold;
+    color: var(--primary-color);
 }
 
-/* Add this to public/css/style.css for the Exchange Rate Grid */
 
+/* --- Economy Radar Specific Styles --- */
 .exchange-rates-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     text-align: center;
 }
+
 .exchange-rate-item {
     padding: 1rem;
     border: 1px solid var(--light-gray);
-    border-radius: 4px;
+    border-radius: 8px;
+    background: #F8F9FA;
 }
+
 .exchange-rate-item h4 {
     margin: 0 0 0.5rem 0;
     font-size: 1rem;
+    color: #555;
 }
+
 .exchange-rate-item p {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
 }
