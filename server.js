@@ -71,6 +71,81 @@ app.get('/api/schemes', (req, res) => {
     }
 });
 
+// In server.js, replace ONLY this specific route.
+
+// Route to fetch DEFINITIVE HISTORICAL economic data
+app.get('/api/economic-data', async (req, res) => {
+    const FRED_API_KEY = '4ed2fb1b3c5416d4b1ae9dc2463903d0';
+    
+    const year = req.query.year || new Date().getFullYear() - 1;
+    const startDate = `${year}-01-01`;
+    const endDate = `${year}-12-31`;
+
+    // --- USING YOUR PROVIDED GDP DATA ---
+    const GDP_DATA = {
+        "2024": "6.5", "2023": "8.15", "2022": "6.99", "2021": "9.69",
+        "2020": "-5.78", "2019": "3.87", "2018": "6.45", "2017": "6.8",
+        "2016": "8.26", "2015": "8.0"
+    };
+
+    const seriesIds = {
+        inflation: 'CPALTT01INM659N', // Monthly Inflation YoY
+        inr_usd: 'DEXINUS',
+        usd_eur: 'DEXUSEU',
+        usd_jpy: 'DEXJPUS',
+        usd_gbp: 'DEXUSUK',
+        usd_aud: 'DEXUSAL',
+        interestRate: 'INREPO'
+    };
+
+    const fredUrl = (seriesId) => `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${FRED_API_KEY}&file_type=json&observation_start=${startDate}&observation_end=${endDate}&sort_order=desc`;
+
+    try {
+        const responses = await Promise.all(Object.values(seriesIds).map(id => fetch(fredUrl(id))));
+        const [
+            inflationData, inrUsdData, usdEurData, usdJpyData, 
+            usdGbpData, usdAudData, interestRateData
+        ] = await Promise.all(responses.map(r => r.json()));
+        
+        const results = {
+            inflation: (inflationData.observations?.[0] || { value: "N/A" }).value,
+            interestRate: (interestRateData.observations?.[0] || { value: "N/A" }).value,
+            inr_usd: parseFloat((inrUsdData.observations?.[0] || { value: 0 }).value),
+            usd_eur: parseFloat((usdEurData.observations?.[0] || { value: 0 }).value),
+            usd_jpy: parseFloat((usdJpyData.observations?.[0] || { value: 0 }).value),
+            usd_gbp: parseFloat((usdGbpData.observations?.[0] || { value: 0 }).value),
+            usd_aud: parseFloat((usdAudData.observations?.[0] || { value: 0 }).value),
+        };
+
+        const economicSummary = {
+            inflation: results.inflation,
+            gdp: GDP_DATA[year] || "Not Available", // Use your hardcoded data
+            interestRate: results.interestRate,
+            exchangeRates: {
+                usd: results.inr_usd,
+                eur: results.inr_usd * results.usd_eur,
+                jpy: results.inr_usd / results.usd_jpy,
+                gbp: results.inr_usd * results.usd_gbp,
+                aud: results.inr_usd * results.usd_aud
+            }
+        };
+        
+        let aiExplanation = "AI analysis could not be generated.";
+        try {
+            const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+            const prompt = `Analyze India's economy for ${year}. Data: Inflation ${economicSummary.inflation}%, GDP Growth ${economicSummary.gdp}%. Explain the impact on the average person. Be concise.`;
+            const result = await model.generateContent(prompt);
+            aiExplanation = (await result.response).text();
+        } catch (aiError) { console.error("GEMINI API FAILED:", aiError.message); }
+        
+        res.json({ data: economicSummary, explanation: aiExplanation });
+
+    } catch (error) {
+        console.error("CRITICAL Error in /api/economic-data route:", error);
+        res.status(500).json({ error: "Failed to fetch primary economic data." });
+    }
+});
+
 // The main route for the Career Compass, now with AI orchestration
 app.get('/api/jobs', async (req, res) => {
     try {

@@ -462,3 +462,27 @@ footer {
     border-radius: 4px;
     font-weight: bold;
 }
+
+/* Add this to public/css/style.css for the Exchange Rate Grid */
+
+.exchange-rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    text-align: center;
+}
+.exchange-rate-item {
+    padding: 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+}
+.exchange-rate-item h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+.exchange-rate-item p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
