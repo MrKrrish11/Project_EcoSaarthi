@@ -115,8 +115,43 @@ app.get('/api/jobs', async (req, res) => {
     }
 });
 
+// In server.js, in the API ROUTES section, add this entire new route:
+
+app.post('/api/tax-advice', async (req, res) => {
+    try {
+        const { profession } = req.body;
+        if (!profession) {
+            return res.status(400).json({ error: 'Profession is required.' });
+        }
+
+        const model = genAI.getGenerModel({ model: 'gemini-pro' });
+        
+        const prompt = `
+            You are "EcoSaerthi AI," an expert tax advisor for freelancers in India.
+            A user with the profession "${profession}" has asked for help finding tax deductions.
+            List 4-5 common, often-missed tax deductions relevant to this profession.
+            For each deduction, provide a brief, one-sentence explanation.
+            Keep the tone helpful and professional. Use markdown for bolding category headers.
+
+            Example for "Photographer":
+            **Home Office Expenses:** A portion of your rent and electricity bills can be claimed if you work from home.
+            **Depreciation on Equipment:** You can claim depreciation on your cameras, lenses, and computer each year.
+        `;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        
+        res.json({ advice: response.text() });
+
+    } catch (error) {
+        console.error("Error in /api/tax-advice route:", error);
+        res.status(500).json({ error: "Failed to generate AI tax advice." });
+    }
+});
+
 // --- 6. START SERVER ---
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log('Ready to receive requests at /api/schemes and /api/jobs');
 });
+

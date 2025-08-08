@@ -403,3 +403,62 @@ footer {
     padding: 0.5rem;
     border-bottom: 1px solid var(--light-gray);
 }
+/* --- Tax Buddy Specific Styles (Definitive & Cleaned) --- */
+
+/* Invoice & Ledger */
+.invoice-preview-container {
+    border: 1px solid var(--light-gray);
+    padding: 1.5rem;
+    min-height: 200px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.invoice-preview-container h4 { margin-top: 0; }
+.invoice-preview-container table { width: 100%; border-collapse: collapse; }
+.invoice-preview-container th, 
+.invoice-preview-container td { 
+    text-align: left; 
+    padding: 8px; 
+    border-bottom: 1px solid var(--light-gray); 
+}
+.invoice-preview-container .total { font-weight: bold; text-align: right; }
+
+.ledger-table { width: 100%; border-collapse: collapse; }
+.ledger-table th, 
+.ledger-table td { 
+    padding: 0.75rem; 
+    border-bottom: 1px solid var(--light-gray); 
+    text-align: left; 
+}
+.ledger-table th { font-family: 'Poppins', sans-serif; }
+.ledger-table .ledger-amount { text-align: right; font-weight: 600; }
+.ledger-table .status-paid { background-color: #e8f5e9; }
+.ledger-table .status-unpaid { font-weight: bold; }
+.ledger-table .action-btn { 
+    background: none; 
+    border: 1px solid var(--primary-color); 
+    color: var(--primary-color); 
+    padding: 4px 8px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+}
+.ledger-table .action-btn:hover { background-color: var(--primary-color); color: white; }
+
+/* Expense Tracker */
+#expense-list-container ul { list-style: none; padding: 0; margin-top: 1rem; }
+#expense-list-container li { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 0.5rem 0; 
+    border-bottom: 1px solid var(--light-gray); 
+}
+#expense-list-container span:last-child { font-weight: 600; }
+
+/* Tax Calculator & AI */
+.tax-result-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 4px;
+    font-weight: bold;
+}
