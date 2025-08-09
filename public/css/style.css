@@ -562,3 +562,65 @@ footer {
     padding-top: 0.5rem;
     color: var(--primary-color);
 }
+
+
+/* --- ADD THIS TO YOUR EXISTING style.css FILE --- */
+
+/* Meme Page Specific Grid */
+.meme-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding-top: 1rem;
+}
+
+/* Styling for the Meme Cards */
+.meme-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.meme-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.meme-image {
+    width: 100%;
+    max-width: 400px; /* Control max size */
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto 1rem auto; /* Center the image */
+    border: 1px solid #eee;
+}
+
+.meme-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: auto; /* Pushes caption to the bottom */
+}
+
+
+/* --- ADD THIS TO YOUR EXISTING style.css IF YOU DON'T HAVE IT --- */
+
+/* Utility class to hide elements visually and from screen readers */
+.hidden {
+    display: none !important;
+}
+
+/* Style for the display area to make sure it's centered */
+#meme-display-area {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
