@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... copy the full <head> section from index.html ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opportunity Engine | EcoSaerthi</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,46 +11,50 @@
 </head>
 <body>
     <header>
-    <nav class="navbar">
-        <a href="/" class="nav-logo">EcoSaerthi 📈</a>
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="career-compass.html">Career</a></li>
-            <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
-            <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
-            <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
-            <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
-            <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
-            <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
-            
-            <!-- NEW DYNAMIC BUTTONS -->
-            <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
-            <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
-            <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
-        </ul>
-    </nav>
-</header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="career-compass.html">Career</a></li>
+                <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
+
+                <!-- NEW DYNAMIC BUTTONS -->
+                <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button"
+                        class="btn btn-accent btn-nav-logout">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
 
     <main class="container">
         <div class="page-header">
             <h1>Opportunity Engine</h1>
-            <p>Find government schemes and financial aid you are eligible for. Data is fetched live from our server.</p>
+            <p>Chat with our AI assistant to find government schemes you may be eligible for.</p>
         </div>
 
-        <div class="card">
-            <h2>Available Schemes</h2>
-            <!-- This div will be filled by our JavaScript -->
-            <div id="schemes-list">
-                <p>Loading schemes...</p>
+        <!-- NEW: Chatbot Interface -->
+        <div class="card chat-container">
+            <div id="chat-window" class="chat-window">
+                <!-- Chat messages will be dynamically inserted here -->
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Ask about schemes (e.g., 'loan for women entrepreneurs')...">
+                <button id="send-chat-btn" class="btn btn-primary">Send</button>
             </div>
         </div>
+        
     </main>
 
     <footer>
-        <!-- ... copy the <footer> from index.html ... -->
         <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
     </footer>
 
-    <script src="/js/opportunity-engine.js" type="module"></script>
-
+    <script src="js/opportunity-engine.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>
