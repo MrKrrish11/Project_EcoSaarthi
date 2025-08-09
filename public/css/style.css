@@ -2,18 +2,13 @@
 
 /* --- Global & Variables --- */
 :root {
-    --primary-color: #5A2A8C;
-    /* Deep purple for headings */
-    --secondary-color: #6D28D9;
-    /* Brighter purple for buttons and accents */
+    
+    --primary-color: #5127c3;
+    --secondary-color: #752dc7;
+    --bg-color: #eeecee;
+    --text-color: #161515;
     --accent-color: #FFC300;
-    /* Kept from original for potential use */
-    --bg-color: #F3F0F7;
-    /* Light lavender page background */
     --header-bg-color: #E9E6ED;
-    /* Slightly darker lavender for header/nav */
-    --text-color: #1B1B1B;
-    /* Dark text for readability */
     --light-gray: #e0e0e0;
     --error-red: #c0392b;
     --success-green: #27ae60;
@@ -28,10 +23,7 @@ body {
     /* Space for fixed navbar */
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1,h2,h3,h4 {
     font-family: 'Poppins', sans-serif;
     color: var(--primary-color);
 }
@@ -50,13 +42,14 @@ hr {
 
 /* --- Navbar --- */
 .navbar {
-    background-color: var(--header-bg-color);
+    background-color: #e6d7ff;
+    height:60px;
     padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: none;
-    /* Removed shadow for a flatter look like the image */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
     position: fixed;
     top: 0;
     width: 100%;
@@ -65,12 +58,20 @@ hr {
 }
 
 .nav-logo {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
+    background-image: url(PROJECTLOGO.png);
+    display: flex; 
+    align-items: center;
+    font-family:Arial, Helvetica, sans-serif ;
+    font-size:25px;
+    font-weight: bolder;
 }
+
+.nav-logo img {
+    margin-right: 12px;
+    height: 55px; 
+    width: 70px;  
+}
+    
 
 .nav-menu {
     list-style: none;
@@ -130,6 +131,71 @@ hr {
     border: none;
     /* Ensure no borders */
 }
+.features-section {
+    background-color: #F4F4F7; 
+    padding: 4rem 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; 
+    
+    max-width: 900px; 
+    margin: 0 auto;   
+}
+
+/* --- Styling for each individual card --- */
+.feature-card {
+    background-color: #FFFFFF; 
+    border-radius: 16px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); 
+    
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none; 
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center; 
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 1rem;
+   
+    border: 1px solid #120707; 
+}
+
+.feature-title {
+    color: #333333;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        /* On small mobile screens, switch to a single column */
+        grid-template-columns: 1fr;
+    }
+}
+
 
 .grid-container {
     display: grid;
@@ -141,8 +207,117 @@ hr {
     grid-template-columns: 1fr 1fr;
     align-items: flex-start;
 }
+.card{
+.toolkit-section {
+    background-color: #F8FFF4; 
+    padding: 4rem 2rem; 
+    text-align: center;
+}
+
+/* --- Section Header (Title and Subtitle) --- */
+.toolkit-header {
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+}
+
+.toolkit-header h2 {
+    font-size: 2.25rem;
+    color: #222222; 
+    margin-bottom: 0.75rem;
+}
+
+.toolkit-header p {
+    font-size: 1.1rem;
+    color: #555555;
+    line-height: 1.6;
+}
+
+/* --- Responsive Grid for the Cards --- */
+.toolkit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+    gap: 1.5rem; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* --- Individual Feature Card Styling --- */
+.toolkit-card {
+    background-color: #FFFFFF; 
+    border-radius: 16px; 
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07); 
+    text-decoration: none; 
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.toolkit-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); 
+}
+
+/* --- Icon and Title Styling --- */
+.toolkit-icon {
+    height: 48px; 
+    width: 48px; 
+    margin-bottom: 1rem; 
+}
+
+.toolkit-title {
+    color: #333333;
+    font-weight: 600; 
+    font-size: 1rem;
+    line-height: 1.4; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+}
+}
+
 
 /* --- Forms & Buttons --- */
+.btn{
+    padding: 10px 24px; 
+    border-radius: 8px;
+font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease; 
+}
+.btn-dashboard {
+    background-color: #FFFFFF; 
+    color: #5D3FD3;
+    border-color: #5D3FD3; 
+}
+.btn-dashboard:hover {
+    background-color: #F5F3FF; 
+}
+
+
+.btn-login-purple {
+    background-color: #7949FF;
+    color: #FFFFFF;
+    border-color: #7949FF; 
+}
+.btn-login-purple:hover {
+    background-color: #6A3EEA; 
+    border-color: #6A3EEA;
+}
+
+
+.btn-logout-yellow {
+    background-color: #FFC300;
+    color: #333333;
+    border-color: #FFC300;
+.btn-logout-yellow:hover {
+    background-color: #E6B000; 
+    border-color: #E6B000;
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -250,12 +425,17 @@ hr {
 
 /* --- Footer --- */
 footer {
-    text-align: center;
-    padding: 2rem;
-    background-color: var(--header-bg-color);
-    /* Matching the header background */
-    margin-top: 3rem;
-    color: #444;
+    background-color: #FFFFFF; 
+    color: #000000;           
+    text-align: center;        
+    padding: 2rem 1rem;         
+    margin-top: 4rem;           
+    border-top: 1px solid #EAEAEA; 
+}
+footer p {
+    margin: 0;
+    font-size: 0.9rem; 
+} 
 }
 
 /* --- Pocket CFO Specific Styles --- */
