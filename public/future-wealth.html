@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... copy <head> section from previous file ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Future Wealth Builder | EcoSaerthi</title>
@@ -12,81 +11,101 @@
 </head>
 <body>
     <header>
-    <nav class="navbar">
-        <a href="/" class="nav-logo">EcoSaerthi 📈</a>
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="career-compass.html">Career</a></li>
-            <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
-            <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
-            <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
-            <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
-            <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
-            <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
-            
-            <!-- NEW DYNAMIC BUTTONS -->
-            <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
-            <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
-            <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
-        </ul>
-    </nav>
-</header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="career-compass.html">Career</a></li>
+                <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
+
+                <!-- NEW DYNAMIC BUTTONS -->
+                <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button"
+                        class="btn btn-accent btn-nav-logout">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
 
     <main class="container">
         <div class="page-header">
             <h1>Future Wealth Builder</h1>
-            <p>Transition from saving to investing. Plan for your long-term goals and build wealth.</p>
+            <p>From saving to investing. Plan for your long-term goals and build generational wealth.</p>
         </div>
 
-        <div class="grid-container">
-            <div class="card">
-                <h3>What's Your Investor Personality?</h3>
-                <form id="risk-quiz">
-                    <p>When the market drops 20%, you:</p>
-                    <input type="radio" name="risk" id="risk1" value="buy"> <label for="risk1">See a buying opportunity.</label><br>
-                    <input type="radio" name="risk" id="risk2" value="hold"> <label for="risk2">Feel nervous but hold on.</label><br>
-                    <input type="radio" name="risk" id="risk3" value="sell"> <label for="risk3">Panic and sell everything.</label><br>
-                    <button type="button" class="btn btn-primary" style="margin-top: 1rem;">See My Profile</button>
-                </form>
-            </div>
-            <div class="card">
-                <h3>Retirement Calculator</h3>
-                <div class="form-group">
-                    <label>Current Age</label>
-                    <input type="number" placeholder="30">
+        <div class="grid-container two-column-layout">
+            <!-- Left Column -->
+            <div>
+                <!-- Risk Quiz (Initially Visible) -->
+                <div id="risk-quiz-card" class="card">
+                    <h3>What's Your Investor Personality?</h3>
+                    <p>Answer a few questions to get personalized investment suggestions.</p>
+                    <form id="risk-quiz-form">
+                        <!-- Questions will be injected by JavaScript -->
+                        <button type="submit" class="btn btn-primary">Find My Profile</button>
+                    </form>
                 </div>
-                 <div class="form-group">
-                    <label>Monthly Investment (₹)</label>
-                    <input type="number" placeholder="10000">
-                </div>
-                <button class="btn btn-accent">Calculate Future Value</button>
-            </div>
-        </div>
 
-        <div class="card">
-            <h3>Explore Investment Options</h3>
-            <p>Based on your (moderate) risk profile, here are some suitable options:</p>
-            <!-- This section can be populated by a financial data API -->
-            <div id="investment-options" class="grid-container">
-                <div class="card">
-                    <h4>NIFTY 50 Index Fund</h4>
-                    <p>Low-cost way to invest in India's top 50 companies.</p>
+                <!-- Risk Result (Initially Hidden) -->
+                <div id="risk-result-card" class="card hidden">
+                    <h3>Your Investor Profile: <span id="risk-profile-result"></span></h3>
+                    <p id="risk-profile-description"></p>
+                    <button id="retake-quiz-btn" class="btn btn-accent">Retake Quiz</button>
                 </div>
+
+                <!-- Detailed Retirement Planner -->
                 <div class="card">
-                    <h4>Parag Parikh Flexi Cap Fund</h4>
-                    <p>A mix of Indian and international stocks.</p>
+                    <h3>Retirement Planner</h3>
+                    <form id="retirement-calc-form">
+                        <div class="form-group"><input type="number" id="current-age" placeholder="Current Age (e.g., 25)" required></div>
+                        <div class="form-group"><input type="number" id="retirement-age" placeholder="Target Retirement Age (e.g., 60)" required></div>
+                        <div class="form-group"><input type="number" id="current-savings" placeholder="Current Savings/Lump Sum (₹)" value="0"></div>
+                        <div class="form-group"><input type="number" id="monthly-investment" placeholder="Monthly Investment (₹)" required></div>
+                        <div class="form-group"><input type="number" id="return-rate" placeholder="Expected Annual Return (%)" value="7"></div>
+                        <button type="submit" class="btn btn-primary">Plan My Retirement</button>
+                        <div id="retirement-result" class="tax-result-container"></div>
+                    </form>
                 </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
                 <div class="card">
-                    <h4>Digital Gold</h4>
-                    <p>Invest in gold easily without physical storage.</p>
+                    <h3>Investment Simulations & Ideas</h3>
+                    <div id="investment-suggestions">
+                        <p>Complete the risk profile quiz to unlock personalized investment ideas.</p>
+                    </div>
+                </div>
+
+                <!-- Interactive SIP Management -->
+                <div class="card">
+                    <h3>My SIP Tracker</h3>
+                    <div id="sip-list"></div>
+                    <form id="sip-form" class="goal-form-container">
+                        <input type="text" id="sip-name" placeholder="SIP Name (e.g., Nifty 50)" required>
+                        <input type="number" id="sip-amount" placeholder="Monthly Amount (₹)" required>
+                        <button type="submit" class="btn btn-primary">Add SIP</button>
+                    </form>
+                </div>
+                
+                <!-- Retirement Projection -->
+                <div id="retirement-projection-card" class="card hidden">
+                    <h3>Retirement Projection</h3>
+                    <div id="retirement-projection-content"></div>
                 </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <!-- ... copy <footer> section from previous file ... -->
         <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script src="js/future-wealth.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>

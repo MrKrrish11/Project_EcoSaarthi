@@ -21,6 +21,9 @@ const genAI = new GoogleGenerativeAI('AIzaSyARtA4Gdr3gN-wx1j7udMPb4HXBZGk_yJo');
 // This serves all static files (HTML, CSS, JS) from the 'public' folder.
 app.use(express.static(path.join(__dirname, 'public')));
 
+// CRITICAL: Add this line. It is required for the server to understand POST requests.
+app.use(express.json());
+
 // --- 4. AI HELPER FUNCTION ---
 // This function cleanly separates the AI logic from our main route.
 async function generateAiAdvice(userProfile, targetJob) {
@@ -145,6 +148,48 @@ app.get('/api/economic-data', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch primary economic data." });
     }
 });
+
+// In server.js, in the API ROUTES section, add these two new routes:
+
+// --- Add these two new routes to your server.js file ---
+
+// Route to fetch stock/ETF data from Finnhub
+app.post('/api/stock-data', async (req, res) => {
+    const { symbol } = req.body;
+    const FINNHUB_API_KEY = 'd2b36jpr01qrj4ik48q0d2b36jpr01qrj4ik48qg';
+    const url = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API_KEY}`;
+
+    try {
+        const apiResponse = await fetch(url);
+        if (!apiResponse.ok) {
+            throw new Error(`Finnhub API responded with status: ${apiResponse.status}`);
+        }
+        const data = await apiResponse.json();
+        res.json(data);
+    } catch (error) {
+        console.error("Finnhub API error:", error.message);
+        res.status(500).json({ error: 'Failed to fetch stock data.' });
+    }
+});
+
+// Route to fetch crypto data from CoinGecko
+app.post('/api/crypto-data', async (req, res) => {
+    const { id } = req.body; // e.g., 'bitcoin', 'ethereum'
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=inr&include_24hr_change=true`;
+
+    try {
+        const apiResponse = await fetch(url);
+        if (!apiResponse.ok) {
+            throw new Error(`CoinGecko API responded with status: ${apiResponse.status}`);
+        }
+        const data = await apiResponse.json();
+        res.json(data[id]);
+    } catch (error) {
+        console.error("CoinGecko API error:", error.message);
+        res.status(500).json({ error: 'Failed to fetch crypto data.' });
+    }
+});
+
 
 // The main route for the Career Compass, now with AI orchestration
 app.get('/api/jobs', async (req, res) => {

@@ -469,3 +469,96 @@ footer {
     font-family: 'Poppins', sans-serif;
     color: var(--primary-color);
 }
+
+/* Add these to public/css/style.css for Future Wealth Builder */
+
+.quiz-question { margin-bottom: 1.5rem; }
+.quiz-question p { font-weight: 600; margin: 0 0 0.5rem 0; }
+.quiz-question label { display: block; margin-bottom: 0.5rem; }
+
+#risk-profile-result {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+}
+#risk-profile-result.conservative { background-color: #3498db; }
+#risk-profile-result.moderate { background-color: var(--secondary-color); }
+#risk-profile-result.aggressive { background-color: var(--error-red); }
+
+.investment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.investment-card .info h4 { margin: 0 0 0.25rem 0; }
+.investment-card .info p { margin: 0; color: #555; font-size: 0.9rem; }
+.investment-card .price { text-align: right; }
+.investment-card .price h3 { margin: 0 0 0.25rem 0; }
+.investment-card .price p.positive { color: var(--success-green); }
+.investment-card .price p.negative { color: var(--error-red); }
+
+#sip-list ul { list-style: none; padding: 0; }
+#sip-list li { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--light-gray); }
+#sip-list strong { font-family: 'Poppins', sans-serif; }
+
+
+/* Add these to public/css/style.css for the Projection Tracker */
+
+#retirement-projection-content .projection-summary {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+#retirement-projection-content .projection-advice {
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 4px;
+}
+#retirement-projection-content .projection-advice.on-track {
+    background-color: #e8f5e9; /* Light green */
+    color: var(--success-green);
+}
+#retirement-projection-content .projection-advice.off-track {
+    background-color: #FCE6E6; /* Light red */
+    color: var(--error-red);
+}
+
+/* Add these to public/css/style.css for the Refined Future Wealth Builder */
+
+/* SIP Tracker Remove Button */
+.sip-item-remove-btn {
+    background: none;
+    border: none;
+    color: var(--error-red);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0 0 0 1rem;
+}
+
+/* Detailed Retirement Result */
+.retirement-result-details {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+.retirement-result-details li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+}
+.retirement-result-details li strong {
+    font-family: 'Poppins', sans-serif;
+}
+.retirement-result-details .grand-total {
+    font-size: 1.25rem;
+    border-top: 2px solid var(--primary-color);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    color: var(--primary-color);
+}
