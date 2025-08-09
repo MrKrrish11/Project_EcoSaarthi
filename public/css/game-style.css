@@ -1,0 +1,137 @@
+/* --- CORE GAME STYLES --- */
+.game-page {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0d0c22 !important; /* Force override of main site background */
+    color: #e0e7ff;
+}
+
+/* --- HEADER OVERRIDE --- */
+/* These rules are more specific to win the "CSS war" and apply the dark theme */
+.game-page .navbar {
+    position: static !important; /* Let the header scroll with the game page */
+    background-color: #0d0c22 !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.game-page .nav-logo { color: #e0e7ff !important; }
+.game-page .nav-item a { color: #a5b4fc !important; padding: 0 !important; }
+.game-page .nav-item a:hover { color: #fff !important; }
+.game-page .nav-item .btn-primary { background: linear-gradient(90deg, #f957a2, #ff8c7f) !important; color: white !important; }
+.game-page .nav-item .btn-accent { background: rgba(255, 255, 255, 0.1) !important; color: #e0e7ff !important; }
+.game-page .nav-item .btn-accent:hover { background: rgba(255, 255, 255, 0.2) !important; }
+
+
+/* --- GAME-SPECIFIC COMPONENTS (Copied from your original file) --- */
+.game-page .card {
+    background: linear-gradient(145deg, rgba(45, 35, 99, 0.5), rgba(28, 25, 66, 0.5));
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+.game-page .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.game-page .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: translateY(0);
+}
+.game-page .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+.game-page .btn-primary {
+    background: linear-gradient(90deg, #f957a2, #ff8c7f);
+    color: white;
+}
+.game-page .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+}
+.game-page .btn-secondary:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.game-page .progress-bar {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 9999px;
+    overflow: hidden;
+    height: 1.25rem;
+}
+.game-page .progress {
+    background: linear-gradient(90deg, #8a2be2, #4a00e0);
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+.game-page .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(13, 12, 34, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+.game-page .stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+.game-page .stat-label {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #a5b4fc;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.game-page .loader, .game-page .btn-loader {
+    border: 4px solid rgba(255,255,255,0.2);
+    border-top: 4px solid #f957a2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+.game-page .loader { width: 40px; height: 40px; margin: 20px auto; }
+.game-page .btn-loader { width: 20px; height: 20px; margin-right: 0.5rem; }
+
+.game-page input, .game-page select {
+    background-color: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e0e7ff;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    transition: border-color 0.3s ease;
+}
+.game-page input::placeholder, .game-page select { color: #a5b4fc; }
+.game-page .input-error { border-color: #f957a2 !important; }
+.game-page .btn-icon { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; stroke-width: 2; }
+.game-page .btn-circle { width: 80px; height: 80px; border-radius: 50%; padding: 0; margin-left: auto; margin-right: auto; }
+.game-page .btn-red { background: linear-gradient(90deg, #ef4444, #dc2626); }
+.game-page .animate-flicker { animation: flicker 1.5s infinite; }
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 5px #ef4444, 0 0 10px #ef4444, 0 0 20px #ef4444, inset 0 0 10px rgba(255, 100, 100, 0.5);
+    }
+    50% {
+        opacity: 0.8;
+        box-shadow: 0 0 5px #dc2626, 0 0 10px #dc2626, 0 0 15px #dc2626, inset 0 0 5px rgba(255, 50, 50, 0.5);
+    }
+}
