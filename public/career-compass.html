@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,103 +7,85 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <header>
         <nav class="navbar">
             <a href="/" class="nav-logo">EcoSaerthi 📈</a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="career-compass.html">Career</a></li>
                 <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
                 <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
                 <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
                 <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
                 <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
                 <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
-
-                <!-- NEW DYNAMIC BUTTONS -->
                 <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
                 <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
-                <li class="nav-item" id="logout-nav-item"><button id="logout-button"
-                        class="btn btn-accent btn-nav-logout">Logout</button></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- In public/career-compass.html -->
-
-    <!-- In public/career-compass.html -->
-
     <main class="container">
         <div class="page-header">
             <h1>Career Compass</h1>
-            <p>Tell us where you are and where you want to go. We'll show you the path.</p>
+            <p>Tell us where you want to go. We'll show you the path.</p>
         </div>
 
-        <!-- Main two-column layout -->
-        <div class="grid-container" style="grid-template-columns: 1fr 1fr; align-items: flex-start;">
-
-            <!-- Left Column: Search Form and Job Results -->
+        <div class="grid-container two-column-layout">
+            <!-- Left Column -->
             <div>
                 <div class="card">
-                    <h2>Build Your Career Path</h2>
-
-                    <!-- !!! --- NEW SECTION: ASK FOR CURRENT ROLE --- !!! -->
-
-                    <!-- !!! --- END OF NEW SECTION --- !!! -->
-
-                    <hr style="margin: 1.5rem 0;">
-
+                    <h3>Build Your Career Path</h3>
                     <div class="form-group">
-                        <label for="job-title">Next, what is your desired job title?</label>
-                        <input type="text" id="job-title" placeholder="e.g., 'Senior Economist'">
+                        <label for="job-title">What is your desired job title?</label>
+                        <input type="text" id="job-title" placeholder="e.g., Senior Data Analyst" required>
                     </div>
                     <div class="form-group">
                         <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="e.g., 'USA'">
+                        <input type="text" id="location" placeholder="e.g., Delhi" required>
                     </div>
-                    <button id="search-analyze-button" class="btn btn-accent">Search & Analyze</button>
+                    <!-- This button now has the correct ID -->
+                    <button id="search-analyze-button" class="btn btn-primary">Search & Analyze</button>
                 </div>
-
-                <div id="job-results"></div>
+                <div id="job-results">
+                    <!-- Job search results will appear here -->
+                </div>
             </div>
 
-            <!-- Right Column: Analysis and Courses (Initially Hidden) -->
+            <!-- Right Column -->
             <div id="analysis-section" class="hidden">
                 <div class="card">
-                    <h3>Your Career Path Analysis</h3>
+                    <h3>AI In-Depth Career Analysis</h3>
+                    <p>Get a detailed analysis of this career shift from our AI advisor.</p>
+                    <button id="generate-ai-analysis-btn" class="btn btn-accent btn-full-width" disabled>Generate AI Advice</button>
+                    <div id="ai-advisor-content" class="ai-tips-container" style="margin-top: 1rem;"></div>
+                </div>
+
+                <div id="internship-finder-card" class="card hidden">
+                    <h3>Internship Finder</h3>
+                    <p>As a student, getting your first internship is key. Let's find entry-level opportunities for you.</p>
+                    <button id="find-internships-button" class="btn btn-primary btn-full-width">Find Internships</button>
+                </div>
+                <div class="card">
+                    <h3>Skill Gap Analysis</h3>
                     <div id="skill-gap-results"></div>
                 </div>
                 <div class="card">
                     <h3>Recommended Courses to Bridge the Gap</h3>
                     <div id="course-recommendations"></div>
                 </div>
-                <div class="card">
-                    <h3>EcoSaerthi AI Advisor</h3>
-                    <div id="ai-advisor-content">
-                        <p>Enter a job title to get AI-powered career advice...</p>
-                    </div>
-                </div>
-                <div id="internship-finder-card" class="card hidden">
-                    <h3>Internship Finder</h3>
-                    <p>As a student, getting your first internship is key. Let's find entry-level opportunities for you.
-                    </p>
-                    <button id="find-internships-button" class="btn btn-primary btn-full-width">Find
-                        Internships</button>
-                </div>
             </div>
-
         </div>
     </main>
 
     <footer>
         <p>© 2024 EcoSaerthi. Hacking the Economy for a Better Future.</p>
     </footer>
-    <script src="js/career-compass.js" type="module"></script>
-</body>
 
+    <script src="js/common/data.js" type="module"></script>
+    <script src="js/career-compass.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
 </html>

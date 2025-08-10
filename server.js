@@ -14,14 +14,14 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 const multer = require('multer');
-
+require('dotenv').config();
 
 // --- 2. INITIALIZATION & CONFIGURATION ---
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // IMPORTANT: This needs to be configured with your key
-const genAI = new GoogleGenerativeAI('AIzaSyCjZaoR-SAXjFg-EwgOHZEzS7Y0IMaYjhI');
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const JWT_SECRET = 'your-super-secret-key-that-should-be-in-an-env-file'; // For production, use environment variables
 const USERS_DB_PATH = path.join(__dirname, 'data', 'users.json');
@@ -70,37 +70,41 @@ const protectRoute = (req, res, next) => {
 
 
 
-// --- 5. AI HELPER FUNCTION (REQUIRED FOR CAREER COMPASS) ---
-// This was the function that was missing, causing the crash.
+// In server.js, replace ONLY the generateAiAdvice function with this one.
+
+// --- 3. HELPER FUNCTIONS (YOUR EXISTING FUNCTIONS) ---
+// readUsers(), writeUsers(), etc.
+const { PROFILE_DATABASE } = require('./public/js/common/data'); // Make sure path is correct
+
+// --- 4. AI HELPER FUNCTION (YOUR EXISTING FUNCTION - NO CHANGES NEEDED) ---
 async function generateAiAdvice(userProfile, targetJob) {
+    // This function can now correctly access the 'genAI' object
     try {
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+        const fullUserProfile = PROFILE_DATABASE[userProfile.currentRole] || { title: userProfile.currentRole, skills: [] };
+        const safeTargetTitle = targetJob?.job_title || 'the target job';
+        const safeTargetDescription = targetJob?.job_description?.substring(0, 1000) || 'No detailed description was provided for this job listing.';
+
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
         const prompt = `
-            You are an expert career advisor named "EcoSaerthi AI".
-            A user with the current profile is considering a new job. Provide a short, encouraging, and insightful analysis for them in 3 short paragraphs.
+            You are an expert career advisor.
+            A user with the current profile is considering a new job. Provide a short, 3-paragraph analysis.
 
             **User's Current Profile ("From"):**
-            - Title: ${userProfile.title}
-            - Current Skills: ${userProfile.skills.join(', ')}
+            - Title: ${fullUserProfile.title}
+            - Current Skills: ${fullUserProfile.skills.join(', ')}
 
             **Target Job ("To"):**
-            - Title: ${targetJob.job_title}
-            - Description: ${targetJob.job_description.substring(0, 1000)}
-
-            **Your Analysis (Use markdown for bolding):**
-            1.  **Profitability & Shift Analysis:** Briefly comment on the career shift. Is it a logical step up? Is this field generally considered profitable and in demand?
-            2.  **Future Scope:** Based on the job title and description, what is the likely 5-year scope or career trajectory in this field? Mention automation or AI trends if relevant.
-            3.  **Salary & Final Advice:** Give a realistic estimated average salary range for this role in the job's location (e.g., "$80,000 - $110,000 USD per year"). Conclude with a single sentence of positive advice.
+            - Title: ${safeTargetTitle}
+            - Description: ${safeTargetDescription}
         `;
         const result = await model.generateContent(prompt);
-        const response = await result.response;
-        return response.text();
+        return (await result.response).text();
     } catch (error) {
-        console.error("Error generating AI advice:", error);
-        return "Could not generate AI advice at this time. This can happen due to high demand or API limits. Please try again in a moment.";
+        // --- IMPORTANT: Let's log the REAL error for debugging ---
+        console.error("Gemini API Error:", error); 
+        return "Could not generate AI advice at this time. The AI service may be experiencing high demand.";
     }
 }
-
 
 // --- 6. API ROUTES ---
 
@@ -243,29 +247,86 @@ app.get('/api/schemes', async (req, res) => {
     }
 });
 
-// == Career Compass Route ==
-app.get('/api/jobs', async (req, res) => {
+
+
+// In server.js
+
+// == AI Career Analysis Route (NEW & CORRECT) ==
+app.post('/api/ai/career-analysis', protectRoute, async (req, res) => {
     try {
-        const { query, location, userProfile } = req.query;
+        const { desiredJobTitle, location } = req.body; // Get data from POST body
         const JSEARCH_API_KEY = '6a0c5614e3msh4ebfeaf69679eadp115b05jsn5359c439f42c';
-        const url = `https://jsearch.p.rapidapi.com/search?query=${encodeURIComponent(query)} in ${encodeURIComponent(location)}`;
+
+        // 1. Find the user's profile
+        const users = readUsers();
+        const userProfile = users.find(u => u.id === req.user.id);
+        if (!userProfile) {
+            return res.status(404).json({ message: "User profile not found." });
+        }
+
+        // 2. Fetch the top job result to provide context to the AI
+        const url = `https://jsearch.p.rapidapi.com/search?query=${encodeURIComponent(desiredJobTitle)} in ${encodeURIComponent(location)}`;
         const options = { headers: { 'X-RapidAPI-Key': JSEARCH_API_KEY, 'X-RapidAPI-Host': 'jsearch.p.rapidapi.com' } };
+        
         const jobsResponse = await fetch(url, options);
         const jobsData = await jobsResponse.json();
-        if (!jobsResponse.ok) throw new Error(jobsData.message);
-        const jobs = jobsData.data;
-        let aiAdvice = "AI analysis could not be generated.";
-        if (jobs && jobs.length > 0 && userProfile) {
-            const parsedProfile = JSON.parse(userProfile);
-            // This line now works because the helper function exists
-            aiAdvice = await generateAiAdvice(parsedProfile, jobs[0]);
+
+        if (!jobsResponse.ok) {
+            throw new Error(jobsData.message || 'JSearch API Error');
         }
-        res.json({ jobs, aiAdvice });
+
+        const topJob = jobsData.data?.[0]; // Safely get the first job
+        if (!topJob) {
+            return res.status(404).json({ message: "Could not find any jobs for that title to analyze. Please try a different search." });
+        }
+
+        // 3. Generate the AI advice using your existing helper
+        const advice = await generateAiAdvice(userProfile, topJob);
+
+        // 4. Send the advice back to the client
+        res.json({ advice });
+
     } catch (error) {
-        console.error("Error in /api/jobs", error);
-        res.status(500).json({ error: 'Failed to fetch job data.' });
+        console.error("Error in /api/ai/career-analysis:", error);
+        res.status(500).json({ message: `Failed to generate AI analysis. Server error: ${error.message}` });
     }
 });
+
+
+
+
+// In server.js
+
+// == Career Compass Route (CLEANED UP) ==
+app.get('/api/jobs', protectRoute, async (req, res) => {
+    try {
+        const { query, location } = req.query;
+        const JSEARCH_API_KEY = '6a0c5614e3msh4ebfeaf69679eadp115b05jsn5359c439f42c';
+        
+        // Find the user's profile to pass to the frontend for the non-AI analysis
+        const users = readUsers();
+        const userProfile = users.find(u => u.id === req.user.id);
+        if (!userProfile) throw new Error("User profile not found.");
+
+        const url = `https://jsearch.p.rapidapi.com/search?query=${encodeURIComponent(query)} in ${encodeURIComponent(location)}`;
+        const options = { headers: { 'X-RapidAPI-Key': JSEARCH_API_KEY, 'X-RapidAPI-Host': 'jsearch.p.rapidapi.com' } };
+        
+        const jobsResponse = await fetch(url, options);
+        const jobsData = await jobsResponse.json();
+        
+        if (!jobsResponse.ok) throw new Error(jobsData.message || 'JSearch API Error');
+        
+        // This route now ONLY returns jobs and the user profile. No AI part.
+        res.json({ jobs: jobsData.data, userProfile });
+
+    } catch (error) { 
+        res.status(500).json({ error: `Failed to fetch job data. Server error: ${error.message}` }); 
+    }
+});
+
+
+
+
 
 // In server.js, replace ONLY the /api/economic-data route with this one.
 
@@ -326,20 +387,23 @@ app.get('/api/economic-data', async (req, res) => {
             }
         };
         
-        let aiExplanation = "AI analysis could not be generated.";
+        let aiExplanation = "AI analysis could not be generated due to an API error.";
         try {
-            const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-            const prompt = `Analyze India's economy for ${year}. Data: Inflation ${economicSummary.inflation}%, GDP Growth ${economicSummary.gdp}%. Explain the impact on the average person. Be concise.`;
+            const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+            const prompt = `You are an economist explaining the situation in India for the year ${year}. Data: Inflation ${economicSummary.inflation}%, GDP Growth ${economicSummary.gdp}%. Explain the impact on the average person. Be concise.`;
             const result = await model.generateContent(prompt);
             aiExplanation = (await result.response).text();
-        } catch (aiError) { console.error("GEMINI API FAILED:", aiError.message); }
+        } catch (aiError) {
+            console.error("GEMINI API FAILED:", aiError.message);
+        }
         
         res.json({ data: economicSummary, explanation: aiExplanation });
 
     } catch (error) {
-        console.error("CRITICAL Error in /api/economic-data route:", error);
-        res.status(500).json({ error: "Failed to fetch primary economic data." });
+        console.error("Error in /api/economic-data:", error);
+        res.status(500).json({ error: 'Failed to fetch economic data.' });
     }
+
 });
 
 // == Pocket CFO Route ==
@@ -347,11 +411,14 @@ app.post('/api/financial-advice', async (req, res) => {
     try {
         const { spendingData } = req.body;
         if (!spendingData) return res.status(400).json({ error: 'Invalid spending data.' });
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-        const prompt = `Analyze this user's spending and give 2-3 actionable saving tips. Data: ${JSON.stringify(spendingData)}`;
+        
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const prompt = `You are a friendly financial coach. A user's monthly income is ₹${spendingData.income} and their recent transactions are ${JSON.stringify(spendingData.transactions)}. Analyze their spending and provide 2-3 actionable saving tips in a bulleted list.`;
+        
         const result = await model.generateContent(prompt);
         res.json({ advice: (await result.response).text() });
     } catch (error) {
+        console.error("Error in /api/financial-advice:", error);
         res.status(500).json({ error: "Failed to generate AI financial advice." });
     }
 });
@@ -361,11 +428,14 @@ app.post('/api/tax-advice', async (req, res) => {
     try {
         const { profession } = req.body;
         if (!profession) return res.status(400).json({ error: 'Profession is required.' });
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-        const prompt = `List 4-5 common tax deductions for a freelancer in India whose profession is "${profession}".`;
+        
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const prompt = `You are an expert tax advisor for freelancers in India. A user's profession is "${profession}". List 4-5 common, often-missed tax deductions relevant to this profession. For each, provide a brief, one-sentence explanation. Use markdown for bolding.`;
+        
         const result = await model.generateContent(prompt);
         res.json({ advice: (await result.response).text() });
     } catch (error) {
+        console.error("Error in /api/tax-advice:", error);
         res.status(500).json({ error: "Failed to generate AI tax advice." });
     }
 });
