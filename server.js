@@ -13,6 +13,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
+const multer = require('multer');
+
 
 // --- 2. INITIALIZATION & CONFIGURATION ---
 const app = express();
@@ -41,6 +43,30 @@ const readUsers = () => {
     }
 };
 const writeUsers = (data) => fs.writeFileSync(USERS_DB_PATH, JSON.stringify(data, null, 2));
+
+// --- 5. MULTER CONFIG FOR FILE UPLOADS ---
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: function (req, file, cb) {
+        // Use user ID to ensure unique filenames
+        cb(null, `user-${req.user.id}-${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+const upload = multer({ storage: storage });
+
+// --- 6. AUTH MIDDLEWARE (To protect routes) ---
+const protectRoute = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ message: 'Not authorized, no token' });
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded; // Add user payload to the request
+        next();
+    } catch (e) {
+        return res.status(401).json({ message: 'Not authorized, token failed' });
+    }
+};
+
 
 
 
@@ -146,6 +172,44 @@ app.post('/api/auth/login', async (req, res) => {
         console.error("Login Error:", error);
         res.status(500).json({ message: 'Server error during login.' });
     }
+});
+
+// == NEW USER PROFILE ROUTES ==
+app.get('/api/user/profile', protectRoute, (req, res) => {
+    const users = readUsers();
+    const user = users.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    // IMPORTANT: Never send the hashed password to the frontend
+    const { hashedPassword, ...userProfile } = user;
+    res.json(userProfile);
+});
+
+app.put('/api/user/profile', protectRoute, (req, res) => {
+    const { firstName, lastName, phone, currentRole, monthlyIncome } = req.body;
+    const users = readUsers();
+    const userIndex = users.findIndex(u => u.id === req.user.id);
+    if (userIndex === -1) return res.status(404).json({ message: 'User not found' });
+
+    // Update user data
+    users[userIndex] = { ...users[userIndex], firstName, lastName, phone, currentRole, monthlyIncome };
+    writeUsers(users);
+    res.json({ message: 'Profile updated successfully!' });
+});
+
+app.post('/api/user/upload-photo', protectRoute, upload.single('profilePhoto'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded.' });
+    }
+    const users = readUsers();
+    const userIndex = users.findIndex(u => u.id === req.user.id);
+    if (userIndex === -1) return res.status(404).json({ message: 'User not found' });
+    
+    // Save the path to the uploaded file
+    const photoPath = `/uploads/${req.file.filename}`;
+    users[userIndex].photoUrl = photoPath;
+    writeUsers(users);
+
+    res.json({ message: 'Photo uploaded successfully!', photoUrl: photoPath });
 });
 
 
