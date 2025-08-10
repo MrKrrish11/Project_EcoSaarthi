@@ -9,6 +9,11 @@ const fetch = require('node-fetch');
 // Ensure you have run "npm install @google/generative-ai"
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+
+
 // --- 2. INITIALIZATION & CONFIGURATION ---
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,11 +21,30 @@ const PORT = process.env.PORT || 3000;
 // IMPORTANT: This needs to be configured with your key
 const genAI = new GoogleGenerativeAI('AIzaSyCjZaoR-SAXjFg-EwgOHZEzS7Y0IMaYjhI');
 
+const JWT_SECRET = 'your-super-secret-key-that-should-be-in-an-env-file'; // For production, use environment variables
+const USERS_DB_PATH = path.join(__dirname, 'data', 'users.json');
+
+
 // --- 3. MIDDLEWARE ---
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); // Required for all POST requests to work
 
-// --- 4. AI HELPER FUNCTION (REQUIRED FOR CAREER COMPASS) ---
+app.use(cookieParser()); // Middleware to parse cookies
+
+// --- 4. DATABASE HELPER FUNCTIONS ---
+const readUsers = () => {
+    try {
+        const data = fs.readFileSync(USERS_DB_PATH, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        return []; // If the file doesn't exist or is empty, return an empty array
+    }
+};
+const writeUsers = (data) => fs.writeFileSync(USERS_DB_PATH, JSON.stringify(data, null, 2));
+
+
+
+// --- 5. AI HELPER FUNCTION (REQUIRED FOR CAREER COMPASS) ---
 // This was the function that was missing, causing the crash.
 async function generateAiAdvice(userProfile, targetJob) {
     try {
@@ -52,7 +76,79 @@ async function generateAiAdvice(userProfile, targetJob) {
 }
 
 
-// --- 5. API ROUTES ---
+// --- 6. API ROUTES ---
+
+
+// == THIS IS THE UPGRADED SIGNUP ROUTE ==
+app.post('/api/auth/signup', async (req, res) => {
+    try {
+        const { firstName, lastName, email, phone, password, currentRole, monthlyIncome } = req.body;
+        if (!firstName || !lastName || !email || !password || !currentRole || !monthlyIncome) {
+            return res.status(400).json({ message: 'All fields are required.' });
+        }
+        
+        const users = readUsers();
+        if (users.find(user => user.email === email)) {
+            return res.status(409).json({ message: 'Email already exists.' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        const newUser = {
+            id: Date.now().toString(),
+            firstName, lastName, email, phone, hashedPassword, currentRole, monthlyIncome
+        };
+        users.push(newUser);
+        writeUsers(users);
+
+        // --- THE FIX: Immediately create a token and log the user in ---
+        const token = jwt.sign({ id: newUser.id, role: newUser.currentRole, income: newUser.monthlyIncome }, JWT_SECRET, { expiresIn: '1h' });
+        res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // Set the cookie
+        // --- END OF FIX ---
+
+        // Send a success message
+        res.status(201).json({ message: 'User created successfully and logged in!' });
+
+    } catch (error) {
+        console.error("Signup Error:", error);
+        res.status(500).json({ message: 'Server error during signup.' });
+    }
+});
+
+
+// == LOGIN ROUTE ==
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const users = readUsers();
+        const user = users.find(u => u.email === email);
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials.' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.hashedPassword);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Invalid credentials.' });
+        }
+
+        // Create JWT
+        const token = jwt.sign({ id: user.id, role: user.currentRole, income: user.monthlyIncome }, JWT_SECRET, { expiresIn: '1h' });
+
+        // Send JWT as a secure, httpOnly cookie
+        res.cookie('token', token, {
+            httpOnly: true, // Prevents JS access
+            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            maxAge: 3600000 // 1 hour
+        });
+
+        res.json({ message: 'Logged in successfully!' });
+    } catch (error) {
+        console.error("Login Error:", error);
+        res.status(500).json({ message: 'Server error during login.' });
+    }
+});
+
+
 
 // == Opportunity Engine Route (Powered by Serper.dev) ==
 app.get('/api/schemes', async (req, res) => {
@@ -237,7 +333,7 @@ app.post('/api/crypto-data', async (req, res) => {
     }
 });
 
-// --- 6. START SERVER ---
+// --- 7. START SERVER ---
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log("All routes are active and ready.");

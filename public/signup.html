@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | EcoSaerthi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
+                <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="container" style="max-width: 600px; margin-top: 3rem;">
+        <div class="card">
+            <div class="page-header"><h1>Create Your EcoSaerthi Account</h1></div>
+            <form id="signup-form">
+                <div class="grid-container two-column-layout">
+                    <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" required></div>
+                    <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" required></div>
+                </div>
+                <div class="form-group"><label for="email">Email</label><input type="email" id="email" required></div>
+                <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" required></div>
+                <div class="form-group"><label for="password">Password</label><input type="password" id="password" required></div>
+                <div class="form-group"><label for="currentRole">Current Role/Designation</label><select id="currentRole" required></select></div>
+                <div class="form-group"><label for="monthlyIncome">Monthly Income (₹)</label><input type="number" id="monthlyIncome" required></div>
+                <button type="submit" class="btn btn-primary btn-full-width">Create Account</button>
+                <p id="error-message" class="error-message" style="margin-top: 1rem; text-align: center;"></p>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">Already have an account? <a href="/login.html">Log In</a></p>
+        </div>
+    </main>
+    <script src="js/common/data.js" type="module"></script>
+    <script src="js/signup.js" type="module"></script>
+</body>
+</html>

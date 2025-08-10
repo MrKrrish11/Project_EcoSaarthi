@@ -1,37 +1,27 @@
-// public/js/login.js - UPGRADED TO SAVE INCOME
-
-import { PROFILE_DATABASE } from './common/data.js';
-
 document.addEventListener('DOMContentLoaded', () => {
-    const dropdown = document.getElementById('user-profile');
-    const incomeInput = document.getElementById('user-income');
-    const loginForm = document.getElementById('login-form');
+    const form = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
 
-    if (!loginForm) return;
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMessage.textContent = '';
+        const email = form.querySelector('#email').value;
+        const password = form.querySelector('#password').value;
 
-    // Populate the dropdown with profiles
-    for (const key in PROFILE_DATABASE) {
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = PROFILE_DATABASE[key].title;
-        dropdown.appendChild(option);
-    }
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message);
 
-    // Handle the login form submission
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const selectedProfileKey = dropdown.value;
-        const userIncome = parseFloat(incomeInput.value);
+            // Redirect to index page on successful login
+            window.location.href = 'index.html';
 
-        if (isNaN(userIncome) || userIncome < 0) {
-            alert('Please enter a valid monthly income.');
-            return;
+        } catch (error) {
+            errorMessage.textContent = error.message;
         }
-
-        // Save BOTH pieces of data to the browser's local storage
-        localStorage.setItem('loggedInUserKey', selectedProfileKey);
-        localStorage.setItem('userIncome', userIncome); // Save income
-        
-        window.location.href = 'dashboard.html';
     });
 });

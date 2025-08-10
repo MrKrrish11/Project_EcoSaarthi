@@ -10,38 +10,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header>
-        <nav class="navbar">
+    <nav class="navbar">
             <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="pocket-cfo.html">Budget</a></li>
+                <li class="nav-item"><a href="tax-buddy.html">Taxes</a></li>
+                <li class="nav-item"><a href="genz-moneyverse.html">Learn</a></li>
+                <li class="nav-item"><a href="future-wealth.html">Invest</a></li>
+                <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
+                <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
+                <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
+            </ul>
         </nav>
     </header>
 
     <main class="container" style="max-width: 500px; margin-top: 5rem;">
         <div class="card">
-            <div class="page-header">
-                <h1>Create Your Profile</h1>
-                <p>Select your role and set your income to begin.</p>
-            </div>
+            <div class="page-header"><h1>Login to Your Account</h1></div>
             <form id="login-form">
-                <div class="form-group">
-                    <label for="user-profile">Select Your Current Role</label>
-                    <select id="user-profile">
-                        <!-- Options will be populated by login.js -->
-                    </select>
-                </div>
-
-                <!-- !!! NEW INCOME INPUT FIELD !!! -->
-                <div class="form-group">
-                    <label for="user-income">Enter Your Monthly Income (₹)</label>
-                    <input type="number" id="user-income" placeholder="e.g., 50000" required>
-                </div>
-                <!-- !!! END OF NEW FIELD !!! -->
-
-                <button type="submit" class="btn btn-primary btn-full-width">Login & Start</button>
+                <div class="form-group"><label for="email">Email</label><input type="email" id="email" required></div>
+                <div class="form-group"><label for="password">Password</label><input type="password" id="password" required></div>
+                <button type="submit" class="btn btn-primary btn-full-width">Login</button>
+                <p id="error-message" class="error-message" style="margin-top: 1rem; text-align: center;"></p>
             </form>
+            <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="/signup.html">Sign Up</a></p>
         </div>
     </main>
-
     <script src="js/login.js" type="module"></script>
 </body>
 </html>
