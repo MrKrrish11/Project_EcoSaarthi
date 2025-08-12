@@ -14,6 +14,7 @@ const elements = {
     lineItems: document.getElementById('line-items'),
     gstRate: document.getElementById('gst-rate'),
     invoicePreview: document.getElementById('invoice-preview'),
+    invoicePreviewWrapper: document.getElementById('invoice-preview-wrapper'), // NEW
     printInvoiceBtn: document.getElementById('print-invoice-btn'),
     ledgerTableContainer: document.getElementById('ledger-table-container'),
     expenseForm: document.getElementById('expense-form'),
@@ -95,6 +96,7 @@ function handleInvoiceGenerate(e) {
     invoiceHtml += '</table>';
 
     elements.invoicePreview.innerHTML = invoiceHtml;
+    elements.invoicePreviewWrapper.classList.remove('hidden'); // NEW
     elements.printInvoiceBtn.classList.remove('hidden');
 
     state.ledger.push({ id: Date.now(), date: new Date().toLocaleDateString(), client, total, status: 'unpaid' });

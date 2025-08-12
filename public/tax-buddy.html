@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,17 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
 </head>
-<body>
+
+<body class="tax-buddy-page">
+    <div class="aurora-background">
+        <div class="aurora-shape shape1"></div>
+        <div class="aurora-shape shape2"></div>
+    </div>
+
     <header>
         <nav class="navbar">
             <a href="/" class="nav-logo">EcoSaerthi 📈</a>
@@ -22,7 +31,8 @@
                 <li class="nav-item"><a href="/opportunity-engine.html">Schemes</a></li>
                 <li class="nav-item" id="dashboard-nav-item"><a href="/dashboard.html">Dashboard</a></li>
                 <li class="nav-item" id="login-nav-item"><a href="/login.html" class="btn btn-primary">Login</a></li>
-                <li class="nav-item" id="logout-nav-item"><button id="logout-button" class="btn btn-accent btn-nav-logout">Logout</button></li>
+                <li class="nav-item" id="logout-nav-item"><button id="logout-button"
+                        class="btn btn-accent btn-nav-logout">Logout</button></li>
             </ul>
         </nav>
     </header>
@@ -49,23 +59,27 @@
             </div>
         </div>
 
-        <!-- Invoice Generator and Preview -->
-        <div class="grid-container two-column-layout">
+        <!-- Consolidated Invoice Generator & Preview Card -->
+        <div class="grid-container two-column-layout"> <!-- The grid wrappers remain -->
             <div class="card">
                 <h3>Invoice Generator</h3>
                 <form id="invoice-form">
                     <input type="text" id="client-name" placeholder="Client Name" required class="form-group">
-                    <textarea id="line-items" placeholder="Enter items: Description, Quantity, Price (e.g., Web Design, 1, 15000)" required class="form-group" rows="4"></textarea>
+                    <textarea id="line-items"
+                        placeholder="Enter items: Description, Quantity, Price (e.g., Web Design, 1, 15000)" required
+                        class="form-group" rows="4"></textarea>
                     <input type="number" id="gst-rate" placeholder="GST/VAT Rate (%)" value="18" class="form-group">
                     <button type="submit" class="btn btn-primary">Generate & Add to Ledger</button>
                 </form>
-            </div>
-            <div class="card">
-                <h3>Invoice Preview</h3>
-                <div id="invoice-preview" class="invoice-preview-container">
-                    <p>Your invoice will appear here...</p>
+
+                <!-- MOVED & MODIFIED INVOICE PREVIEW SECTION -->
+                <div id="invoice-preview-wrapper" class="hidden">
+                    <div id="invoice-preview" class="invoice-preview-container">
+                        <!-- Preview content will be injected here by JS -->
+                    </div>
+                    <button id="print-invoice-btn" class="btn btn-accent">Print / Download PDF</button>
                 </div>
-                <button id="print-invoice-btn" class="btn btn-accent hidden">Print / Download PDF</button>
+                <!-- END OF MOVED SECTION -->
             </div>
         </div>
 
@@ -78,7 +92,8 @@
             <div class="card">
                 <h3>Expense Tracker</h3>
                 <form id="expense-form">
-                    <input type="text" id="expense-desc" placeholder="Expense Description (e.g., Software)" required class="form-group">
+                    <input type="text" id="expense-desc" placeholder="Expense Description (e.g., Software)" required
+                        class="form-group">
                     <input type="number" id="expense-amount" placeholder="Amount (₹)" required class="form-group">
                     <button type="submit" class="btn btn-primary">Add Expense</button>
                 </form>
@@ -114,7 +129,7 @@
                 <div id="ai-deductions-content" class="ai-tips-container"></div>
             </div>
         </div>
-        
+
     </main>
 
     <footer>
@@ -123,5 +138,7 @@
 
     <script src="js/tax-buddy.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
+    <script src="js/mobile-menu.js"></script>
 </body>
+
 </html>
