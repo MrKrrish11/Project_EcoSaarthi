@@ -6,7 +6,7 @@
 :root {
     --primary-color: #752dc7;
     --secondary-color: #5127c3;
-    --accent-color: #FFC300;
+    --accent-color: #5c2bdb;
     --dark-bg: #1a102f;
     --light-text: #f0f0f0;
     --subtle-text: rgba(230, 230, 230, 0.7);
@@ -147,7 +147,8 @@ h4 {
 }
 
 .grid-container {
-    display: grid;
+    display: flex;
+    justify-content: center;
     grid-template-columns: 1fr;
     gap: 2.5rem;
 }
@@ -177,7 +178,7 @@ h4 {
 }
 
 .nav-logo {
-    color: #FFFFFF;
+    color: (var(--secondary-color), #55efc4);
     font-size: 1.5rem;
     text-decoration: none;
     display: flex;
@@ -280,23 +281,29 @@ footer p {
     text-align: center;
 }
 
+
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    background: linear-gradient(45deg, var(--secondary-color), #55efc4);
     color: #fff;
+}
+.btn-primary img{
+    vertical-align: middle;
+    height: 20px;
+    width: 20px;
 }
 
 .btn-accent {
-    background: linear-gradient(45deg, var(--accent-color), #ffdb5d);
+    background: linear-gradient(45deg, var(--accent-color), #5df4ff);
     color: var(--dark-bg);
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(88, 84, 217);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
 }
@@ -361,7 +368,7 @@ footer p {
     height: 50px;
     width: 50px;
     margin-bottom: 1rem;
-    filter: invert(95%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(105%);
+    filter: brightness(0) saturate(100%) invert(100%) sepia(41%) saturate(3894%) hue-rotate(142deg) brightness(97%) contrast(92%);
 }
 
 /* Makes icons white */
@@ -756,5 +763,120 @@ footer p {
         transform: rotate(90deg);
         top: 0;
         opacity: 0;
+    }
+}
+
+
+
+.index-page .video-section {
+    padding: 8rem 2rem 4rem; /* Adjusted padding */
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.index-page .background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -2;
+}
+
+.index-page .video-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(26, 16, 47, 0.5);
+    z-index: -1;
+}
+
+.index-page .page-header-index {
+    position: relative;
+    z-index: 1;
+}
+
+.index-page .page-header-index h1 {
+    font-size: 4rem;
+}
+
+/* NEW: Styles for the features grid */
+.features-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding-top: 0; /* Removed padding-top from here */
+}
+
+.feature-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--light-text);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    color: #55efc4;
+    height: 60px; /* Increased size for better visibility */
+    width: 60px;
+    margin-bottom: 1.5rem;
+    
+}
+
+.feature-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+
+/* --- 7. ANIMATIONS & RESPONSIVENESS --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    /* (Keep your existing mobile styles) */
+    .features-grid {
+        grid-template-columns: 1fr; /* 1 column for mobile */
+        gap: 1.5rem;
     }
 }
