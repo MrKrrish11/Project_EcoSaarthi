@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Chat | EcoSaerthi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Basic styling for the chat */
+        .chat-container { max-width: 900px; margin: 2rem auto; }
+        #messages { list-style-type: none; margin: 0; padding: 0; height: 60vh; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        #messages li { padding: 0.5rem 1rem; }
+        #messages li:nth-child(odd) { background-color: #f9f9f9; }
+        .message-author { font-weight: bold; color: var(--primary-color); }
+        .message-content { margin-left: 10px; }
+        #chat-form { display: flex; }
+        #chat-input { border: 1px solid #ccc; padding: 10px; flex-grow: 1; border-radius: 5px 0 0 5px; }
+        #chat-form button { background: var(--primary-color); color: white; padding: 10px; border: none; border-radius: 0 5px 5px 0; cursor: pointer; }
+    </style>
+</head>
+<body class="community-page">
+    <!-- You can copy your standard header/navbar here -->
+    <header>
+        <nav class="navbar">
+             <a href="/" class="nav-logo">EcoSaerthi 📈</a>
+             <!-- (Your full nav menu) -->
+        </nav>
+    </header>
+
+    <main class="container chat-container">
+        <div class="page-header">
+            <h1>Community Hub</h1>
+            <p>Ask questions, share advice, and connect with other users.</p>
+        </div>
+
+        <div class="card">
+            <ul id="messages"></ul>
+            <form id="chat-form" action="">
+                <input id="chat-input" autocomplete="off" placeholder="Type your message..." />
+                <button>Send</button>
+            </form>
+        </div>
+    </main>
+    
+    <!-- IMPORTANT: Include the Socket.IO client library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Your new community script -->
+    <script src="js/community.js"></script>
+</body>
+</html>

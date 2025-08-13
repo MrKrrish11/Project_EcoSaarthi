@@ -2,6 +2,11 @@
 
 // --- 1. SETUP AND IMPORTS ---
 const express = require('express');
+
+const http = require('http'); // <-- ADD THIS
+const { Server } = require('socket.io'); // <-- ADD THIS
+const mongoose = require('mongoose');
+
 const path = require('path');
 const fs = require('fs');
 // Ensure you have run "npm install node-fetch@2"
@@ -18,6 +23,10 @@ require('dotenv').config();
 
 // --- 2. INITIALIZATION & CONFIGURATION ---
 const app = express();
+
+const server = http.createServer(app); // <-- CREATE HTTP SERVER
+const io = new Server(server); // <-- INITIALIZE SOCKET.IO
+
 const PORT = process.env.PORT || 3000;
 
 // IMPORTANT: This needs to be configured with your key
@@ -25,6 +34,23 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const JWT_SECRET = 'your-super-secret-key-that-should-be-in-an-env-file'; // For production, use environment variables
 const USERS_DB_PATH = path.join(__dirname, 'data', 'users.json');
+
+
+// --- NEW: MONGODB CONNECTION ---
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('MongoDB connected successfully.'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+// --- NEW: MESSAGE SCHEMA AND MODEL ---
+const messageSchema = new mongoose.Schema({
+    content: String,
+    authorName: String, // To display the user's name
+    authorId: String,   // To link back to the user
+    timestamp: { type: Date, default: Date.now }
+});
+const Message = mongoose.model('Message', messageSchema);
+
+
 
 
 // --- 3. MIDDLEWARE ---
@@ -105,6 +131,74 @@ async function generateAiAdvice(userProfile, targetJob) {
         return "Could not generate AI advice at this time. The AI service may be experiencing high demand.";
     }
 }
+
+
+// --- 5. SOCKET.IO MIDDLEWARE FOR AUTHENTICATION ---
+io.use((socket, next) => {
+    // This middleware checks the JWT cookie to authenticate the socket connection.
+    const cookie = socket.handshake.headers.cookie;
+    if (!cookie) return next(new Error('Authentication error: No cookie provided.'));
+
+    const token = cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
+    if (!token) return next(new Error('Authentication error: No token found.'));
+
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) return next(new Error('Authentication error: Invalid token.'));
+        
+        // Find user from the JSON file to get their name
+        const users = readUsers();
+        const user = users.find(u => u.id === decoded.id);
+        if (!user) return next(new Error('Authentication error: User not found.'));
+        
+        socket.user = { id: user.id, firstName: user.firstName }; // Attach user info to the socket
+        next();
+    });
+});
+
+
+// --- 6. SOCKET.IO CONNECTION HANDLING ---
+io.on('connection', async (socket) => {
+    console.log(`User connected: ${socket.user.firstName} (${socket.id})`);
+
+    // 1. Send chat history to the newly connected user
+    try {
+        const messages = await Message.find().sort({ timestamp: -1 }).limit(50).exec();
+        socket.emit('load history', messages.reverse());
+    } catch (error) {
+        console.error('Error fetching message history:', error);
+    }
+
+    // 2. Listen for a new chat message from a client
+    socket.on('chat message', async (content) => {
+        console.log(`SERVER: Received message "${content}" from ${socket.user.firstName}`); // <-- ADD THIS LINE
+        if (!content.trim()) return; // Ignore empty messages
+
+        const newMessage = new Message({
+            content,
+            authorName: socket.user.firstName,
+            authorId: socket.user.id
+        });
+
+        try {
+            await newMessage.save();
+
+            console.log('SERVER: Message saved to DB. Broadcasting back to clients.'); // <-- ADD THIS LINE
+            // Broadcast the new message to ALL connected clients
+            io.emit('chat message', newMessage);
+        } catch (error) {
+            console.error('SERVER: Error saving message to database:', error); // <-- MODIFIED FOR CLARITY
+        }
+    });
+
+    // 3. Handle disconnection
+    socket.on('disconnect', () => {
+        console.log(`User disconnected: ${socket.user.firstName} (${socket.id})`);
+    });
+});
+
+
+
+
 
 // --- 6. API ROUTES ---
 
@@ -468,7 +562,7 @@ app.post('/api/crypto-data', async (req, res) => {
 });
 
 // --- 7. START SERVER ---
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log("All routes are active and ready.");
 });

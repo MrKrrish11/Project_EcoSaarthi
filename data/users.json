@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "1755119126024",
+    "firstName": "Krrish",
+    "lastName": "Barsiwal",
+    "email": "abc@gmail.com",
+    "phone": "8094951456",
+    "hashedPassword": "$2b$10$v9OAYTRUxRNGcj3FMamgh.cyNqQpCxlYp0xov77RXiBE40VmDr4O.",
+    "currentRole": "student",
+    "monthlyIncome": "2000",
+    "photoUrl": "/uploads/user-1755119126024-1755119149952.jpeg"
+  }
+]
