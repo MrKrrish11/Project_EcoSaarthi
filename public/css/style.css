@@ -179,7 +179,7 @@ h4 {
 
 .nav-logo {
     color: (var(--secondary-color), #55efc4);
-    font-size: 1.5rem;
+    font-size: 30px;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -187,8 +187,8 @@ h4 {
 }
 
 .nav-logo .logo-image {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
 }
 
 .nav-menu {
@@ -315,6 +315,17 @@ footer p {
 .btn-full-width {
     width: 100%;
 }
+.main-hero{
+    background: rgb(97, 84, 217);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+.btn-secondary-hero{
+    background-color: transparent;
+    background: rgba(10, 225, 236, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
 
 /* --- 6. PAGE-SPECIFIC STYLES & COMPONENTS --- */
 
@@ -351,6 +362,13 @@ footer p {
 
 .index-page .page-header-index h1 {
     font-size: 4rem;
+    margin-top: -30px;
+}
+.index-page .page-header-index p{
+    font-size: 21px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .index-page .features-grid {
@@ -365,32 +383,26 @@ footer p {
 }
 
 .index-page .feature-icon {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     margin-bottom: 1rem;
     filter: brightness(0) saturate(100%) invert(100%) sepia(41%) saturate(3894%) hue-rotate(142deg) brightness(97%) contrast(92%);
 }
-
-/* Makes icons white */
-
 /* Login/Signup Pages */
 .login-page main,
 .signup-page main {
     max-width: 500px;
     margin-top: 5rem;
 }
-
 .login-page a,
 .signup-page a {
     color: var(--accent-color);
     text-decoration: none;
 }
-
 .login-page a:hover,
 .signup-page a:hover {
     text-decoration: underline;
 }
-
 /* Dashboard Page */
 .dashboard-page .profile-header {
     display: flex;
@@ -427,7 +439,6 @@ footer p {
 .dashboard-page .grid-span-2 {
     grid-column: span 2;
 }
-
 /* Tax/Pocket CFO Summary Cards */
 .summary-cards {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -766,7 +777,7 @@ footer p {
     }
 }
 
-
+ 
 
 .index-page .video-section {
     padding: 8rem 2rem 4rem; /* Adjusted padding */
@@ -801,7 +812,151 @@ footer p {
 .index-page .page-header-index h1 {
     font-size: 4rem;
 }
+/* --- 8. TOOLKIT, EMPOWER, & PROCESS SECTIONS --- */
 
+.section {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style for the "Complete Toolkit" headline */
+.toolkit-intro {
+    text-align: center;
+    padding-bottom: 1rem; /* Reduced padding to bring it closer to the grid */
+}
+
+.toolkit-intro h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.toolkit-intro p {
+    font-size: 1.1rem;
+    color: var(--subtle-text);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Two-column layout for Empowering Features section */
+.empower-section {
+    background-color: rgba(255, 255, 255, 0.03); /* Subtle background to stand out */
+    border-radius: 20px;
+    margin-top: 4rem;
+}
+
+.empower-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.empower-text {
+    flex: 1;
+}
+
+.empower-text h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--glow-green);
+    padding-left: 1rem;
+}
+
+.feature-point {
+    margin-bottom: 1.5rem;
+}
+
+.feature-point h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--light-text);
+}
+
+.feature-point p {
+    color: var(--subtle-text);
+    line-height: 1.6;
+}
+
+.empower-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empower-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.1); /* Black and white effect like the video */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* Process Flow Section */
+.process-section {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.process-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.process-section p {
+    font-size: 1.1rem;
+    color: var(--subtle-text);
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+}
+
+.process-flow {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    position: relative;
+}
+
+.process-flow::before {
+    content: '';
+    position: absolute;
+    top: 40px; /* Vertically center with the icons */
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--glass-border), var(--glass-border) 4px, transparent 4px, transparent 10px);
+    z-index: -1;
+}
+
+.process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+}
+
+.process-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
+    background-color: var(--glass-bg);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Placeholder for actual icons */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%2355efc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.process-step span {
+    font-weight: 600;
+    color: var(--light-text);
+}
 /* NEW: Styles for the features grid */
 .features-section {
     padding: 4rem 2rem;
@@ -846,37 +1001,132 @@ footer p {
     margin-bottom: 1.5rem;
     
 }
-
+/* 9. FOOTER STYLING */
 .feature-title {
     font-family: 'Poppins', sans-serif;
     font-size: 1.25rem;
     font-weight: 600;
     color: #ffffff;
 }
-
-
-/* --- 7. ANIMATIONS & RESPONSIVENESS --- */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.site-footer {
+    background-color: #0d0817; /* Darker than the body background */
+    color: var(--subtle-text);
+    padding: 4rem 2rem 0 2rem;
+    margin-top: 5rem;
+    border-top: 1px solid var(--glass-border);
+    display: block; /* Ensures the footer is visible and takes up space */
 }
 
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-logo {
+    height: 50px;
+    width: 50px;
+}
+
+.site-footer h3 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--light-text);
+}
+
+.site-footer h4 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1.5rem 0;
+    color: var(--light-text);
+}
+
+.team-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.team-card {
+    background-color: var(--dark-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--glow-green);
+}
+
+.team-card h5 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #fff;
+}
+.team-card a {
+    color: var(--subtle-text); 
+    text-decoration: none;     
+    transition: color 0.3s ease;
+}
+
+.team-card a:hover {
+    color: var(--glow-green);   
+    text-decoration: underline; 
+}
+
+.team-card p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--glass-border);
+}
+/* --- 10. RESPONSIVENESS FOR NEW SECTIONS (includes footer) --- */
 @media (max-width: 992px) {
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    .empower-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .empower-text h2 {
+        font-size: 2.2rem;
+    }
+    .team-cards {
+        grid-template-columns: repeat(2, 1fr); /* 2x2 grid on tablets */
+    }
+    .process-flow {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+    }
+    .process-flow::before {
+        display: none; /* Hide connector line on smaller screens */
     }
 }
 
 @media (max-width: 768px) {
-    /* (Keep your existing mobile styles) */
-    .features-grid {
-        grid-template-columns: 1fr; /* 1 column for mobile */
-        gap: 1.5rem;
+    .section {
+        padding: 2rem 1rem;
+    }
+    .toolkit-intro h2, .process-section h2 {
+        font-size: 2rem;
+    }
+    .empower-text h2 {
+        font-size: 1.8rem;
+    }
+    .team-cards {
+        grid-template-columns: 1fr; /* Single column on mobile */
     }
 }
