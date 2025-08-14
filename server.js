@@ -199,6 +199,28 @@ io.on('connection', async (socket) => {
 
 
 
+// ADD this new function near the top of your file:
+
+async function fetchUserIncome() {
+    try {
+        const response = await fetch('/api/user/profile');
+        if (!response.ok) {
+            // User is likely not logged in. Default to 0.
+            console.log('User not logged in or session expired. Defaulting income to 0.');
+            return 0;
+        }
+        const user = await response.json();
+        // Return the income from the user's profile.
+        return parseFloat(user.monthlyIncome) || 0;
+    } catch (error) {
+        console.error("Could not fetch user profile:", error);
+        // On any network error, safely default to 0.
+        return 0;
+    }
+}
+
+
+
 
 // --- 6. API ROUTES ---
 

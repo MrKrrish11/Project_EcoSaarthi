@@ -41,19 +41,40 @@ const elements = {
     aiTipsContent: document.getElementById('ai-tips-content'),
 };
 
-// --- DATA PERSISTENCE ---
+
+// ADD THIS NEW FUNCTION to your script.
+// A good place is right after the 'elements' object.
+
+async function fetchUserIncome() {
+    try {
+        const response = await fetch('/api/user/profile');
+        if (!response.ok) {
+            // User is likely not logged in. Default to 0.
+            console.log('User not logged in or session expired. Defaulting income to 0.');
+            return 0;
+        }
+        const user = await response.json();
+        // Return the income from the user's profile.
+        return parseFloat(user.monthlyIncome) || 0;
+    } catch (error) {
+        console.error("Could not fetch user profile:", error);
+        // On any network error, safely default to 0.
+        return 0;
+    }
+}
+
+// REPLACE your old saveState and loadState with these:
+
 function saveState() {
+    // We only save the CFO-specific data. Income is read-only from the server.
     localStorage.setItem('pocketCFOState', JSON.stringify({
         transactions: state.transactions,
         goals: state.goals
     }));
-    localStorage.setItem('userIncome', state.income);
 }
 
-function loadState() {
-    const savedIncome = localStorage.getItem('userIncome');
-    if (savedIncome) state.income = parseFloat(savedIncome);
-
+function loadLocalCFOData() {
+    // This function now ONLY loads transactions and goals, not income.
     const savedCFOState = localStorage.getItem('pocketCFOState');
     if (savedCFOState) {
         const parsedState = JSON.parse(savedCFOState);
@@ -158,15 +179,17 @@ function handleAddBonus() {
     elements.boostAmount.value = '';
 }
 
+// REPLACE your old handleIncreaseSalary function with this:
+
 function handleIncreaseSalary() {
     const amount = parseFloat(elements.boostAmount.value);
     if (isNaN(amount) || amount <= 0) {
         alert('Please enter a valid salary increase amount.');
         return;
     }
-    state.income += amount;
-    alert(`Your monthly income has been increased by ₹${amount.toLocaleString()}!`);
-    saveState(); render();
+    // This is a temporary simulation. It does NOT change the official income.
+    alert(`This is a simulation. To permanently update your income, please go to your Dashboard.`);
+    // We don't save or change the core state.income here.
     elements.boostAmount.value = '';
 }
 
@@ -210,10 +233,16 @@ async function handleGetAiTips() {
     }
 }
 
-// --- INITIALIZATION ---
-function initialize() {
-    loadState();
+// REPLACE your entire initialize function with this new async version:
+
+async function initialize() {
+    // 1. Fetch the official income from the server.
+    state.income = await fetchUserIncome();
     
+    // 2. Load local data like transactions and goals.
+    loadLocalCFOData();
+    
+    // 3. Set up all the event listeners.
     elements.transactionForm.addEventListener('submit', handleAddTransaction);
     elements.transactionsList.addEventListener('click', handleDeleteTransaction);
     elements.goalForm.addEventListener('submit', handleAddGoal);
@@ -225,9 +254,10 @@ function initialize() {
     
     elements.modalCloseBtn.addEventListener('click', () => elements.scenarioModal.classList.add('hidden'));
     elements.scenarioModal.addEventListener('click', (e) => {
-        if (e.target === elements.scenarioModal) elements.scenarioModal.classList.add('hidden');
+        if (e.target === elements.scenarioModal)  elements.scenarioModal.classList.add('hidden');
     });
 
+    // 4. Render the page with all the correct data.
     render();
 }
 

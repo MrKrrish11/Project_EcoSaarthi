@@ -669,6 +669,7 @@ footer p {
 
 #chat-input {
     border-right: none;
+    width: 100%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
