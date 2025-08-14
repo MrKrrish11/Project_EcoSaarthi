@@ -15,11 +15,48 @@ const elements = {
     internshipBtn: document.getElementById('find-internships-button'),
     skillGapResultsDiv: document.getElementById('skill-gap-results'),
     courseRecsDiv: document.getElementById('course-recommendations'),
+    showMoreJobsBtn: document.getElementById('show-more-jobs-btn'),
 };
 
 // --- HELPER FUNCTIONS ---
 function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// This function intelligently formats the AI's text into HTML points and paragraphs
+function formatAiAdvice(text) {
+    // First, handle bolding just like before
+    let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // Split the text into paragraphs or blocks
+    const blocks = formattedText.split('\n').filter(block => block.trim() !== '');
+    
+    let html = '';
+    let inList = false;
+
+    blocks.forEach(block => {
+        const isListItem = block.trim().startsWith('* ') || block.trim().startsWith('- ');
+        
+        if (isListItem && !inList) {
+            html += '<ul>';
+            inList = true;
+        } else if (!isListItem && inList) {
+            html += '</ul>';
+            inList = false;
+        }
+
+        if (isListItem) {
+            html += `<li>${block.trim().substring(2)}</li>`; // Remove the '* ' or '- '
+        } else {
+            html += `<p>${block}</p>`;
+        }
+    });
+
+    if (inList) {
+        html += '</ul>'; // Close any open list at the end
+    }
+    
+    return html;
 }
 
 // --- CORE LOGIC ---
@@ -34,10 +71,11 @@ async function handleJobSearch() {
     }
 
     // --- THIS IS THE RESTORED FEEDBACK ---
-    elements.jobResultsDiv.innerHTML = '<p>Searching for jobs...</p>';
+    elements.jobResultsDiv.innerHTML = '<div class="loader"></div>'; // Use the spinner
     elements.analysisSection.classList.add('hidden');
     elements.generateAiBtn.disabled = true;
     elements.aiAdvisorContent.innerHTML = '';
+    elements.showMoreJobsBtn.classList.add('hidden'); // Hide button on new search
 
     try {
         const response = await fetch(`/api/jobs?query=${desiredJobTitle}&location=${location}`);
@@ -63,14 +101,32 @@ async function handleJobSearch() {
         performAndDisplayAnalysis(jobs[0], userProfile);
         elements.analysisSection.classList.remove('hidden');
         elements.generateAiBtn.disabled = false;
-        
+
         elements.jobResultsDiv.innerHTML = '<h4>Full-Time Job Results</h4>';
-        jobs.forEach(job => {
+        const initialJobs = jobs.slice(0, 3);
+        const remainingJobs = jobs.slice(3);
+
+        initialJobs.forEach(job => {
             const jobCard = document.createElement('div');
-            jobCard.className = 'card';
+            jobCard.className = 'card job-card';
             jobCard.innerHTML = `<h3>${job.job_title ?? 'No Title'}</h3><p><strong>Company:</strong> ${job.employer_name ?? 'N/A'}</p><a href="${job.job_apply_link}" class="btn btn-primary" target="_blank">View & Apply</a>`;
             elements.jobResultsDiv.appendChild(jobCard);
         });
+
+        if (remainingJobs.length > 0) {
+            elements.showMoreJobsBtn.classList.remove('hidden');
+            // Use { once: true } so the listener automatically removes itself after one click
+            elements.showMoreJobsBtn.addEventListener('click', () => {
+                remainingJobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = 'card job-card';
+                    jobCard.innerHTML = `<h3>${job.job_title ?? 'No Title'}</h3><p><strong>Company:</strong> ${job.employer_name ?? 'N/A'}</p><a href="${job.job_apply_link}" class="btn btn-primary" target="_blank">View & Apply</a>`;
+                    elements.jobResultsDiv.appendChild(jobCard);
+                });
+                elements.showMoreJobsBtn.classList.add('hidden'); // Hide button after showing all
+            }, { once: true });
+        }
+        
     } catch (error) {
         console.error('Error fetching jobs:', error);
         elements.jobResultsDiv.innerHTML = `<p class="error-message">Failed to load jobs: ${error.message}</p>`;
@@ -82,7 +138,7 @@ async function handleGenerateAiAnalysis() {
     const desiredJobTitle = elements.jobTitleInput.value.trim();
     const location = elements.locationInput.value.trim();
     
-    elements.aiAdvisorContent.innerHTML = '<p>🧠 Thinking... Our AI is generating your detailed career analysis...</p>';
+    elements.aiAdvisorContent.innerHTML = '<div class="loader"></div>';
     elements.generateAiBtn.disabled = true;
 
     try {
@@ -97,7 +153,8 @@ async function handleGenerateAiAnalysis() {
         }
 
         const result = await response.json();
-        elements.aiAdvisorContent.innerHTML = result.advice.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        // USE THE NEW FORMATTER
+        elements.aiAdvisorContent.innerHTML = formatAiAdvice(result.advice);
 
     } catch (error) {
         console.error('Error generating AI advice:', error);

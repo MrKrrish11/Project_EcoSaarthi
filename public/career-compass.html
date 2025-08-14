@@ -15,6 +15,7 @@
         <div class="aurora-shape shape2"></div>
     </div>
     <header>
+        <!-- Your Navbar remains unchanged -->
         <nav class="navbar">
             <a href="/" class="nav-logo">
                 <img src="images/FINAL LOGO.png"  class="logo-image">
@@ -40,10 +41,11 @@
             <p>Tell us where you want to go. We'll show you the path.</p>
         </div>
 
-        <div class="grid-container two-column-layout">
-            <!-- Left Column -->
-            <div>
-                <div class="card">
+        <!-- MODIFIED: Added a new results-layout class for better styling control -->
+        <div class="grid-container results-layout">
+            <!-- Left Column: Search Form & Job Results -->
+            <div class="search-column">
+                <div class="card career-card">
                     <h3>Build Your Career Path</h3>
                     <div class="form-group">
                         <label for="job-title">What is your desired job title?</label>
@@ -53,35 +55,60 @@
                         <label for="location">Location</label>
                         <input type="text" id="location" placeholder="e.g., Delhi" required>
                     </div>
-                    <!-- This button now has the correct ID -->
-                    <button id="search-analyze-button" class="btn btn-primary">Search & Analyze</button>
+                    <button id="search-analyze-button" class="btn btn-primary btn-full-width">Search & Analyze</button>
                 </div>
-                <div id="job-results">
-                    <!-- Job search results will appear here -->
+                <!-- This div will now contain a header and the job cards -->
+                <div id="job-results" class="job-results-container">
+                    <!-- JS will populate this -->
                 </div>
+                 <button id="show-more-jobs-btn" class="btn btn-secondary btn-full-width hidden">Show More</button>
             </div>
 
-            <!-- Right Column -->
-            <div id="analysis-section" class="hidden">
-                <div class="card">
-                    <h3>AI In-Depth Career Analysis</h3>
-                    <p>Get a detailed analysis of this career shift from our AI advisor.</p>
-                    <button id="generate-ai-analysis-btn" class="btn btn-accent btn-full-width" disabled>Generate AI Advice</button>
-                    <div id="ai-advisor-content" class="ai-tips-container" style="margin-top: 1rem;"></div>
+            <!-- Right Column: Analysis Section (Now with Tabs) -->
+            <div id="analysis-section" class="hidden analysis-column">
+                <div class="card analysis-container">
+                    <!-- Tab Navigation -->
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="ai-analysis">AI Advisor</button>
+                        <button class="tab-btn" data-tab="skill-gap">Skill Gap</button>
+                        <button class="tab-btn" data-tab="courses">Courses</button>
+                    </div>
+
+                    <!-- Tab Content Panes -->
+                    <div class="tab-content">
+                        <!-- AI Analysis Pane -->
+                        <div id="ai-analysis" class="tab-pane active">
+                            <h4>AI In-Depth Career Analysis</h4>
+                            <p>Get a detailed analysis of this career shift from our AI advisor.</p>
+                            <button id="generate-ai-analysis-btn" class="btn btn-accent btn-full-width" disabled>Generate AI Advice</button>
+                            <div id="ai-advisor-content" class="ai-tips-container" style="margin-top: 1rem;">
+                                <!-- AI Content will be injected here. Your JS already handles this. -->
+                            </div>
+                        </div>
+
+                        <!-- Skill Gap Pane -->
+                        <div id="skill-gap" class="tab-pane">
+                            <h4>Skill Gap Analysis</h4>
+                            <div id="skill-gap-results">
+                                <!-- Skill Gap content will be injected here. -->
+                            </div>
+                        </div>
+
+                        <!-- Courses Pane -->
+                        <div id="courses" class="tab-pane">
+                            <h4>Recommended Courses</h4>
+                            <div id="course-recommendations">
+                                <!-- Course recommendations will be injected here. -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Internship card remains separate as it's conditional -->
                 <div id="internship-finder-card" class="card hidden">
                     <h3>Internship Finder</h3>
                     <p>As a student, getting your first internship is key. Let's find entry-level opportunities for you.</p>
                     <button id="find-internships-button" class="btn btn-primary btn-full-width">Find Internships</button>
-                </div>
-                <div class="card">
-                    <h3>Skill Gap Analysis</h3>
-                    <div id="skill-gap-results"></div>
-                </div>
-                <div class="card">
-                    <h3>Recommended Courses to Bridge the Gap</h3>
-                    <div id="course-recommendations"></div>
                 </div>
             </div>
         </div>

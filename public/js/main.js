@@ -29,3 +29,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// ADD THIS TO THE BOTTOM OF public/js/main.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- General Purpose Tab Switching Logic ---
+    const tabContainers = document.querySelectorAll('.analysis-container');
+
+    tabContainers.forEach(container => {
+        const tabButtons = container.querySelectorAll('.tab-btn');
+        const tabPanes = container.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Deactivate all buttons and panes first
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                // Activate the clicked button
+                button.classList.add('active');
+
+                // Activate the corresponding pane
+                const targetPaneId = button.dataset.tab;
+                const targetPane = container.querySelector(`#${targetPaneId}`);
+                if (targetPane) {
+                    targetPane.classList.add('active');
+                }
+            });
+        });
+    });
+});

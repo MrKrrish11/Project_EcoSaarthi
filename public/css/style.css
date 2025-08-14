@@ -131,6 +131,7 @@ h4 {
     border: 1px solid var(--glass-border);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
     padding: 2rem;
+    display: inline-grid;
     margin-bottom: 2rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -441,7 +442,7 @@ footer p {
 }
 /* Tax/Pocket CFO Summary Cards */
 .summary-cards {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .summary-cards .card {
@@ -1130,4 +1131,512 @@ footer p {
     .team-cards {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
+}
+
+.career-card{
+    width: 600px;
+}
+
+/* ========================================================== */
+/* ===  ADD-ON: CAREER COMPASS PROFESSIONAL UI STYLES      === */
+/* ========================================================== */
+
+/* --- 1. Enhanced Layout & Loading Spinner --- */
+
+.results-layout {
+    display: flex;
+    align-items: flex-start; /* Aligns items to the top */
+    gap: 2.5rem;
+}
+
+.search-column {
+    flex: 1;
+    min-width: 400px; /* Prevents it from getting too small */
+}
+
+.analysis-column {
+    flex: 1.2; /* Makes the analysis column slightly wider */
+    position: sticky; /* Makes the analysis section stick on scroll */
+    top: 90px; /* Position below the fixed navbar */
+}
+
+/* A professional loading spinner */
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--glass-border);
+    border-bottom-color: var(--primary-color);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- 2. Tabbed Interface for Analysis --- */
+
+.analysis-container {
+    padding: 0; /* Remove padding to let tabs control it */
+}
+
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 1rem;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--subtle-text);
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    top: 1px;
+}
+
+.tab-btn:hover {
+    color: #fff;
+    background-color: var(--glass-bg);
+}
+
+.tab-btn.active {
+    color: #fff;
+    border-bottom-color: var(--glow-green);
+}
+
+.tab-content {
+    padding: 2rem;
+}
+
+.tab-pane {
+    display: none; /* Hide all panes by default */
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-pane.active {
+    display: block; /* Show only the active one */
+}
+
+.tab-pane h4 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+/* --- 3. Enhanced Styling for Results --- */
+
+/* Job Results Styling */
+.job-results-container h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.job-card { /* More specific styling for job cards */
+    display: block; /* Override grid behavior */
+    margin-bottom: 1.5rem;
+    border-left: 5px solid transparent;
+}
+.job-card:hover {
+    border-left-color: var(--glow-green);
+}
+
+/* Skill Gap Pills */
+#skill-gap-results ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+#skill-gap-results li {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    border: none; /* Override default list item border */
+    display: block;
+}
+/* Remove the icon from the base style */
+#skill-gap-results li::before {
+    content: none; 
+}
+
+
+/* Course Recommendations */
+#course-recommendations ul {
+    list-style: none;
+    padding: 0;
+}
+
+#course-recommendations li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+#course-recommendations li:hover {
+    background-color: var(--glass-bg);
+}
+
+#course-recommendations li span {
+    font-weight: 600;
+}
+
+#course-recommendations li a {
+    color: var(--subtle-text);
+    text-decoration: none;
+    margin-left: 1rem;
+    font-weight: 500;
+}
+
+#course-recommendations li a:hover {
+    color: var(--glow-green);
+    text-decoration: underline;
+}
+
+/* Remove the icon from the base style */
+#course-recommendations li::before {
+    content: none; 
+}
+
+
+/* ADD-ON: CAREER COMPASS LAYOUT & UX FIXES */
+
+/* 1. Robust Flexbox Layout to prevent overlapping */
+.career-compass-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+}
+
+.left-column {
+    flex: 1;
+    min-width: 0; /* Allows the column to shrink properly */
+}
+
+.right-column {
+    flex: 1.2; /* Makes analysis column slightly wider */
+    position: sticky;
+    top: 90px; /* Position below the fixed navbar */
+}
+
+/* Ensure the main search card isn't overly wide */
+.career-card {
+    width: 100%;
+    box-sizing: border-box; /* Important for flexbox children */
+}
+
+/* Make sure the Show More button has some space */
+#show-more-jobs-btn {
+    margin-top: 1.5rem;
+}
+
+/* Responsive adjustments for the new layout */
+@media (max-width: 992px) {
+    .career-compass-layout {
+        flex-direction: column;
+    }
+    .right-column {
+        position: static; /* Unstick the column on smaller screens */
+        width: 100%;
+    }
+}
+
+
+
+
+
+/* ========================================================== */
+/* ===  ADD-ON: POCKET CFO PROFESSIONAL UI STYLES          === */
+/* ========================================================== */
+
+/* --- 1. Main CFO Layout Grid --- */
+.cfo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Left column is slightly smaller */
+    align-items: flex-start;
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.cfo-left-column, .cfo-right-column {
+    position: relative;
+    z-index: 1; /* Helps prevent any overlap issues */
+}
+
+/* --- 2. Enhanced Tab and Tool Styling --- */
+.goal-form-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1.5rem;
+}
+.goal-form-container input {
+    flex-grow: 1;
+}
+.tool-section {
+    margin-bottom: 1.5rem;
+}
+.tool-section h5 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+}
+.tool-section p {
+    font-size: 0.9rem;
+    color: var(--subtle-text);
+    margin-top: 0;
+}
+.tool-section hr {
+    border: none;
+    height: 1px;
+    background-color: var(--glass-border);
+    margin: 2rem 0;
+}
+.boost-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- 3. Professional Transactions List --- */
+.transactions-container {
+    margin-top: 2rem;
+    display: block; /* Override default card grid behavior */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#transactions-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#transactions-list li {
+    display: grid;
+    grid-template-columns: 40px 1fr auto; /* Icon | Description | Amount */
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+#transactions-list li:last-child {
+    border-bottom: none;
+}
+#transactions-list li span:last-child {
+    font-weight: 600;
+    color: var(--glow-red);
+    justify-self: end;
+}
+#transactions-list li em {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--subtle-text);
+    display: block;
+}
+
+/* Category Icons */
+#transactions-list li::before {
+    content: '🛒'; /* Default: Shopping */
+    font-size: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#transactions-list .category-Food::before { content: '🍕'; }
+#transactions-list .category-Transport::before { content: '🚗'; }
+#transactions-list .category-Bills::before { content: '💡'; }
+#transactions-list .category-Entertainment::before { content: '🎬'; }
+#transactions-list .category-Other::before { content: '📦'; }
+
+
+/* --- 4. Polished Goal Items --- */
+.goal-item {
+    padding: 1.5rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.15);
+}
+.goal-item p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 1rem 0;
+}
+.goal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+.goal-buttons .btn {
+    flex-grow: 1;
+}
+
+/* --- 5. Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .cfo-layout {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+}
+
+
+/* ========================================================== */
+/* ===  ADD-ON: PROFESSIONAL MODAL STYLING                 === */
+/* ========================================================== */
+
+/* --- 1. The Modal Overlay --- */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 8, 30, 0.6); /* Semi-transparent dark overlay */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+/* --- 2. The Modal Content Card --- */
+.modal-content {
+    /* Re-using your "glassmorphism" card style */
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    
+    color: var(--light-text);
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    text-align: left; /* Override any inherited center-align */
+}
+
+/* --- 3. The Close Button --- */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--subtle-text);
+    font-size: 2.5rem;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    color: #fff;
+}
+
+/* --- 4. Styling the Results Inside the Modal --- */
+.modal-content h3 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1rem;
+}
+
+#modal-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#modal-results li {
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+#modal-results li:last-child {
+    border-bottom: none;
+}
+
+#modal-results strong {
+    font-weight: 600;
+}
+
+/* Ensure success/error colors use your theme */
+.success-message {
+    color: var(--glow-green);
+}
+
+.error-message {
+    color: var(--glow-red);
+}
+
+/* ADD THIS to the bottom of style.css */
+
+/* --- Styling for Achieved Goals --- */
+.goal-item.achieved {
+    background: rgba(85, 239, 196, 0.1); /* Use the glow-green color */
+    border-color: rgba(85, 239, 196, 0.4);
+}
+
+.goal-item.achieved p strong {
+    color: var(--glow-green);
+}
+
+.goal-item.achieved p span {
+    font-weight: 600;
+    color: var(--glow-green);
+}
+
+
+/* ADD THIS to the bottom of style.css */
+
+/* --- Styling for New CFO Calculator Results --- */
+.tool-result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-left: 4px solid var(--glow-green);
+    border-radius: 4px;
+    animation: fadeIn 0.5s;
+}
+
+.tool-result p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--light-text);
+}
+
+.tool-result strong {
+    font-size: 1.2rem;
+    color: #fff;
 }

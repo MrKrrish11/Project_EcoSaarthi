@@ -66,18 +66,17 @@
             </div>
         </div>
 
-        <!-- Main Two-Column Layout -->
-        <div class="grid-container two-column-layout">
-
-            <!-- Left Column: Transactions & AI Tips -->
-            <div>
+        <!-- NEW Main Two-Column Layout -->
+        <div class="cfo-layout">
+            <!-- Left Column: Add Transaction -->
+            <div class="cfo-left-column">
                 <div class="card">
                     <h3>Add Transaction</h3>
+                    <!-- Your existing form is preserved perfectly -->
                     <form id="transaction-form">
                         <div class="form-group">
                             <label for="transaction-description">Description</label>
-                            <input type="text" id="transaction-description" placeholder="e.g., Coffee with friends"
-                                required>
+                            <input type="text" id="transaction-description" placeholder="e.g., Coffee with friends" required>
                         </div>
                         <div class="form-group">
                             <label for="transaction-amount">Amount (₹)</label>
@@ -94,70 +93,82 @@
                                 <option>Other</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Expense</button>
+                        <button type="submit" class="btn btn-primary btn-full-width">Add Expense</button>
                     </form>
-                </div>
-                <div class="card">
-                    <h3>Recent Transactions</h3>
-                    <div id="transactions-list">
-                        <p>Your transactions will appear here.</p>
-                    </div>
                 </div>
             </div>
 
-            <!-- Right Column: Goals, Scenarios, and AI Tips -->
-            <div>
-                <div class="card">
-                    <h3>Visual Goals Board</h3>
-                    <div id="goals-list"></div>
-                    <form id="goal-form" class="goal-form-container">
-                        <input type="text" id="goal-name" placeholder="Goal Name (e.g., New Laptop)" required>
-                        <input type="number" id="goal-amount" placeholder="Target Amount (₹)" required>
-                        <button type="submit" class="btn btn-primary">Add Goal</button>
-                    </form>
-                </div>
-                <div class="card">
-                    <h3>Financial Boosts</h3>
-                    <p>Simulate a bonus or salary increase.</p>
-                    <div class="form-group">
-                        <label for="boost-amount">Amount (₹)</label>
-                        <input type="number" id="boost-amount" placeholder="10000">
-                    </div>
-                    <div class="boost-buttons">
-                        <button id="add-bonus-btn" class="btn btn-accent">Add as One-Time Bonus</button>
-                        <button id="increase-salary-btn" class="btn btn-accent">Add to Monthly Income</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>What-If Scenario</h3>
-                    <p>Stress-test your budget over time.</p>
-                    <div class="form-group">
-                        <label for="what-if-increase">If my expenses increase by (₹):</label>
-                        <input type="number" id="what-if-increase" placeholder="5000">
+            <!-- Right Column: Tabbed Interface for Tools & Goals -->
+            <div class="cfo-right-column">
+                <div class="card analysis-container"> <!-- Reusing class from Career Compass for tabs -->
+                    <!-- Tab Navigation -->
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="goals">Goals</button>
+                        <button class="tab-btn" data-tab="tools">Tools</button>
+                        <button class="tab-btn" data-tab="ai-advisor">AI Advisor</button>
                     </div>
 
-                    <!-- !!! THIS IS THE MISSING INPUT FIELD !!! -->
-                    <div class="form-group">
-                        <label for="what-if-duration">For how many months?</label>
-                        <input type="number" id="what-if-duration" placeholder="6">
+                    <!-- Tab Content Panes -->
+                    <div class="tab-content">
+                        <!-- Goals Pane -->
+                        <div id="goals" class="tab-pane active">
+                            <div id="goals-list"><!-- Your JS populates this --></div>
+                            <form id="goal-form" class="goal-form-container">
+                                <input type="text" id="goal-name" placeholder="Goal Name (e.g., New Laptop)" required>
+                                <input type="number" id="goal-amount" placeholder="Target Amount (₹)" required>
+                                <button type="submit" class="btn btn-primary">Add Goal</button>
+                            </form>
+                        </div>
+
+                        <!-- Tools Pane -->
+                        <div id="tools" class="tab-pane">
+                            <div class="tool-section">
+                                <h5>Financial Boosts</h5>
+                                <p>Simulate a bonus or salary increase.</p>
+                                <div class="form-group">
+                                    <input type="number" id="boost-amount" placeholder="Amount (₹) e.g., 10000">
+                                </div>
+                                <div class="boost-buttons">
+                                    <button id="add-bonus-btn" class="btn btn-accent">Add to Goal</button>
+                                    <button id="increase-salary-btn" class="btn btn-accent">Add to Income</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="tool-section">
+                                <h5>What-If Scenario</h5>
+                                <p>Stress-test your budget over time.</p>
+                                <div class="form-group">
+                                    <input type="number" id="what-if-increase" placeholder="Expense Increase (₹)">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" id="what-if-duration" placeholder="For how many months?">
+                                </div>
+                                <button id="what-if-button" class="btn btn-secondary btn-full-width">Calculate Impact</button>
+                            </div>
+                        </div>
+
+                        <!-- AI Advisor Pane -->
+                        <div id="ai-advisor" class="tab-pane">
+                            <h5>AI Savings Advisor</h5>
+                            <p>Get personalized tips from our AI to improve your savings.</p>
+                            <button id="get-ai-tips-button" class="btn btn-primary btn-full-width">Analyze My Spending & Get Tips</button>
+                            <div id="ai-tips-content" class="ai-tips-container" style="margin-top: 1rem;"></div>
+                        </div>
                     </div>
-                    <!-- !!! END OF MISSING FIELD !!! -->
-
-                    <button id="what-if-button" class="btn btn-primary btn-full-width">Calculate Impact</button>
                 </div>
+            </div>
+        </div>
 
-                <div class="card">
-                    <h3>AI Savings Advisor</h3>
-                    <p>Get personalized tips from our AI to improve your savings.</p>
-                    <button id="get-ai-tips-button" class="btn btn-primary btn-full-width">Analyze My Spending & Get
-                        Tips</button>
-                    <div id="ai-tips-content" class="ai-tips-container"></div>
-                </div>
+        <!-- NEW Full-Width Recent Transactions Section -->
+        <div class="card hidden" id="recent-transactions-container">
+            <h3>Recent Transactions</h3>
+            <div id="transactions-list">
+                <p>Your transactions will appear here.</p>
             </div>
         </div>
     </main>
 
+    
     <div id="scenario-modal" class="modal-container hidden">
         <div class="modal-content">
             <button id="modal-close-btn" class="modal-close-btn">&times;</button>

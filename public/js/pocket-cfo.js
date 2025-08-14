@@ -19,6 +19,7 @@ const elements = {
     transactionAmount: document.getElementById('transaction-amount'),
     transactionCategory: document.getElementById('transaction-category'),
     transactionsList: document.getElementById('transactions-list'),
+    recentTransactionsContainer: document.getElementById('recent-transactions-container'),
     // Goal Form
     goalForm: document.getElementById('goal-form'),
     goalName: document.getElementById('goal-name'),
@@ -30,7 +31,7 @@ const elements = {
     increaseSalaryBtn: document.getElementById('increase-salary-btn'),
     // What-If Scenario
     whatIfIncrease: document.getElementById('what-if-increase'),
-    whatIfDuration: document.getElementById('what-if-duration'), // <-- THIS WAS THE MISSING LINE
+    whatIfDuration: document.getElementById('what-if-duration'), // This was the broken part
     whatIfButton: document.getElementById('what-if-button'),
     // Modal
     scenarioModal: document.getElementById('scenario-modal'),
@@ -84,7 +85,11 @@ function loadLocalCFOData() {
 }
 
 // --- UI RENDERING ---
+
+// REPLACE your old render function with this new one
+
 function render() {
+    // --- Part 1: Render the top summary and transactions (mostly unchanged) ---
     const totalExpenses = state.transactions.reduce((sum, t) => sum + t.amount, 0);
     const netSavings = state.income - totalExpenses;
 
@@ -92,18 +97,41 @@ function render() {
     elements.summaryExpenses.textContent = `₹${totalExpenses.toLocaleString()}`;
     elements.summarySavings.textContent = `₹${netSavings.toLocaleString()}`;
 
-    elements.transactionsList.innerHTML = state.transactions.length === 0 
-        ? '<p>No transactions yet.</p>' 
-        : `<ul>${state.transactions.slice().reverse().map(t => `<li><span>${t.description} <em>(${t.category})</em></span> <span>-₹${t.amount.toLocaleString()}</span> <button class="transaction-delete-btn" data-id="${t.id}">X</button></li>`).join('')}</ul>`;
+    // ... (Your recent transactions visibility logic is safe here) ...
+    if (state.transactions.length > 0) {
+        elements.recentTransactionsContainer.classList.remove('hidden');
+    } else {
+        elements.recentTransactionsContainer.classList.add('hidden');
+    }
 
-    elements.goalsList.innerHTML = state.goals.length === 0 
-        ? '<p>No goals yet. Add one to start saving!</p>' 
-        : state.goals.map(goal => {
-            const savedAmount = goal.saved || 0;
-            const progress = Math.min((savedAmount / goal.amount) * 100, 100).toFixed(0);
-            return `
+    elements.transactionsList.innerHTML = state.transactions.length === 0
+        ? '<p>No transactions yet.</p>'
+        : `<ul>${state.transactions.slice().reverse().map(t => `<li class="category-${t.category}"><span>${t.description}<em>${t.category}</em></span> <span>-₹${t.amount.toLocaleString()}</span> <button class="transaction-delete-btn" data-id="${t.id}">X</button></li>`).join('')}</ul>`;
+
+
+    // --- Part 2: New Goal Rendering Logic ---
+    if (state.goals.length === 0) {
+        elements.goalsList.innerHTML = '<p>No goals yet. Add one to start saving!</p>';
+    } else {
+        // Separate goals into active and achieved
+        const activeGoals = state.goals.filter(g => !g.achieved);
+        const achievedGoals = state.goals.filter(g => g.achieved);
+        
+        let availableSavingsPool = Math.max(0, netSavings);
+        let goalsHtml = '';
+
+        // Render ACTIVE goals with the waterfall savings projection
+        activeGoals.forEach(goal => {
+            const baseSaved = goal.saved || 0;
+            const amountStillNeeded = Math.max(0, goal.amount - baseSaved);
+            const contributionThisMonth = Math.min(amountStillNeeded, availableSavingsPool);
+            const totalProjectedSaved = baseSaved + contributionThisMonth;
+            const progress = Math.min((totalProjectedSaved / goal.amount) * 100, 100).toFixed(0);
+            availableSavingsPool -= contributionThisMonth;
+            
+            goalsHtml += `
                 <div class="goal-item">
-                    <p><strong>${goal.name}</strong> <span>₹${savedAmount.toLocaleString()} / ₹${goal.amount.toLocaleString()}</span></p>
+                    <p><strong>${goal.name}</strong> <span>₹${totalProjectedSaved.toLocaleString()} / ₹${goal.amount.toLocaleString()}</span></p>
                     <div class="progress-bar">
                         <div class="progress-bar-inner" style="width: ${progress}%;">${progress}%</div>
                     </div>
@@ -112,7 +140,18 @@ function render() {
                         <button class="btn btn-accent" data-id="${goal.id}" data-action="drop">Drop</button>
                     </div>
                 </div>`;
-        }).join('');
+        });
+
+        // Render ACHIEVED goals separately as a static success message
+        achievedGoals.forEach(goal => {
+            goalsHtml += `
+                <div class="goal-item achieved">
+                    <p><strong>✅ ${goal.name}</strong> <span>Achieved!</span></p>
+                </div>`;
+        });
+
+        elements.goalsList.innerHTML = goalsHtml;
+    }
 }
 
 // --- EVENT HANDLER FUNCTIONS ---
@@ -153,18 +192,41 @@ function handleAddGoal(event) {
     elements.goalForm.reset();
 }
 
+// REPLACE your old handleManageGoal function with this one
+
 function handleManageGoal(event) {
     const action = event.target.dataset.action;
     if (!action) return;
 
-    const idToDelete = parseInt(event.target.dataset.id);
-    const goal = state.goals.find(g => g.id === idToDelete);
+    const goalId = parseInt(event.target.dataset.id);
+    const goalIndex = state.goals.findIndex(g => g.id === goalId);
+    if (goalIndex === -1) return; // Goal not found
 
-    if (action === 'achieve') alert(`Congratulations on achieving your goal: "${goal.name}"!`);
-    else if (action === 'drop') alert(`Goal removed: "${goal.name}".`);
+    const goal = state.goals[goalIndex];
 
-    state.goals = state.goals.filter(g => g.id !== idToDelete);
-    saveState(); render();
+    if (action === 'achieve') {
+        // 1. Create a transaction for the goal amount
+        state.transactions.push({
+            id: Date.now(),
+            description: `Goal Achieved: ${goal.name}`,
+            amount: goal.amount,
+            category: 'Goals' // A new, dedicated category
+        });
+
+        // 2. Mark the goal as achieved instead of deleting it
+        state.goals[goalIndex].achieved = true;
+        
+        alert(`Congratulations on achieving your goal: "${goal.name}"! This has been recorded as an expense.`);
+
+    } else if (action === 'drop') {
+        // The "drop" action still just removes the goal
+        state.goals.splice(goalIndex, 1);
+        alert(`Goal removed: "${goal.name}".`);
+    }
+
+    // 3. Save the new state and re-render the UI
+    saveState();
+    render();
 }
 
 function handleAddBonus() {
@@ -205,13 +267,13 @@ function handleShowWhatIf() {
     const currentExpenses = state.transactions.reduce((sum, t) => sum + t.amount, 0);
     const currentSavings = state.income - currentExpenses;
     const projectedSavings = state.income - (currentExpenses + expenseIncrease);
-    
+
     let resultsHtml = `<p><strong>Projection over ${duration} months:</strong></p><ul>`;
     resultsHtml += `<li>Current Monthly Savings: <strong>₹${currentSavings.toLocaleString()}</strong></li>`;
     resultsHtml += `<li>Projected Monthly Savings: <strong class="${projectedSavings < 0 ? 'error-message' : 'success-message'}">₹${projectedSavings.toLocaleString()}</strong></li>`;
     resultsHtml += `<li>Total Savings Impact Over Period: <strong class="error-message">-₹${((currentSavings - projectedSavings) * duration).toLocaleString()}</strong></li>`;
     resultsHtml += `</ul>`;
-    
+
     elements.modalResults.innerHTML = resultsHtml;
     elements.scenarioModal.classList.remove('hidden');
 }
@@ -238,10 +300,10 @@ async function handleGetAiTips() {
 async function initialize() {
     // 1. Fetch the official income from the server.
     state.income = await fetchUserIncome();
-    
+
     // 2. Load local data like transactions and goals.
     loadLocalCFOData();
-    
+
     // 3. Set up all the event listeners.
     elements.transactionForm.addEventListener('submit', handleAddTransaction);
     elements.transactionsList.addEventListener('click', handleDeleteTransaction);
@@ -251,10 +313,10 @@ async function initialize() {
     elements.increaseSalaryBtn.addEventListener('click', handleIncreaseSalary);
     elements.whatIfButton.addEventListener('click', handleShowWhatIf);
     elements.getAiTipsButton.addEventListener('click', handleGetAiTips);
-    
+
     elements.modalCloseBtn.addEventListener('click', () => elements.scenarioModal.classList.add('hidden'));
     elements.scenarioModal.addEventListener('click', (e) => {
-        if (e.target === elements.scenarioModal)  elements.scenarioModal.classList.add('hidden');
+        if (e.target === elements.scenarioModal) elements.scenarioModal.classList.add('hidden');
     });
 
     // 4. Render the page with all the correct data.
