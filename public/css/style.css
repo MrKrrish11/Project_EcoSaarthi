@@ -323,19 +323,6 @@ footer p {
 .btn-full-width {
     width: 100%;
 }
-.main-hero{
-    background: rgb(97, 84, 217);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    margin-top: 50px;
-
-}
-.btn-secondary-hero{
-    background-color: transparent;
-    background: rgba(10, 225, 236, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-}
 
 /* --- 6. PAGE-SPECIFIC STYLES & COMPONENTS --- */
 
@@ -346,7 +333,102 @@ footer p {
     overflow: hidden;
     text-align: center;
 }
+.career-compass-card {
+    /* Reusing your glassmorphism theme */
+    background: rgba(40, 25, 75, 0.4); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 
+    /* Layout and Sizing - This defines the card's original size */
+    max-width: 580px;
+    width: 90%;
+    margin: 5rem auto 0 auto;
+    padding: 2.5rem;
+    text-align: center;
+    
+    /* CRUCIAL for containing the background image */
+    position: relative; /* Establishes a positioning context for the ::before element */
+    overflow: hidden;  /* Clips the ::before element to the card's rounded corners */
+}
+
+/* This pseudo-element holds the background image */
+.career-compass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    /* --- IMPORTANT: Place your image path here --- */
+    background-image: url('images/career-background.png'); /* Make sure this path is correct */
+    object-fit: fill;
+    /* This makes the image fit WITHOUT stretching the card */
+    background-size: cover;
+    background-position: center;
+    
+    opacity: 0.15; /* Adjust for desired subtlety */
+    z-index: -1; /* Puts the image BEHIND the content */
+    transition: transform 0.4s ease;
+}
+
+.career-compass-card:hover::before {
+    transform: scale(1.05); /* Optional: subtle zoom on hover */
+    opacity: 0.2;
+}
+
+/* This container ensures the text and button are on top of the image */
+.career-compass-card .card-content {
+    position: relative;
+    z-index: 1;
+}
+
+.career-compass-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    color: #FFFFFF;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.career-compass-card p {
+    color: var(--subtle-text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.career-compass-card .main-hero {
+    background: rgb(97, 84, 217);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 30px;
+}
+
+.career-compass-card .main-hero:hover {
+    background: var(--secondary-color);
+    box-shadow: 0 6px 20px rgba(85, 239, 196, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .career-compass-card {
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+
+    .career-compass-card h3 {
+        font-size: 1.8rem;
+    }
+
+    .career-compass-card p {
+        font-size: 1rem;
+    }
+}
 .index-page .background-video {
     position: absolute;
     top: 50%;
@@ -1605,13 +1687,6 @@ footer p {
         grid-template-columns: 1fr; /* Stack columns on smaller screens */
     }
 }
-
-
-/* ========================================================== */
-/* ===  ADD-ON: PROFESSIONAL MODAL STYLING                 === */
-/* ========================================================== */
-
-/* --- 1. The Modal Overlay --- */
 .modal-container {
     position: fixed;
     top: 0;
