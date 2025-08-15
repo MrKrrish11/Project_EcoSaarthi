@@ -1,0 +1,13 @@
+# Ignore Node.js dependencies
+node_modules
+
+# Ignore environment variables file
+.env
+
+# (You can add other things to ignore here, like log files or system files)
+```By adding `.env` to this file, you are telling Git to pretend this file doesn't even exist. It will never be tracked or committed.
+
+**⚠️ Important Safety Check!**
+If you have *already* committed your `.env` file by accident, you must remove it from Git's history. Run this command:
+```bash
+git rm --cached .env
