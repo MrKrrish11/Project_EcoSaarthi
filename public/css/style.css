@@ -17,12 +17,15 @@
 }
 
 /* --- 2. BASE STYLES & IMMERSIVE BACKGROUND --- */
+html{
+    scroll-behavior: smooth;
+}
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--dark-bg);
     color: var(--light-text);
     margin: 0;
-    padding-top: 90px;
+    padding-top: 20px;
     overflow-x: hidden;
 }
 
@@ -320,6 +323,8 @@ footer p {
     background: rgb(97, 84, 217);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
+    margin-top: 50px;
+
 }
 .btn-secondary-hero{
     background-color: transparent;
@@ -363,15 +368,17 @@ footer p {
 
 .index-page .page-header-index h1 {
     font-size: 4rem;
-    margin-top: -30px;
+    margin-top: -120px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .index-page .page-header-index p{
     font-size: 21px;
     margin-left: auto;
     margin-right: auto;
 
-}
 
+}
 .index-page .features-grid {
     padding-top: 4rem;
     max-width: 1000px;
@@ -627,7 +634,7 @@ footer p {
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 70vh;
+    height: 60vh;
     max-height: 700px;
 }
 
@@ -1136,7 +1143,101 @@ footer p {
 .career-card{
     width: 600px;
 }
+/* --- 11. SHOWCASE FEATURES SECTION (NEW) --- */
 
+.showcase-features {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem; /* Increased gap between feature rows for better visual separation */
+}
+
+.feature-row {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    opacity: 0; /* Initially hidden for scroll animation */
+    transform: translateY(50px); /* Initially moved down */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* The state when the element becomes visible */
+.feature-row.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Flips the order for alternating layout */
+.feature-row.layout-right {
+    flex-direction: row-reverse;
+}
+
+.feature-image {
+    flex: 1;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+.feature-image img {
+    width: 60%;
+    height: auto;
+    border-radius: 15px;
+    display: block;
+}
+
+.feature-content {
+    flex: 1;
+}
+
+.feature-content h3 {
+    font-size: 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+.feature-content p {
+    font-size: 1.1rem;
+    color: var(--subtle-text);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.btn-feature {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Glow on hover effect */
+.btn-feature:hover {
+    transform: translateY(-4px);
+    background: var(--secondary-color);
+    box-shadow: 0 8px 25px rgba(85, 239, 196, 0.4), 0 0 15px rgba(117, 45, 199, 0.6);
+}
+
+
+/* --- 12. RESPONSIVENESS FOR SHOWCASE FEATURES --- */
+@media (max-width: 992px) {
+    .feature-row,
+    .feature-row.layout-right {
+        flex-direction: column; /* Stack image and text on top of each other */
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .feature-content h3 {
+        font-size: 2rem;
+    }
+}
 /* ========================================================== */
 /* ===  ADD-ON: CAREER COMPASS PROFESSIONAL UI STYLES      === */
 /* ========================================================== */

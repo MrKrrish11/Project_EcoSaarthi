@@ -9,5 +9,15 @@
     "currentRole": "student",
     "monthlyIncome": "2000",
     "photoUrl": "/uploads/user-1755119126024-1755119149952.jpeg"
+  },
+  {
+    "id": "1755250005360",
+    "firstName": "divya",
+    "lastName": "pandey",
+    "email": "divya.pandey1512@gmail.com",
+    "phone": "09431502770",
+    "hashedPassword": "$2b$10$6FaB3/sU9yDm1A3/Fso4YuukjSWbD35dVHxLuAtD3R5BKDzEABtny",
+    "currentRole": "student",
+    "monthlyIncome": "50000"
   }
 ]
