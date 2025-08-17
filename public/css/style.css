@@ -1820,3 +1820,45 @@ footer p {
     font-size: 1.2rem;
     color: #fff;
 }
+
+
+/* --- LAYOUT FIX: Force Currency and AI Cards to Full Width --- */
+.economy-radar-page .container .currency-container-card,
+.economy-radar-page .container .ai-economist-card {
+    /* If the parent is a grid, this makes the item span all columns */
+    grid-column: 1 / -1; 
+    
+    /* Ensures the card takes up the full available width */
+    width: 100%; 
+    box-sizing: border-box; /* Prevents padding issues */
+}
+
+
+/* --- LAYOUT FIX: Reposition Calculator Card Content --- */
+.bottom-cards-layout .card {
+    /* Change the card's display mode to flex for better control */
+    display: flex;
+    flex-direction: column; /* Stack children (title and form) vertically */
+}
+
+.bottom-cards-layout .card form {
+    /* Make the form a flex container as well */
+    display: flex;
+    flex-direction: column;
+    /* This is the key: make the form fill the remaining vertical space in the card */
+    flex-grow: 1; 
+}
+
+.bottom-cards-layout .card form button[type="submit"] {
+    /* This pushes the button to the bottom of the form */
+    margin-top: auto; 
+}
+
+
+
+
+
+
+
+
+

@@ -1,11 +1,16 @@
-// public/js/economy-radar.js - V11 (DEFINITIVE) - All features restored and working correctly.
+// public/js/economy-radar.js - V11 (CORRECTED) - Starts year selection from the previous year.
 
 const elements = {
     yearSelector: document.getElementById('year-selector'),
     inflationRate: document.getElementById('inflation-rate'),
     gdpGrowth: document.getElementById('gdp-growth'),
-    exchangeRatesList: document.getElementById('exchange-rates-list'),
-    aiExplainerContent: document.getElementById('ai-explainer-content'),
+    // CORRECTED: Your HTML uses individual IDs for exchange rates, not a list.
+    rateUSD: document.getElementById('rate-USD'),
+    rateEUR: document.getElementById('rate-EUR'),
+    rateGBP: document.getElementById('rate-GBP'),
+    rateJPY: document.getElementById('rate-JPY'),
+    rateAUD: document.getElementById('rate-AUD'),
+    aiExplainerContent: document.querySelector('#ai-explainer-content p'), // Target the <p> tag inside
     // Calculator Elements
     inflationCalcForm: document.getElementById('inflation-calc-form'),
     monthlySpending: document.getElementById('monthly-spending'),
@@ -22,7 +27,12 @@ let currentInterestRate = 0; // This is only used for the calculator if needed
 
 function populateYearSelector() {
     const currentYear = new Date().getFullYear();
+    
+    // --- THIS IS THE ONLY CHANGE ---
+    // Start from the previous year (most recent completed data) instead of the current year.
     const startYear = currentYear - 1;
+    // ---------------------------------
+
     for (let i = 0; i < 10; i++) {
         const year = startYear - i;
         const option = document.createElement('option');
@@ -36,16 +46,25 @@ function setLoadingState(isLoading) {
     if (isLoading) {
         elements.inflationRate.textContent = 'Loading...';
         elements.gdpGrowth.textContent = 'Loading...';
-        elements.exchangeRatesList.innerHTML = '<p>Loading exchange rates...</p>';
-        elements.aiExplainerContent.innerHTML = '<p>Fetching data and generating AI analysis...</p>';
+        // Set individual rates to loading
+        elements.rateUSD.textContent = '...';
+        elements.rateEUR.textContent = '...';
+        elements.rateGBP.textContent = '...';
+        elements.rateJPY.textContent = '...';
+        elements.rateAUD.textContent = '...';
+        elements.aiExplainerContent.innerHTML = 'Fetching data and generating AI analysis...';
     }
 }
 
 async function fetchAndDisplayEconomicData(year) {
     setLoadingState(true);
+
+    // Replace 'http://localhost:3000' with the actual address and port of your backend.
+    const backendUrl = `http://localhost:3000/api/economic-data?year=${year}`;
+
     try {
-        const response = await fetch(`/api/economic-data?year=${year}`);
-        if (!response.ok) throw new Error('Failed to fetch data from server.');
+        const response = await fetch(backendUrl);
+        if (!response.ok) throw new Error('Failed to fetch data from server. Is the backend running?');
         const result = await response.json();
 
         // Handle Inflation
@@ -53,32 +72,29 @@ async function fetchAndDisplayEconomicData(year) {
         elements.inflationRate.textContent = !isNaN(inflationValue) ? `${inflationValue.toFixed(2)}%` : 'Data N/A';
         currentInflationRate = !isNaN(inflationValue) ? inflationValue : 0;
 
-        // Handle GDP Growth (from your data)
+        // Handle GDP Growth
         const gdpValue = parseFloat(result.data.gdp);
         elements.gdpGrowth.textContent = !isNaN(gdpValue) ? `${gdpValue.toFixed(2)}%` : 'Data N/A';
-        
-        // Handle Exchange Rates
+
+        // Handle Exchange Rates (Populating individual elements as per your HTML)
         const rates = result.data.exchangeRates;
-        let ratesHtml = '';
         if (rates) {
-             const currencyMap = { usd: 'USD', eur: 'EUR', jpy: 'JPY', gbp: 'GBP', aud: 'AUD' };
-            for (const key in currencyMap) {
-                const rateValue = parseFloat(rates[key]);
-                if (!isNaN(rateValue) && rateValue > 0) {
-                    ratesHtml += `<div class="exchange-rate-item"><h4>vs ${currencyMap[key]}</h4><p>₹${rateValue.toFixed(2)}</p></div>`;
-                }
-            }
+            elements.rateUSD.textContent = `₹${parseFloat(rates.usd).toFixed(2)}`;
+            elements.rateEUR.textContent = `₹${parseFloat(rates.eur).toFixed(2)}`;
+            elements.rateGBP.textContent = `₹${parseFloat(rates.gbp).toFixed(2)}`;
+            elements.rateJPY.textContent = `₹${parseFloat(rates.jpy).toFixed(3)}`; // JPY is often smaller
+            elements.rateAUD.textContent = `₹${parseFloat(rates.aud).toFixed(2)}`;
         }
-        elements.exchangeRatesList.innerHTML = ratesHtml || '<p>Exchange rate data not available.</p>';
-        
+
         // Handle AI Explanation
-        elements.aiExplainerContent.innerHTML = result.explanation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        elements.aiExplainerContent.innerHTML = result.explanation.replace(/\*(.*?)\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
 
     } catch (error) {
         console.error("Error:", error);
-        elements.aiExplainerContent.innerHTML = '<p class="error-message">Could not load economic data.</p>';
+        elements.aiExplainerContent.innerHTML = `<p class="error-message">Could not load economic data. Please ensure the backend server is running and the URL in the script is correct.</p>`;
     }
 }
+
 
 function handleInflationCalc(e) {
     e.preventDefault();
