@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Loan Trap Game | EcoSaarthi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/3d.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="game-page">
+    <header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">
+                <img src="images/FINAL LOGO.png" class="logo-image">
+                <span class="nav-logo-text">EcoSaarthi</span>
+            </a>
+            <div class="nav-actions">
+                <a href="genz-moneyverse.html" class="btn btn-secondary">Back to Moneyverse</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="game-container">
+        <div id="game-canvas"></div>
+        <div id="coin-display" class="score-display">Coins: 0</div>
+        <button id="open-market-button" class="btn btn-primary market-button">Marketplace</button>
+        <div class="game-overlay" id="start-overlay">
+            <h1>The Loan Trap Game</h1>
+            <p>Use arrow keys to move, jump, and slide. Collect coins to unlock new styles!</p>
+            <button id="start-button" class="btn btn-primary">Start Game</button>
+        </div>
+
+        <!-- UPDATED: Game Over Screen now has two buttons -->
+        <div class="game-overlay" id="game-over-screen" style="display: none;">
+            <h1>Game Over</h1>
+            <p>You hit an obstacle!</p>
+            <div class="game-over-actions">
+                <button id="restart-button" class="btn btn-accent">Play Again</button>
+                <button id="market-from-gameover-button" class="btn btn-primary">Marketplace</button>
+            </div>
+        </div>
+
+        <!-- Marketplace Overlay (Unchanged) -->
+        <div class="game-overlay" id="marketplace-screen" style="display: none;">
+            <div class="market-container">
+                <div class="market-header">
+                    <h1>Marketplace</h1>
+                    <div id="market-coin-display" class="market-coins">Your Coins: 0</div>
+                </div>
+                <div id="items-container" class="items-grid"></div>
+                <button id="close-market-button" class="btn btn-secondary close-button">Close</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+    <script src="js/3d.js"></script>
+</body>
+</html>
