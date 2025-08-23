@@ -1,0 +1,134 @@
+.features-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    scroll-margin-top: 90px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding-top: 0;
+    /* Removed padding-top from here */
+}
+
+.feature-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--light-text);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    color: #55efc4;
+    height: 60px;
+    /* Increased size for better visibility */
+    width: 60px;
+    margin-bottom: 1.5rem;
+
+}
+
+/* 9. FOOTER STYLING */
+.feature-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* 1007 */
+.feature-point {
+    margin-bottom: 1.5rem;
+}
+
+.feature-point h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--light-text);
+}
+
+.feature-point p {
+    color: var(--subtle-text);
+    line-height: 1.6;
+}
+
+/* 443 */
+/* Index Page (Homepage) */
+.index-page .video-section {
+    padding: 10rem 2rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.index-page .background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -2;
+}
+
+.index-page .video-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(26, 16, 47, 0.5);
+    z-index: -1;
+}
+
+.index-page .page-header-index {
+    position: relative;
+    z-index: 1;
+}
+
+.index-page .page-header-index h1 {
+    font-size: 4rem;
+    margin-top: -120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.index-page .page-header-index p {
+    font-size: 21px;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+
+.index-page .features-grid {
+    padding-top: 4rem;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.index-page .feature-card {
+    text-align: center;
+    text-decoration: none;
+}
+
+.index-page .feature-icon {
+    height: 60px;
+    width: 60px;
+    margin-bottom: 1rem;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(41%) saturate(3894%) hue-rotate(142deg) brightness(97%) contrast(92%);
+}

@@ -64,76 +64,87 @@
             </div>
         </div>
 
-        <!-- Consolidated Invoice Generator & Preview Card -->
-        <div class="grid-container two-column-layout"> <!-- The grid wrappers remain -->
-            <div class="card">
+        <div class="content-wrapper">
+            <!-- Consolidated Invoice Generator -->
+             <div class="card invoice-generator-card">
                 <h3>Invoice Generator</h3>
                 <form id="invoice-form">
-                    <input type="text" id="client-name" placeholder="Client Name" required class="form-group">
-                    <textarea id="line-items"
-                        placeholder="Enter items: Description, Quantity, Price (e.g., Web Design, 1, 15000)" required
-                        class="form-group" rows="4"></textarea>
-                    <input type="number" id="gst-rate" placeholder="GST/VAT Rate (%)" value="18" class="form-group">
+                    <!-- UPDATED: Wrapped input in a div for the custom tooltip -->
+                    <div class="tooltip-container" data-tooltip="Enter the name of client.">
+                         <input type="text" id="client-name" placeholder="Client Name" required class="form-group">
+                    </div>
+                   
+                    <!-- UPDATED: Wrapped textarea in a div for the custom tooltip -->
+                    <div class="tooltip-container" data-tooltip="Enter each item on a new line, separated by commas: Description, Quantity, Price.">
+                        <textarea id="line-items" placeholder="Enter items: Description, Quantity, Price..." required="" class="form-group" rows="1" ></textarea>
+                    </div>
+
+                    <!-- UPDATED: Wrapped input in a div for the custom tooltip -->
+                    <div class="tooltip-container" data-tooltip="Enter the applicable GST rate.">
+                        <input type="number" id="gst-rate" placeholder="GST/VAT Rate (%)" value="18" class="form-group">
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Generate & Add to Ledger</button>
                 </form>
 
-                <!-- MOVED & MODIFIED INVOICE PREVIEW SECTION -->
                 <div id="invoice-preview-wrapper" class="hidden">
                     <div id="invoice-preview" class="invoice-preview-container">
                         <!-- Preview content will be injected here by JS -->
                     </div>
                     <button id="print-invoice-btn" class="btn btn-accent">Print / Download PDF</button>
                 </div>
-                <!-- END OF MOVED SECTION -->
-            </div>
-        </div>
+       
 
-        <!-- Ledger & Expenses -->
-        <div class="grid-container two-column-layout">
-            <div class="card">
-                <h3>Real-Time Ledger</h3>
-                <div id="ledger-table-container"></div>
-            </div>
-            <div class="card">
-                <h3>Expense Tracker</h3>
-                <form id="expense-form">
-                    <input type="text" id="expense-desc" placeholder="Expense Description (e.g., Software)" required
-                        class="form-group">
-                    <input type="number" id="expense-amount" placeholder="Amount (₹)" required class="form-group">
-                    <button type="submit" class="btn btn-primary">Add Expense</button>
-                </form>
-                <div id="expense-list-container"></div>
-            </div>
-        </div>
-
-        <!-- Tax Calculator and AI Deductions -->
-        <div class="grid-container two-column-layout">
-            <div class="card">
-                <h3>Auto Tax Calculator (India)</h3>
-                <form id="tax-calculator-form">
-                    <div class="form-group">
-                        <label>Taxable Income (Collected - Expenses)</label>
-                        <input type="number" id="tax-income" readonly>
+           <div id="secondary-content" class="hidden">
+                <!-- Ledger & Expenses -->
+                <div class="grid-container two-column-layout">
+                    <div class="card">
+                        <h3>Real-Time Ledger</h3>
+                        <div id="ledger-table-container"></div>
                     </div>
-                    <div class="form-group">
-                        <label>Your Manual Deductions (e.g., 80C)</label>
-                        <input type="number" id="tax-deductions" placeholder="e.g., 150000" value="0">
+                    <div class="card">
+                        <h3>Expense Tracker</h3>
+                        <form id="expense-form">
+                            <input type="text" id="expense-desc" placeholder="Expense Description (e.g., Software)" required
+                                class="form-group">
+                            <input type="number" id="expense-amount" placeholder="Amount (₹)" required class="form-group">
+                            <button type="submit" class="btn btn-primary">Add Expense</button>
+                        </form>
+                        <div id="expense-list-container"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Calculate Tax</button>
-                    <div id="tax-result" class="tax-result-container"></div>
-                </form>
-            </div>
-            <div class="card">
-                <h3>AI Deduction Maximizer</h3>
-                <p>Find deductions you might be missing!</p>
-                <div class="form-group">
-                    <label for="profession">Enter Your Profession</label>
-                    <input type="text" id="profession" placeholder="e.g., Graphic Designer" required>
                 </div>
-                <button id="get-ai-deductions-btn" class="btn btn-accent">Get AI Suggestions</button>
-                <div id="ai-deductions-content" class="ai-tips-container"></div>
+
+                <!-- Tax Calculator and AI Deductions -->
+                <div class="grid-container two-column-layout">
+                    <div class="card">
+                        <h3>Auto Tax Calculator (India)</h3>
+                        <form id="tax-calculator-form">
+                            <div class="form-group">
+                                <label>Taxable Income (Collected - Expenses)</label>
+                                <input type="number" id="tax-income" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Your Manual Deductions (e.g., 80C)</label>
+                                <input type="number" id="tax-deductions" placeholder="e.g., 150000" value="0">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Calculate Tax</button>
+                            <div id="tax-result" class="tax-result-container"></div>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h3>AI Deduction Maximizer</h3>
+                        <p>Find deductions you might be missing!</p>
+                        <div class="form-group">
+                            <label for="profession">Enter Your Profession</label>
+                            <input type="text" id="profession" placeholder="e.g., Graphic Designer" required>
+                        </div>
+                        <button id="get-ai-deductions-btn" class="btn btn-accent">Get AI Suggestions</button>
+                        <div id="ai-deductions-content" class="ai-tips-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
+
 
     </main>
 
