@@ -49,7 +49,6 @@
         </div>
 
         <!-- Summary Cards -->
-        <!-- Summary Cards -->
         <div class="grid-container summary-cards">
             <div class="card summary-card-income">
                 <h3>Your Monthly Income</h3>
@@ -68,7 +67,7 @@
 
         <!-- NEW Main Two-Column Layout -->
         <div class="cfo-layout">
-            <!-- Left Column: Add Transaction -->
+            <!-- Left Column: Add Transaction AND Recent Transactions -->
             <div class="cfo-left-column">
                 <div class="card">
                     <h3>Add Transaction</h3>
@@ -95,6 +94,14 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-full-width">Add Expense</button>
                     </form>
+                </div>
+
+                <!-- RECENT TRANSACTIONS SECTION IS NOW HERE -->
+                <div class="card hidden" id="recent-transactions-container">
+                    <h3>Recent Transactions</h3>
+                    <div id="transactions-list">
+                        <p>Your transactions will appear here.</p>
+                    </div>
                 </div>
             </div>
 
@@ -159,13 +166,8 @@
             </div>
         </div>
 
-        <!-- NEW Full-Width Recent Transactions Section -->
-        <div class="card hidden" id="recent-transactions-container">
-            <h3>Recent Transactions</h3>
-            <div id="transactions-list">
-                <p>Your transactions will appear here.</p>
-            </div>
-        </div>
+        <!-- THE RECENT TRANSACTIONS SECTION HAS BEEN MOVED FROM HERE -->
+
     </main>
 
     
