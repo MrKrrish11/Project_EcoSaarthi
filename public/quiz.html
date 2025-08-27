@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- ... head section remains the same ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenZ Moneyverse | EcoSaerthi</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Financial Quiz | EcoSaarthi</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Your main style.css -->
+    <link rel="stylesheet" href="css/quiz.css"> <!-- New quiz-specific styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
-
-<body class="genz-moneyverse-page">
+<body class="quiz-page">
     <div class="aurora-background">
         <div class="aurora-shape shape1"></div>
         <div class="aurora-shape shape2"></div>
@@ -34,50 +30,48 @@
                 <li class="nav-item"><a href="economy-radar.html">Economy</a></li>
                 <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
                 <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login
-                        <img src="images/user.png" alt="user icon">
-                    </a></li>
+                    <img src="images/user.png" alt="user icon">
+                </a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container">
+    <main class="container quiz-container">
         <div class="page-header">
-            <h1 class="gradient-text-main">Welcome to the GenZ Moneyverse </h1>
-            <p>Learn finance the fun way. No boring lectures, promise.</p>
+            <h1 class="gradient-text-main">Financial Literacy Quiz</h1>
+            <p>Test your knowledge across different difficulty levels!</p>
         </div>
 
-        <div class="grid-container">
-            <div class="card">
-                <h3>Financial Adventure Game</h3>
-                <p>You just got your first salary. Do you invest it, save it, or buy the latest sneakers? Make choices
-                    and see how your financial life unfolds over 10 years.</p>
-                <!-- MODIFICATION: Changed button to a link to the game page -->
-                <a href="financial-adventure-game.html" class="btn btn-primary">Play Now</a>
+        <div id="difficulty-selection" class="quiz-section">
+            <h2>Choose Your Challenge!</h2>
+            <div class="difficulty-buttons">
+                <button class="btn btn-primary" data-difficulty="easy">Easy</button>
+                <button class="btn btn-secondary" data-difficulty="medium">Medium</button>
+                <button class="btn btn-accent" data-difficulty="hard">Hard</button>
             </div>
-            <div class="card">
-                <h3>Financial Quiz Game</h3> <!-- Changed title to reflect the quiz -->
-                <p>Test your financial knowledge! Choose a difficulty and answer 10 questions to see how well you score.
-                </p>
-                <!-- MODIFIED: This now links to your new quiz page -->
-                <a href="quiz.html" class="btn btn-primary">Play Quiz</a>
+        </div>
+
+        <div id="quiz-game" class="quiz-section hidden">
+            <div class="quiz-header">
+                <h3 id="current-difficulty"></h3>
+                <p>Question <span id="question-number">1</span> of 10</p>
             </div>
-            <div class="card">
-                <h3>Meme-Style Explainers</h3>
-                <p>What is "compound interest"? We'll explain it using the Drake meme. Finally understand what APR,
-                    ETFs, and SIPs are. No cap.</p>
-                <!-- === MODIFICATION HERE === -->
-                <!-- Changed the button to a link styled as a button -->
-                <a href="memes.html" class="btn btn-primary"> Memes</a>
+            <h2 id="question-text">Question goes here?</h2>
+            <div id="options-container" class="options-grid">
+                <!-- Options will be dynamically loaded here -->
             </div>
-            <div class="card">
-                <h3>The Loan Trap Game</h3>
-                <p>Your friend suggests a "get cash now" app. Is it a good idea? Navigate the world of payday loans and
-                    debt spirals in this safe, exploratory game.</p>
-                <a href="the-loan-trap-game.html" class="btn btn-primary">Avoid Traps</a>
-            </div>
+            <button id="next-question-btn" class="btn btn-primary hidden">Next Question</button>
+            <p id="feedback" class="feedback-message"></p>
+        </div>
+
+        <div id="quiz-results" class="quiz-section hidden">
+            <h2>Quiz Complete!</h2>
+            <p class="result-score">You scored <span id="final-score">0</span> out of <span id="total-questions">10</span>!</p>
+            <div id="score-message"></div>
+            <button id="restart-quiz-btn" class="btn btn-primary">Play Again</button>
+            <a href="genz-moneyverse.html" class="btn btn-secondary">Back to Moneyverse</a>
         </div>
     </main>
-
 
     <footer class="site-footer">
         <div class="footer-content">
@@ -90,22 +84,18 @@
             <div class="team-cards">
                 <div class="team-card">
                     <h5>Krrish Barsiwal</h5>
-
                     <p><a href="mailto:krrishbarsiwal777@gmail.com">krrishbarsiwal777@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Divya Pandey</h5>
-
                     <p><a href="mailto:divya.pandey1512@gmail.com">divya.pandey1512@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Mayank Rawat</h5>
-
                     <p><a href="mailto:mynk050207@gmail.com">mynk050207@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Manya Chauhan</h5>
-
                     <p><a href="mailto:manya6chauhan@gmail.com">manya6chauhan@gmail.com</a></p>
                 </div>
             </div>
@@ -115,8 +105,7 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
-    <script src="js/mobile-menu.js"></script>
+    <script src="js/script.js"></script> <!-- Your existing script.js -->
+    <script src="js/quiz.js"></script>   <!-- New quiz logic -->
 </body>
-
 </html>

@@ -1,0 +1,167 @@
+/* css/quiz.css */
+
+.quiz-page main.container {
+    max-width: 900px;
+    padding: 40px 20px;
+}
+
+.quiz-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    text-align: center;
+}
+
+.quiz-section.hidden {
+    display: none;
+}
+
+#difficulty-selection h2 {
+    color: var(--color-light); /* Assuming you have light color variable */
+    margin-bottom: 25px;
+    font-size: 2.2em;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.difficulty-buttons .btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    min-width: 150px;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.quiz-header h3 {
+    font-size: 1.5em;
+    color: var(--color-accent); /* Assuming accent color variable */
+}
+
+#question-text {
+    font-size: 1.8em;
+    color: var(--color-light);
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for options */
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.option-button {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-light);
+    padding: 18px 25px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.option-button:hover:not(.disabled):not(.correct):not(.incorrect) {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+.option-button.selected {
+    border-color: var(--color-primary); /* Highlight selected option */
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.option-button.correct {
+    background-color: var(--color-success); /* Assuming success green */
+    border-color: var(--color-success);
+    color: white;
+}
+
+.option-button.incorrect {
+    background-color: var(--color-danger); /* Assuming danger red */
+    border-color: var(--color-danger);
+    color: white;
+}
+
+.option-button.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#next-question-btn {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    margin-top: 20px;
+}
+
+.feedback-message {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.feedback-message.correct {
+    color: var(--color-success);
+}
+
+.feedback-message.incorrect {
+    color: var(--color-danger);
+}
+
+#quiz-results h2 {
+    color: var(--color-light);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.result-score {
+    font-size: 1.8em;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+}
+
+#score-message {
+    font-size: 1.2em;
+    color: var(--color-text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+#quiz-results .btn {
+    margin: 0 10px;
+    min-width: 180px;
+}
+
+
+/* Responsive adjustments for options */
+@media (max-width: 768px) {
+    .options-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+    .difficulty-buttons {
+        flex-direction: column;
+    }
+    .difficulty-buttons .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
