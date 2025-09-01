@@ -34,7 +34,7 @@
             position: absolute;
             top: 70px;
             right: 20px;
-            z-index: -1;
+            z-index: 10;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -56,10 +56,48 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .calc-result-container {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--glow-green);
+            border-radius: 4px;
+            animation: fadeIn 0.5s ease;
+            text-align: left;
+        }
+
+        .calc-result-container p {
+            margin: 0 0 0.75rem 0;
+            line-height: 1.6;
+            color: var(--subtle-text);
+            font-size: 0.9rem;
+        }
+
+        .calc-result-container p:last-child {
+            margin-bottom: 0;
+        }
+
+        .calc-result-container .result-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-top: 0.25rem;
+        }
+
+        .calc-result-container .result-value.highlight {
+            color: var(--glow-green);
+        }
+
+        .calc-result-container .result-value.warning {
+            color: var(--glow-red);
         }
 
         .card {
@@ -72,20 +110,52 @@
             transform: translateY(-6px);
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
         }
-        
+
         /* --- Animation Delay Sequencing --- */
-        .top-cards-layout .card:nth-child(1) { animation-delay: 0.0s; }
-        .top-cards-layout .card:nth-child(2) { animation-delay: 0.1s; }
-        .currency-container-card { animation-delay: 0.2s; }
-        .currency-container-card .currency-card:nth-child(1) { animation-delay: 0.3s; }
-        .currency-container-card .currency-card:nth-child(2) { animation-delay: 0.4s; }
-        .currency-container-card .currency-card:nth-child(3) { animation-delay: 0.5s; }
-        .currency-container-card .currency-card:nth-child(4) { animation-delay: 0.6s; }
-        .currency-container-card .currency-card:nth-child(5) { animation-delay: 0.7s; }
-        .ai-economist-card { animation-delay: 0.8s; }
+        .top-cards-layout .card:nth-child(1) {
+            animation-delay: 0.0s;
+        }
+
+        .top-cards-layout .card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .currency-container-card {
+            animation-delay: 0.2s;
+        }
+
+        .currency-container-card .currency-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .currency-container-card .currency-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .currency-container-card .currency-card:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        .currency-container-card .currency-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .currency-container-card .currency-card:nth-child(5) {
+            animation-delay: 0.7s;
+        }
+
+        .ai-economist-card {
+            animation-delay: 0.8s;
+        }
+
         /* CORRECTED: Selector updated for bottom cards */
-        .bottom-cards-layout .card:nth-child(1) { animation-delay: 0.9s; }
-        .bottom-cards-layout .card:nth-child(2) { animation-delay: 1.0s; }
+        .bottom-cards-layout .card:nth-child(1) {
+            animation-delay: 0.9s;
+        }
+
+        .bottom-cards-layout .card:nth-child(2) {
+            animation-delay: 1.0s;
+        }
 
         /* --- SECTION-SPECIFIC LAYOUT STYLES --- */
 
@@ -96,23 +166,26 @@
             gap: 2.5rem;
             margin-bottom: 2rem;
         }
+
         .top-cards-layout .card {
             margin-bottom: 0;
         }
-        
+
         /* NEW: Layout for the bottom two calculator cards */
         .bottom-cards-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.5rem;
         }
+
         .bottom-cards-layout .card {
             margin-bottom: 0;
         }
 
         .currency-container-card {
-             padding-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
         }
+
         .five-column-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -120,16 +193,19 @@
             margin-top: 1.5rem;
             padding: 0 1rem;
         }
+
         .currency-card {
             text-align: center;
             padding: 1rem 0.5rem;
         }
+
         .currency-card h4 {
             font-size: 1rem;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 0.5rem;
         }
+
         .currency-card h2 {
             font-size: 1.6rem;
             color: #fff;
@@ -144,10 +220,12 @@
             justify-content: space-between;
             align-items: center;
         }
+
         #ai-explainer-content {
             display: none;
             margin-top: 1.5rem;
         }
+
         .toggle-arrow {
             border: solid white;
             border-width: 0 2.5px 2.5px 0;
@@ -156,6 +234,7 @@
             transform: rotate(45deg);
             transition: transform 0.3s ease-in-out;
         }
+
         #ai-economist-toggle[aria-expanded="true"] .toggle-arrow {
             transform: rotate(-135deg);
         }
@@ -191,9 +270,9 @@
                 <li class="nav-item"><a href="opportunity-engine.html">Schemes</a></li>
                 <li class="nav-item" id="dashboard-nav-item"><a href="dashboard.html">Dashboard</a></li>
                 <li class="nav-item" id="login-nav-item"><a href="login.html" class="btn btn-primary">Login
-                    <img src="images/user.png" alt="user icon">
-                </a></li>
-                
+                        <img src="images/user.png" alt="user icon">
+                    </a></li>
+
             </ul>
         </nav>
     </header>
@@ -206,7 +285,7 @@
 
     <main class="container">
         <div class="page-header">
-            <h1  class="gradient-text-main">Economy Radar</h1>
+            <h1 class="gradient-text-main">Economy Radar</h1>
             <p>Understand how the big picture affects your personal finances. Data sourced from government and central
                 bank APIs.</p>
         </div>
@@ -273,7 +352,7 @@
                         <input type="number" id="monthly-spending" placeholder="e.g., 15000" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Calculate Impact</button>
-                    <div id="inflation-result" class="tax-result-container"></div>
+                    <div id="inflation-result" class="calc-result-container" style="display: none;"></div>
                 </form>
             </div>
             <div class="card">
@@ -292,7 +371,8 @@
                         <input type="number" id="loan-interest-rate" step="0.01" placeholder="e.g., 8.5" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Calculate EMI Scenarios</button>
-                    <div id="loan-result" class="tax-result-container"></div>
+
+                    <div id="loan-result" class="calc-result-container" style="display: none;"></div>
                 </form>
             </div>
         </div>
@@ -308,22 +388,22 @@
             <div class="team-cards">
                 <div class="team-card">
                     <h5>Krrish Barsiwal</h5>
-                    
+
                     <p><a href="mailto:krrishbarsiwal777@gmail.com">krrishbarsiwal777@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Divya Pandey</h5>
-                    
+
                     <p><a href="mailto:divya.pandey1512@gmail.com">divya.pandey1512@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Mayank Rawat</h5>
-                    
+
                     <p><a href="mailto:mynk050207@gmail.com">mynk050207@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Manya Chauhan</h5>
-                    
+
                     <p><a href="mailto:manya6chauhan@gmail.com">manya6chauhan@gmail.com</a></p>
                 </div>
             </div>

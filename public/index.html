@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,63 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="index-page">
     <div class="aurora-background">
         <div class="aurora-shape shape1"></div>
         <div class="aurora-shape shape2"></div>
     </div>
-   
-<header>
+
+    <header>
         <nav class="navbar">
             <a href="/" class="nav-logo">
-                <img src="images/FINAL LOGO.png"  class="logo-image">
+                <img src="images/FINAL LOGO.png" class="logo-image">
                 <span class="nav-logo-text gradient-text">EcoSaarthi</span>
             </a>
             <div class="new-nav-actions">
-                <a href="#features" class="btn btn-accent">Our Features</a>
+                <div class="nav-dropdown-container">
+                    <button id="features-dropdown-btn" class="btn btn-accent" style="font-weight: 900; font-size: medium;">Features</button>
+                    <div class="dropdown-menu">
+                        <a href="pocket-cfo.html" class="dropdown-item">
+                            <strong>Pocket CFO</strong>
+                            <span>Smart Budgeting</span>
+                        </a>
+                        <a href="tax-buddy.html" class="dropdown-item">
+                            <strong>Tax Buddy</strong>
+                            <span>Simplified Taxes</span>
+                        </a>
+                        <a href="genz-moneyverse.html" class="dropdown-item">
+                            <strong>GenZ Moneyverse</strong>
+                            <span>Financial Learning</span>
+                        </a>
+                        <a href="future-wealth.html" class="dropdown-item">
+                            <strong>Future Wealth</strong>
+                            <span>Investment Tools</span>
+                        </a>
+                        <a href="economy-radar.html" class="dropdown-item">
+                            <strong>Economy Radar</strong>
+                            <span>Market Insights</span>
+                        </a>
+                        <a href="opportunity-engine.html" class="dropdown-item">
+                            <strong>Opportunity Engine</strong>
+                            <span>Find Schemes</span>
+                        </a>
+                        <a href="career-compass.html" class="dropdown-item">
+                            <strong>Career Compass</strong>
+                            <span>Professional Growth</span>
+                        </a>
+                    </div>
+                </div>
                 <a href="community.html" class="btn btn-secondary">Community</a>
                 <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
                 <a href="login.html" class="btn btn-primary">Login
                     <img src="images/user.png" alt="user icon">
                 </a>
-                
+
             </div>
         </nav>
     </header>
@@ -36,12 +72,13 @@
 
     <section class="video-section">
         <video autoplay loop muted playsinline class="background-video">
-            <source src="videos/background vdo.mp4" type="video/mp4"> 
+            <source src="videos/background vdo.mp4" type="video/mp4">
         </video>
 
         <div class="page-header-index">
-            <h1  class="gradient-text-main">Your Financial Operating System</h1>
-            <p>EcoSaarthi integrates every aspect of your financial life, from earning and budgeting to investing and compliance. Take control today.</p>
+            <h1 class="gradient-text-main">Your Financial Operating System</h1>
+            <p>EcoSaarthi integrates every aspect of your financial life, from earning and budgeting to investing and
+                compliance. Take control today.</p>
         </div>
         <div class="career-compass-card">
             <div class="card-content">
@@ -58,10 +95,10 @@
         <h2>A Complete Toolkit for the Modern Achiever</h2>
         <p>Beyond the basics, EcoSaarthi offers a suite of tools to manage and grow your financial future.</p>
     </section>
-     
-    
-        <!-- NEW: Showcase Features Section -->
-    <section id="features"class="showcase-features section">
+
+
+    <!-- NEW: Showcase Features Section -->
+    <section id="features" class="showcase-features section">
 
         <!-- Feature 1: Budget -->
         <div class="feature-row">
@@ -70,7 +107,8 @@
             </div>
             <div class="feature-content">
                 <h3>Smart Budgeting, Simplified</h3>
-                <p>Take control of your spending with our intelligent Pocket CFO. Track expenses, set goals, and receive AI-powered insights to optimize your cash flow effortlessly.</p>
+                <p>Take control of your spending with our intelligent Pocket CFO. Track expenses, set goals, and receive
+                    AI-powered insights to optimize your cash flow effortlessly.</p>
                 <a href="pocket-cfo.html" class="btn btn-feature">Manage Your Budget</a>
             </div>
         </div>
@@ -82,7 +120,8 @@
             </div>
             <div class="feature-content">
                 <h3>Taxes, Without the Turmoil</h3>
-                <p>Our Tax Buddy demystifies tax season. From tracking deductions to planning for filings, we provide the tools to maximize your returns and minimize your stress.</p>
+                <p>Our Tax Buddy demystifies tax season. From tracking deductions to planning for filings, we provide
+                    the tools to maximize your returns and minimize your stress.</p>
                 <a href="tax-buddy.html" class="btn btn-feature">Optimize Your Taxes</a>
             </div>
         </div>
@@ -94,7 +133,8 @@
             </div>
             <div class="feature-content">
                 <h3>Unlock Financial Literacy</h3>
-                <p>Dive into the GenZ Moneyverse, our curated learning hub. Master complex financial topics through engaging articles, tutorials, and interactive tools.</p>
+                <p>Dive into the GenZ Moneyverse, our curated learning hub. Master complex financial topics through
+                    engaging articles, tutorials, and interactive tools.</p>
                 <a href="genz-moneyverse.html" class="btn btn-feature">Start Learning</a>
             </div>
         </div>
@@ -106,11 +146,12 @@
             </div>
             <div class="feature-content">
                 <h3>Invest in Your Future Wealth</h3>
-                <p>Whether you're a novice or a seasoned investor, our platform provides data-driven strategies and tools to help you build and manage your investment portfolio.</p>
+                <p>Whether you're a novice or a seasoned investor, our platform provides data-driven strategies and
+                    tools to help you build and manage your investment portfolio.</p>
                 <a href="future-wealth.html" class="btn btn-feature">Grow Your Investments</a>
             </div>
         </div>
-        
+
         <!-- Feature 5: Economy -->
         <div class="feature-row">
             <div class="feature-image">
@@ -118,7 +159,8 @@
             </div>
             <div class="feature-content">
                 <h3>Stay Ahead with Economy Radar</h3>
-                <p>Understand the economic forces that shape your finances. Get timely updates, expert analysis, and forecasts to make informed financial decisions.</p>
+                <p>Understand the economic forces that shape your finances. Get timely updates, expert analysis, and
+                    forecasts to make informed financial decisions.</p>
                 <a href="economy-radar.html" class="btn btn-feature">Track the Economy</a>
             </div>
         </div>
@@ -130,7 +172,8 @@
             </div>
             <div class="feature-content">
                 <h3>Discover Your Opportunities</h3>
-                <p>Our Opportunity Engine helps you find and apply for beneficial government schemes, grants, and programs you might be eligible for, turning policy into personal gain.</p>
+                <p>Our Opportunity Engine helps you find and apply for beneficial government schemes, grants, and
+                    programs you might be eligible for, turning policy into personal gain.</p>
                 <a href="opportunity-engine.html" class="btn btn-feature">Find Schemes</a>
             </div>
         </div>
@@ -142,57 +185,61 @@
                 <h2>Empowering Your Finances With <span>Technology</span></h2>
                 <div class="feature-point">
                     <h3>Intelligent Insights</h3>
-                    <p>Our AI is trained on millions of financial data points to provide a precise analysis of your economic health and opportunities.</p>
+                    <p>Our AI is trained on millions of financial data points to provide a precise analysis of your
+                        economic health and opportunities.</p>
                 </div>
                 <div class="feature-point">
                     <h3>Instant Strategies</h3>
-                    <p>Receive immediate, actionable advice with clear steps for wealth generation and tax optimization.</p>
+                    <p>Receive immediate, actionable advice with clear steps for wealth generation and tax optimization.
+                    </p>
                 </div>
                 <div class="feature-point">
                     <h3>Easy to Use</h3>
-                    <p>No complex setup. Just connect your accounts or upload a file to get the help you need, when you need it.</p>
+                    <p>No complex setup. Just connect your accounts or upload a file to get the help you need, when you
+                        need it.</p>
                 </div>
             </div>
             <div class="empower-image">
-                    
+
                 <img src="images/oppurtunity.png" alt="yaha k lye photo dhoondhke bhej dena 🙂">
-                
+
             </div>
         </div>
-        
+
     </section>
-       
+
     <section class="process-section section">
         <h2>We Take Complete Control of the Analysis</h2>
-        <p>EcoSaarthi connects your financial data directly to our powerful AI analysis engine. Each step is captured and monitored to give you the most accurate results.</p>
+        <p>EcoSaarthi connects your financial data directly to our powerful AI analysis engine. Each step is captured
+            and monitored to give you the most accurate results.</p>
         <div class="process-flow">
             <div class="process-step">
                 <div class="process-icon">
-                    <img src="images/dataintegration.png" >
+                    <img src="images/dataintegration.png">
                 </div>
                 <span>Data Integration</span>
             </div>
             <div class="process-step">
                 <div class="process-icon">
-                    <img src="images/data-analysis.png" >
+                    <img src="images/data-analysis.png">
                 </div>
                 <span>AI Analysis</span>
             </div>
             <div class="process-step">
                 <div class="process-icon">
-                     <img src="images/governance.png" >
+                    <img src="images/governance.png">
                 </div>
                 <span>Insight Generation</span>
             </div>
             <div class="process-step">
                 <div class="process-icon">
-                    <img src="images/target.png" >
+                    <img src="images/target.png">
                 </div>
                 <span>Strategy</span>
             </div>
             <div class="process-step">
                 <div class="process-icon">
-                    <img src="images/summary.png" >
+                    <img src="images/summary.png">
                 </div>
                 <span>Automated Summary</span>
             </div>
@@ -206,27 +253,27 @@
                 <img src="images/FINAL LOGO.png" alt="EcoSaarthi Logo" class="footer-logo">
                 <h3>EcoSaarthi</h3>
             </div>
-        
+
             <h4>Our Team: Vision-X</h4>
             <div class="team-cards">
                 <div class="team-card">
                     <h5>Krrish Barsiwal</h5>
-                    
+
                     <p><a href="mailto:krrishbarsiwal777@gmail.com">krrishbarsiwal777@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Divya Pandey</h5>
-                    
+
                     <p><a href="mailto:divya.pandey1512@gmail.com">divya.pandey1512@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Mayank Rawat</h5>
-                   
+
                     <p><a href="mailto:mynk050207@gmail.com">mynk050207@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Manya Chauhan</h5>
-                    
+
                     <p><a href="mailto:manya6chauhan@gmail.com">manya6chauhan@gmail.com</a></p>
                 </div>
             </div>
@@ -238,5 +285,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/mobile-menu.js"></script>
+    <script src="js/dropdown.js"></script>
 </body>
+
 </html>

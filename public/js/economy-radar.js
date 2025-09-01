@@ -26,18 +26,23 @@ let currentInflationRate = 0;
 let currentInterestRate = 0; // This is only used for the calculator if needed
 
 function populateYearSelector() {
-    const currentYear = new Date().getFullYear();
-    
-    // --- THIS IS THE ONLY CHANGE ---
-    // Start from the previous year (most recent completed data) instead of the current year.
-    const startYear = currentYear - 1;
-    // ---------------------------------
+    const defaultYear = 2024;
+    const endYear = 2015;
 
-    for (let i = 0; i < 10; i++) {
-        const year = startYear - i;
+    // Clear any existing options first
+    elements.yearSelector.innerHTML = '';
+
+    // Loop from the default year down to the end year
+    for (let year = defaultYear; year >= endYear; year--) {
         const option = document.createElement('option');
         option.value = year;
         option.textContent = year;
+        
+        // This line makes 2024 the selected option by default
+        if (year === defaultYear) {
+            option.selected = true;
+        }
+        
         elements.yearSelector.appendChild(option);
     }
 }
@@ -98,6 +103,8 @@ async function fetchAndDisplayEconomicData(year) {
 
 function handleInflationCalc(e) {
     e.preventDefault();
+    elements.inflationResult.style.display = 'block'; // Make the container visible
+
     const spending = parseFloat(elements.monthlySpending.value);
     if (isNaN(spending) || spending <= 0) {
         elements.inflationResult.innerHTML = '<p class="error-message">Please enter a valid amount.</p>';
@@ -107,29 +114,47 @@ function handleInflationCalc(e) {
         elements.inflationResult.innerHTML = '<p class="error-message">Inflation data is not available for calculation.</p>';
         return;
     }
+
     const futureCost = spending * (1 + (currentInflationRate / 100));
     const increase = futureCost - spending;
-    elements.inflationResult.innerHTML = `Based on the selected year's inflation of <strong>${currentInflationRate.toFixed(2)}%</strong>, spending could have increased by <strong>₹${increase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>.`;
+
+    // --- NEW PROFESSIONAL OUTPUT ---
+    elements.inflationResult.innerHTML = `
+        <p>Based on the selected year's inflation of <strong>${currentInflationRate.toFixed(2)}%</strong>, your purchasing power could decrease. Spending of ₹${spending.toLocaleString('en-IN')} could feel like:</p>
+        <span class="result-value warning">₹${futureCost.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+        <p style="margin-top: 1rem;">This represents an estimated increase in cost of <strong>₹${increase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong> for the same goods.</p>
+    `;
 }
 
 function handleLoanCalc(e) {
     e.preventDefault();
+    elements.loanResult.style.display = 'block'; // Make the container visible
+
     const P = parseFloat(elements.loanAmount.value);
     const tenureYears = parseInt(elements.loanDuration.value);
     const userInterestRate = parseFloat(elements.loanInterestRate.value);
 
     if (isNaN(P) || P <= 0 || isNaN(tenureYears) || tenureYears <= 0 || isNaN(userInterestRate) || userInterestRate <= 0) {
-        elements.loanResult.innerHTML = '<p class="error-message">Please enter a valid loan amount, duration, and interest rate.</p>';
+        elements.loanResult.innerHTML = '<p class="error-message">Please enter valid loan details.</p>';
         return;
     }
 
     const N = tenureYears * 12;
-    let r_current = userInterestRate / 12 / 100;
-    let emi_current = (P * r_current * Math.pow(1 + r_current, N)) / (Math.pow(1 + r_current, N) - 1);
-    let r_future = (userInterestRate + 1) / 12 / 100;
-    let emi_future = (P * r_future * Math.pow(1 + r_future, N)) / (Math.pow(1 + r_future, N) - 1);
-    elements.loanResult.innerHTML = `At <strong>${userInterestRate.toFixed(2)}%</strong> for a <strong>${tenureYears}-year</strong> loan, the estimated EMI is: <strong>₹${emi_current.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</strong>/month.<br>If rates rose by 1%, the EMI could become: <strong>₹${emi_future.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</strong>/month.`;
+    const r_current = userInterestRate / 12 / 100;
+    const emi_current = (P * r_current * Math.pow(1 + r_current, N)) / (Math.pow(1 + r_current, N) - 1);
+    
+    const r_future = (userInterestRate + 1) / 12 / 100; // Scenario: rates rise by 1%
+    const emi_future = (P * r_future * Math.pow(1 + r_future, N)) / (Math.pow(1 + r_future, N) - 1);
+
+    // --- NEW PROFESSIONAL OUTPUT ---
+    elements.loanResult.innerHTML = `
+        <p>At the current <strong>${userInterestRate.toFixed(2)}%</strong> rate, your estimated EMI is:</p>
+        <span class="result-value highlight">₹${emi_current.toLocaleString('en-IN', { maximumFractionDigits: 0 })} / month</span>
+        <p style="margin-top: 1rem;"><strong>Scenario:</strong> If interest rates were to rise by 1%, the new EMI could become:</p>
+        <span class="result-value">₹${emi_future.toLocaleString('en-IN', { maximumFractionDigits: 0 })} / month</span>
+    `;
 }
+
 
 function handleYearChange() {
     const selectedYear = elements.yearSelector.value;

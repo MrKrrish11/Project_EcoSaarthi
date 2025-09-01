@@ -106,7 +106,7 @@ h4 {
 .container {
     max-width: 1100px; /* Increased value to give cards more space */
     margin: 0 auto;
-    padding: 8rem;
+    padding: 6rem;
 }
 
 
@@ -196,10 +196,12 @@ h4 {
 #invoice-form .form-group {
     margin-bottom: 0; /* Remove default bottom margin */
     flex: 1 1 180px; /* Flex-grow, flex-shrink, and basis */
+    background-color: #5f3c7f;
 }
 
 #invoice-form #line-items {
     flex: 2 1 300px; /* Allow the textarea to be wider */
+    background-color: #5f3c7f;
 }
 
 #invoice-form button {
@@ -258,7 +260,7 @@ h4 {
     height: 70px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0 2rem;
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 1000;
@@ -367,7 +369,7 @@ footer p {
 }
 
 ::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color:white;
     opacity: 1;
 }
 
@@ -2134,12 +2136,437 @@ footer p {
 
 
 
+/* ========================================================== */
+/* ===  ADD-ON: NAVIGATION DROPDOWN STYLES                 === */
+/* ========================================================== */
+
+/* --- 1. The Container --- */
+.nav-dropdown-container {
+    position: relative; /* This is crucial for positioning the dropdown menu */
+    display: inline-block;
+}
+
+/* --- 2. The Dropdown Menu (Hidden by default) --- */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px); /* Position it below the button with a small gap */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Styling to match your "glassmorphism" theme */
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    
+    width: 280px; /* Set a comfortable width */
+    padding: 0.5rem;
+    z-index: 1100; /* Ensure it appears above other content */
+    
+    /* Smooth transition for showing/hiding */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+/* --- 3. The Active State (Shown with JavaScript) --- */
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- 4. The Dropdown Links --- */
+.dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--subtle-text);
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+}
+
+.dropdown-item strong {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.dropdown-item span {
+    font-size: 0.9rem;
+}
 
 
 
+/* ========================================================== */
+/* ===  FIX & ENHANCEMENT: NAVIGATION DROPDOWN STYLES      === */
+/* ========================================================== */
+
+/* --- 1. Fix for the Shrunken "Our Features" Button --- */
+
+/* This makes sure that BOTH links (<a>) and buttons (<button>)
+   with the class 'btn' inside your navigation have the same styling
+   and are aligned correctly. */
+.new-nav-actions .btn {
+    padding: 12px 24px;
+    display: flex; /* Ensures vertical alignment */
+    align-items: center; /* Ensures vertical alignment */
+    justify-content: center;
+    height: 45px; /* Set a fixed height to match other buttons */
+    box-sizing: border-box; /* Includes padding in the height calculation */
+}
+
+/* --- 2. Fix for the Transparent Dropdown Menu --- */
+
+.dropdown-menu {
+    /* OVERRIDE: Change the background to a solid, opaque color. */
+    /* I've chosen a slightly richer purple than your main background for a subtle, professional depth. */
+    background-color: #1e123a;
+
+    /* REMOVE: The backdrop-filter is not needed for an opaque menu. */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+    /* Ensure the border is still subtle but visible */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.meme-image{
+    width: 50%;
+    height: auto;
+}
 
 
+/* ========================================================== */
+/* ===  ADD-ON: FUTURE WEALTH BUILDER PROFESSIONAL STYLES  === */
+/* ========================================================== */
+
+/* --- 1. Core Page Structure --- */
+.hidden { display: none !important; }
+#quiz-container { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
+.quiz-question { margin-bottom: 1.5rem; text-align: left; }
+.quiz-question p { font-weight: 600; margin-bottom: 0.75rem; }
+.quiz-options { list-style: none; padding-left: 0; }
+.quiz-options label { display: block; padding: 0.75rem; border-radius: 8px; transition: background-color 0.2s ease; cursor: pointer; }
+.quiz-options label:hover { background-color: rgba(255, 255, 255, 0.1); }
+.quiz-options input[type="radio"] { margin-right: 10px; accent-color: var(--primary-color); }
+
+/* --- 2. Main Two-Column Layout (Post-Quiz) --- */
+#post-quiz-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    animation: fadeIn 0.5s ease;
+}
+#investor-profile-card {
+    flex: 0 0 320px; /* Fixed width for the profile card */
+    position: sticky;
+    top: 90px; /* Sticks below the navbar on scroll */
+}
+#post-quiz-content {
+    flex-grow: 1;
+    min-width: 0; /* Prevents flexbox overflow */
+}
+
+/* --- 3. Professional Investor Profile Card --- */
+#profile-summary { text-align: center; }
+#profile-summary h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--subtle-text);
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+#risk-profile-result {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#risk-profile-result.conservative { background: linear-gradient(45deg, #3498db, #2980b9); }
+#risk-profile-result.moderate { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); }
+#risk-profile-result.aggressive { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+#risk-profile-description { 
+    margin-top: 1rem;
+    color: var(--subtle-text); 
+    font-size: 0.95rem; 
+    line-height: 1.6; 
+}
+#retake-quiz-btn { margin-top: 2rem; }
+
+/* --- 4. Content Tabs --- */
+.content-tabs { display: flex; border-bottom: 1px solid var(--glass-border); }
+.tab-button {
+    flex: 1;
+    padding: 1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    color: var(--subtle-text);
+    border-bottom: 3px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+}
+.tab-button.active { color: #fff; border-bottom-color: var(--glow-green); }
+
+/* --- 5. Professional Investment Idea Cards --- */
+#investment-ideas-section { padding-top: 1.5rem; }
+.investment-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: rgba(0,0,0,0.15);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s;
+}
+.investment-card:hover { transform: scale(1.02); }
+.investment-card .info h4 { margin: 0 0 0.25rem 0; font-size: 1.2rem; color: #fff; }
+.investment-card .info p { margin: 0; color: var(--subtle-text); font-size: 0.9rem; }
+.investment-card .price { text-align: right; }
+.investment-card .price h3 { margin: 0; font-size: 1.5rem; font-weight: 600; color: #fff; }
+.investment-card .price p { margin: 0.25rem 0 0 0; font-weight: 600; font-size: 1rem; }
+.price .positive { color: var(--glow-green); }
+.price .negative { color: var(--glow-red); }
+.error-message { color: var(--glow-red); }
+
+/* --- 6. Wealth Tools Section --- */
+#tools-section { padding-top: 1.5rem; }
+.tools-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+#retirement-result ul, #sip-list ul { list-style: none; padding: 0; }
+#retirement-result li, #sip-list li { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border); }
+#sip-list li:last-child { border: none; }
+#sip-list hr { border: none; height: 1px; background-color: var(--glass-border); margin: 1rem 0; }
+.sip-item-remove-btn { background: none; border: none; color: var(--glow-red); cursor: pointer; font-size: 1.2rem; }
+
+#retirement-projection-card { margin-top: 2rem; border-color: var(--glow-green); }
+.projection-summary { font-size: 1.1rem; line-height: 1.6; text-align: center; margin-bottom: 1.5rem; }
+.projection-advice { text-align: center; padding: 1rem; border-radius: 8px; font-size: 1rem; line-height: 1.5; }
+.projection-advice.on-track { background-color: rgba(85, 239, 196, 0.1); color: var(--glow-green); }
+.projection-advice.off-track { background-color: rgba(255, 118, 117, 0.1); color: var(--glow-red); }
+
+/* --- 7. Responsiveness --- */
+@media (max-width: 992px) {
+    #post-quiz-row { flex-direction: column; }
+    #investor-profile-card { position: static; width: 100%; flex: auto; }
+}
+@media (max-width: 768px) {
+    .tools-container { grid-template-columns: 1fr; }
+}
+
+/* --- 1. Main Tools Section Layout --- */
+#tools-section { padding-top: 1.5rem; }
+.tools-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+.tool-card {
+    display: flex;
+    flex-direction: column; /* Allows form to be pushed to the bottom */
+}
+.tool-card h3 {
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+.tool-desc {
+    font-size: 0.9rem;
+    color: var(--subtle-text);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    min-height: 40px; /* Aligns cards even with different text lengths */
+}
+
+/* --- 2. Professional Retirement Calculation Result --- */
+#retirement-result ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    animation: fadeIn 0.5s;
+}
+#retirement-result li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.95rem;
+}
+#retirement-result li:first-child {
+    border-top: 1px solid var(--glass-border);
+}
+#retirement-result li.grand-total {
+    font-size: 1.1rem;
+}
+#retirement-result li span { color: var(--subtle-text); }
+#retirement-result li strong { color: #fff; }
+#retirement-result li.grand-total strong { color: var(--glow-green); }
 
 
+/* --- 3. Upgraded SIP Tracker --- */
+#sip-list {
+    flex-grow: 1; /* Pushes the form to the bottom of the card */
+    margin-bottom: 1.5rem;
+}
+#sip-list ul {
+    list-style: none;
+    padding: 0;
+}
+#sip-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+#sip-list .sip-item-remove-btn {
+    background: none;
+    border: none;
+    color: var(--glow-red);
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0 5px;
+    line-height: 1;
+}
+#sip-list hr {
+    border: none;
+    height: 1px;
+    background-color: var(--glass-border);
+    margin: 1rem 0;
+}
+#sip-list .total-sip-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
 
+/* --- 4. New Integrated Retirement Projection Card --- */
+#retirement-projection-card {
+    margin-top: 2.5rem;
+    border-color: var(--glow-green);
+    animation: fadeIn 0.5s;
+}
+.projection-summary {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+.projection-advice {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+.projection-advice.on-track {
+    background-color: rgba(85, 239, 196, 0.1);
+    color: var(--glow-green);
+}
+.projection-advice.off-track {
+    background-color: rgba(255, 118, 117, 0.1);
+    color: var(--glow-red);
+}
 
+/* --- 5. Responsiveness for Tools --- */
+@media (max-width: 992px) {
+    .tools-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.learning-hub-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Space between the featured card and the grid below */
+}
+
+/* --- 2. The Featured Card --- */
+.featured-card {
+    /* Re-using your glassmorphism theme */
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    
+    padding: 3rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid var(--glow-green); /* Accent border */
+}
+
+.featured-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.25);
+}
+
+.featured-card h3 {
+    font-size: 2.2rem;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.featured-card p {
+    font-size: 1.1rem;
+    color: var(--subtle-text);
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+}
+
+/* --- 3. The Secondary Grid --- */
+.secondary-grid {
+    display: grid;
+    /* This creates a responsive grid with 3 columns on desktop,
+       2 on tablet, and 1 on mobile */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+/* --- 4. Styling for Cards within the Secondary Grid --- */
+.secondary-grid .card {
+    display: flex;
+    flex-direction: column; /* Stacks content vertically */
+    text-align: center;
+}
+
+.secondary-grid .card h3 {
+    font-size: 1.5rem;
+}
+
+.secondary-grid .card p {
+    flex-grow: 1; /* This is the magic that aligns the buttons */
+    margin-bottom: 2rem;
+    color: var(--subtle-text);
+}
+
+.secondary-grid .card .btn {
+    margin-top: auto; /* This pushes the button to the bottom */
+}
