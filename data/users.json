@@ -19,5 +19,15 @@
     "hashedPassword": "$2b$10$6FaB3/sU9yDm1A3/Fso4YuukjSWbD35dVHxLuAtD3R5BKDzEABtny",
     "currentRole": "student",
     "monthlyIncome": "50000"
+  },
+  {
+    "id": "1756999556840",
+    "firstName": "Krrish",
+    "lastName": "Barsiwal",
+    "email": "krrishbarsiwal777@gmail.com",
+    "phone": "8094951456",
+    "hashedPassword": "$2b$10$i99Z16SfoXlWDZoll18.wubJ1X4zOvXzPtLAKJVl9zPjpvSUB0mmS",
+    "currentRole": "student",
+    "monthlyIncome": "2000"
   }
 ]

@@ -11,6 +11,34 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
         rel="stylesheet">
+    <style>
+        .loader {
+            border: 4px solid #f3f3f3;
+            /* Light grey */
+            border-top: 4px solid #aa00ff;
+            /* Purple */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 15px auto 0;
+            /* Centered with space */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="tax-buddy-page">
@@ -22,7 +50,7 @@
     <header>
         <nav class="navbar">
             <a href="/" class="nav-logo">
-                <img src="images/FINAL LOGO.png"  class="logo-image">
+                <img src="images/FINAL LOGO.png" class="logo-image">
                 <span class="nav-logo-text gradient-text">EcoSaarthi</span>
             </a>
             <ul class="nav-menu">
@@ -35,16 +63,16 @@
                 <li class="nav-item"><a href="/opportunity-engine.html">Schemes</a></li>
                 <li class="nav-item" id="dashboard-nav-item"><a href="/dashboard.html">Dashboard</a></li>
                 <li class="nav-item" id="login-nav-item"><a href="/login.html" class="btn btn-primary">Login
-                    <img src="images/user.png" alt="user icon">
-                </a></li>
-                
+                        <img src="images/user.png" alt="user icon">
+                    </a></li>
+
             </ul>
         </nav>
     </header>
 
     <main class="container">
         <div class="page-header">
-            <h1  class="gradient-text-main">Tax & Compliance Buddy</h1>
+            <h1 class="gradient-text-main">Tax & Compliance Buddy</h1>
             <p>Your all-in-one toolkit for managing freelancer finances and staying compliant.</p>
         </div>
 
@@ -66,24 +94,26 @@
 
         <div class="content-wrapper">
             <!-- Consolidated Invoice Generator -->
-             <div class="card invoice-generator-card">
+            <div class="card invoice-generator-card">
                 <h3>Invoice Generator</h3>
                 <form id="invoice-form">
                     <!-- UPDATED: Wrapped input in a div for the custom tooltip -->
                     <div class="tooltip-container" data-tooltip="Enter the name of client.">
-                         <input type="text" id="client-name" placeholder="Client Name" required class="form-group">
+                        <input type="text" id="client-name" placeholder="Client Name" required class="form-group">
                     </div>
-                   
+
                     <!-- UPDATED: Wrapped textarea in a div for the custom tooltip -->
-                    <div class="tooltip-container" data-tooltip="Enter each item on a new line, separated by commas: Description, Quantity, Price.">
-                        <textarea id="line-items" placeholder="Enter items: Description, Quantity, Price..." required="" class="form-group" rows="1" ></textarea>
+                    <div class="tooltip-container"
+                        data-tooltip="Enter each item on a new line, separated by commas: Description, Quantity, Price.">
+                        <textarea id="line-items" placeholder="Enter items: Description, Quantity, Price..." required=""
+                            class="form-group" rows="1"></textarea>
                     </div>
 
                     <!-- UPDATED: Wrapped input in a div for the custom tooltip -->
                     <div class="tooltip-container" data-tooltip="Enter the applicable GST rate.">
                         <input type="number" id="gst-rate" placeholder="GST/VAT Rate (%)" value="18" class="form-group">
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary">Generate & Add to Ledger</button>
                 </form>
 
@@ -93,90 +123,92 @@
                     </div>
                     <button id="print-invoice-btn" class="btn btn-accent">Print / Download PDF</button>
                 </div>
-       
 
-           <div id="secondary-content" class="hidden">
-                <!-- Ledger & Expenses -->
-                <div class="grid-container two-column-layout">
-                    <div class="card">
-                        <h3>Real-Time Ledger</h3>
-                        <div id="ledger-table-container"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Expense Tracker</h3>
-                        <form id="expense-form">
-                            <input type="text" id="expense-desc" placeholder="Expense Description (e.g., Software)" required
-                                class="form-group">
-                            <input type="number" id="expense-amount" placeholder="Amount (₹)" required class="form-group">
-                            <button type="submit" class="btn btn-primary">Add Expense</button>
-                        </form>
-                        <div id="expense-list-container"></div>
-                    </div>
-                </div>
 
-                <!-- Tax Calculator and AI Deductions -->
-                <div class="grid-container two-column-layout">
-                    <div class="card">
-                        <h3>Auto Tax Calculator (India)</h3>
-                        <form id="tax-calculator-form">
-                            <div class="form-group">
-                                <label>Taxable Income (Collected - Expenses)</label>
-                                <input type="number" id="tax-income" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Your Manual Deductions (e.g., 80C)</label>
-                                <input type="number" id="tax-deductions" placeholder="e.g., 150000" value="0">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Calculate Tax</button>
-                            <div id="tax-result" class="tax-result-container"></div>
-                        </form>
-                    </div>
-                    <div class="card">
-                        <h3>AI Deduction Maximizer</h3>
-                        <p>Find deductions you might be missing!</p>
-                        <div class="form-group">
-                            <label for="profession">Enter Your Profession</label>
-                            <input type="text" id="profession" placeholder="e.g., Graphic Designer" required>
+                <div id="secondary-content" class="hidden">
+                    <!-- Ledger & Expenses -->
+                    <div class="grid-container two-column-layout">
+                        <div class="card">
+                            <h3>Real-Time Ledger</h3>
+                            <div id="ledger-table-container"></div>
                         </div>
-                        <button id="get-ai-deductions-btn" class="btn btn-accent">Get AI Suggestions</button>
-                        <div id="ai-deductions-content" class="ai-tips-container"></div>
+                        <div class="card">
+                            <h3>Expense Tracker</h3>
+                            <form id="expense-form">
+                                <input type="text" id="expense-desc" placeholder="Expense Description (e.g., Software)"
+                                    required class="form-group">
+                                <input type="number" id="expense-amount" placeholder="Amount (₹)" required
+                                    class="form-group">
+                                <button type="submit" class="btn btn-primary">Add Expense</button>
+                            </form>
+                            <div id="expense-list-container"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tax Calculator and AI Deductions -->
+                    <div class="grid-container two-column-layout">
+                        <div class="card">
+                            <h3>Auto Tax Calculator (India)</h3>
+                            <form id="tax-calculator-form">
+                                <div class="form-group">
+                                    <label>Taxable Income (Collected - Expenses)</label>
+                                    <input type="number" id="tax-income" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Manual Deductions (e.g., 80C)</label>
+                                    <input type="number" id="tax-deductions" placeholder="e.g., 150000" value="0">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Calculate Tax</button>
+                                <div id="tax-result" class="tax-result-container"></div>
+                            </form>
+                        </div>
+                        <div class="card">
+                            <h3>AI Deduction Maximizer</h3>
+                            <p>Find deductions you might be missing!</p>
+                            <div class="form-group">
+                                <label for="profession">Enter Your Profession</label>
+                                <input type="text" id="profession" placeholder="e.g., Graphic Designer" required>
+                            </div>
+                            <button id="get-ai-deductions-btn" class="btn btn-accent">Get AI Suggestions</button>
+                            <div id="ai-loader" class="loader hidden"></div>
+                            <div id="ai-deductions-content" class="ai-tips-container"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
     </main>
 
-    
+
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-logo-container">
                 <img src="images/FINAL LOGO.png" alt="EcoSaarthi Logo" class="footer-logo">
                 <h3>EcoSaarthi</h3>
             </div>
-        
+
             <h4>Our Team: Vision-X</h4>
             <div class="team-cards">
                 <div class="team-card">
                     <h5>Krrish Barsiwal</h5>
-                    
+
                     <p><a href="mailto:krrishbarsiwal777@gmail.com">krrishbarsiwal777@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Divya Pandey</h5>
-                   
+
                     <p><a href="mailto:divya.pandey1512@gmail.com">divya.pandey1512@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Mayank Rawat</h5>
-                    
+
                     <p><a href="mailto:mynk050207@gmail.com">mynk050207@gmail.com</a></p>
                 </div>
                 <div class="team-card">
                     <h5>Manya Chauhan</h5>
-                   
-                     <p><a href="mailto:manya6chauhan@gmail.com">manya6chauhan@gmail.com</a></p>
+
+                    <p><a href="mailto:manya6chauhan@gmail.com">manya6chauhan@gmail.com</a></p>
                 </div>
             </div>
         </div>
@@ -184,7 +216,7 @@
             <p>© 2025 Building a More Financially Resiliant India.</p>
         </div>
     </footer>
-    
+
     <script src="js/tax-buddy.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
     <script src="js/mobile-menu.js"></script>

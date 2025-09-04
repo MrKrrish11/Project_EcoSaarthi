@@ -28,7 +28,8 @@ const elements = {
     profession: document.getElementById('profession'),
     getAiDeductionsBtn: document.getElementById('get-ai-deductions-btn'),
     aiDeductionsContent: document.getElementById('ai-deductions-content'),
-    secondaryContent: document.getElementById('secondary-content')
+    secondaryContent: document.getElementById('secondary-content'),
+    aiLoader: document.getElementById('ai-loader')
 };
 
 function saveState() {
@@ -168,7 +169,22 @@ function handleTaxCalculate(e) {
 }
 
 async function handleGetAiDeductions() {
-    // ... (This function remains the same, no changes needed) ...
+    const profession = elements.profession.value;
+    if (!profession) { alert('Please enter your profession.'); return; }
+    elements.aiDeductionsContent.innerHTML = '<p>🧠 Thinking... Our AI is finding deductions for you...</p>';
+    try {
+        const response = await fetch('/api/tax-advice', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ profession })
+        });
+        if (!response.ok) throw new Error('AI server responded with an error.');
+        const data = await response.json();
+        elements.aiDeductionsContent.innerHTML = data.advice.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    } catch (error) {
+        console.error("Error fetching AI tips:", error);
+        elements.aiDeductionsContent.innerHTML = '<p class="error-message">Could not get AI tips.</p>';
+    }
 }
 
 
