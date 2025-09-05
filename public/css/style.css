@@ -214,7 +214,7 @@ h4 {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
     align-items: stretch; /* Makes cards in the same row equal height */
-    margin-bottom: 2.5rem; /* Add spacing between rows */
+    margin-bottom: 0.5rem; /* Add spacing between rows */
 }
 
 .two-column-layout .card {
@@ -403,18 +403,19 @@ footer p {
 }
 
 .btn-accent {
-    background: linear-gradient(45deg, var(--accent-color), #5df4ff);
-    color: var(--dark-bg);
+    background: linear-gradient(45deg, var(--secondary-color), #55efc4);
+    color: white;
 }
 
 .btn-secondary {
-    background:linear-gradient(45deg, var(--accent-color), #5df4ff);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #000000;
+    background:linear-gradient(45deg, var(--secondary-color), #55efc4);
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
+    color: #ffffff;
 }
 
-.btn-full-width {
-    width: 100%;
+.btn-full-width-new {
+    margin-left: 36%;
+    width: 25%;
 }
 
 /* --- 6. PAGE-SPECIFIC STYLES & COMPONENTS --- */
@@ -610,6 +611,7 @@ footer p {
 
 .dashboard-page #change-photo-btn {
     position: absolute;
+    width: 8.4rem;
     bottom: 0;
     right: 0;
     padding: 6px 10px;
@@ -2053,7 +2055,9 @@ footer p {
 
 .bottom-cards-layout .card form button[type="submit"] {
     /* This pushes the button to the bottom of the form */
-    margin-top: auto; 
+    margin-top: auto;
+    width: 50%;
+    margin-left:25% ; 
 }
 
 
@@ -2515,8 +2519,8 @@ footer p {
     padding: 3rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-left: 5px solid var(--glow-green); /* Accent border */
-}
+    /* border-left: 5px solid var(--glow-green); /* Accent border */
+} 
 
 .featured-card:hover {
     transform: translateY(-8px);
