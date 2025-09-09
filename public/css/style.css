@@ -1349,14 +1349,16 @@ footer p {
 }
 
 .team-cards {
+    margin-left: 8.5rem;
+    margin-right: 8.5rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10.5rem;
 }
 
 .team-card {
     background-color: var(--dark-bg);
-    padding: 1.5rem;
+    padding: 3.5rem;
     border-radius: 10px;
     border: 1px solid var(--glass-border);
     transition: all 0.3s ease;
