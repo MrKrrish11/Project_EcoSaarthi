@@ -17,9 +17,10 @@
 }
 
 /* --- 2. BASE STYLES & IMMERSIVE BACKGROUND --- */
-html{
+html {
     scroll-behavior: smooth;
 }
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--dark-bg);
@@ -104,7 +105,8 @@ h4 {
 
 /* --- 3. LAYOUT & CORE COMPONENTS --- */
 .container {
-    max-width: 1100px; /* Increased value to give cards more space */
+    max-width: 1100px;
+    /* Increased value to give cards more space */
     margin: 0 auto;
     padding: 6rem;
 }
@@ -137,18 +139,22 @@ h4 {
     border: 1px solid var(--glass-border);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
     padding: 2rem;
-    display: flex; /* <-- CHANGE 1: Treat the card's content as a flex container */
-    flex-direction: column; /* <-- CHANGE 2: Stack the content vertically */
+    display: flex;
+    /* <-- CHANGE 1: Treat the card's content as a flex container */
+    flex-direction: column;
+    /* <-- CHANGE 2: Stack the content vertically */
     margin-bottom: 2rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .card .btn {
     margin-top: auto;
 }
 
 /* ADD THIS NEW RULE */
 .card .btn {
-    margin-top: auto; /* Magic line: Pushes the button to the bottom */
+    margin-top: auto;
+    /* Magic line: Pushes the button to the bottom */
 }
 
 .card:hover {
@@ -165,12 +171,13 @@ h4 {
 
 .content-wrapper {
     width: 100%;
-    max-width: 950px; /* Match the .container max-width */
+    max-width: 950px;
+    /* Match the .container max-width */
     margin: 0 auto;
 }
+
 .grid-container {
-    display: flex
-;
+    display: flex;
     justify-content: center;
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -180,32 +187,40 @@ h4 {
 /* Make the invoice generator card span the full width of its container */
 .invoice-generator-card {
     width: 100%;
-    box-sizing: border-box; /* Include padding and border in the element's total width */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width */
     margin-bottom: 2rem;
 }
 
 /* Flexbox layout for the invoice form */
 #invoice-form {
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
-    align-items: center; /* Vertically align items */
-    gap: 1rem; /* Space between form elements */
+    flex-wrap: wrap;
+    /* Allows items to wrap on smaller screens */
+    align-items: center;
+    /* Vertically align items */
+    gap: 1rem;
+    /* Space between form elements */
 }
 
 /* Make form elements flexible */
 #invoice-form .form-group {
-    margin-bottom: 0; /* Remove default bottom margin */
-    flex: 1 1 180px; /* Flex-grow, flex-shrink, and basis */
+    margin-bottom: 0;
+    /* Remove default bottom margin */
+    flex: 1 1 180px;
+    /* Flex-grow, flex-shrink, and basis */
     background-color: #5f3c7f;
 }
 
 #invoice-form #line-items {
-    flex: 2 1 300px; /* Allow the textarea to be wider */
+    flex: 2 1 300px;
+    /* Allow the textarea to be wider */
     background-color: #5f3c7f;
 }
 
 #invoice-form button {
-    flex: 0 1 auto; /* Don't grow, shrink if needed, base width is auto */
+    flex: 0 1 auto;
+    /* Don't grow, shrink if needed, base width is auto */
 }
 
 /* REFACTORED: Replaces the old .grid-container and .two-column-layout */
@@ -213,15 +228,20 @@ h4 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
-    align-items: stretch; /* Makes cards in the same row equal height */
-    margin-bottom: 0.5rem; /* Add spacing between rows */
+    align-items: stretch;
+    /* Makes cards in the same row equal height */
+    margin-bottom: 0.5rem;
+    /* Add spacing between rows */
 }
 
 .two-column-layout .card {
-    width: 100%; /* Ensure cards fill the grid column */
+    width: 100%;
+    /* Ensure cards fill the grid column */
     box-sizing: border-box;
-    margin-bottom: 0; /* Grid gap handles spacing */
-    display: flex; /* Allow content to grow */
+    margin-bottom: 0;
+    /* Grid gap handles spacing */
+    display: flex;
+    /* Allow content to grow */
     flex-direction: column;
 }
 
@@ -237,12 +257,15 @@ h4 {
 /* Responsive adjustments for the new layout */
 @media (max-width: 768px) {
     .two-column-layout {
-        grid-template-columns: 1fr; /* Stack cards vertically on mobile */
+        grid-template-columns: 1fr;
+        /* Stack cards vertically on mobile */
     }
 
     #invoice-form {
-        flex-direction: column; /* Stack form items vertically */
-        align-items: stretch; /* Make form items full width */
+        flex-direction: column;
+        /* Stack form items vertically */
+        align-items: stretch;
+        /* Make form items full width */
     }
 }
 
@@ -266,7 +289,8 @@ h4 {
     z-index: 1000;
     box-sizing: border-box;
 }
-.new-nav-actions{
+
+.new-nav-actions {
     display: inline-flex;
     gap: 1rem;
 }
@@ -302,15 +326,15 @@ h4 {
     color: var(--subtle-text);
     font-weight: 500;
     text-decoration: none;
-    transition:all 0.3s ease;
-    padding:8px 10px;
+    transition: all 0.3s ease;
+    padding: 8px 10px;
     border-radius: 10px;
 }
 
 .nav-item a:hover {
     color: #FFFFFF;
     background-color: var(--glass-bg);
-    padding-top: 10px,;
+    padding-top: 10px, ;
     padding-bottom: 8px;
     box-shadow: 0 8px 25px rgba(85, 239, 196, 0.4), 0 0 15px rgba(117, 45, 199, 0.6);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -369,7 +393,7 @@ footer p {
 }
 
 ::placeholder {
-    color:white;
+    color: white;
     opacity: 1;
 }
 
@@ -396,7 +420,8 @@ footer p {
     background: linear-gradient(45deg, var(--secondary-color), #55efc4);
     color: #ffffff;
 }
-.btn-primary img{
+
+.btn-primary img {
     vertical-align: middle;
     height: 20px;
     width: 20px;
@@ -408,7 +433,7 @@ footer p {
 }
 
 .btn-secondary {
-    background:linear-gradient(45deg, var(--secondary-color), #55efc4);
+    background: linear-gradient(45deg, var(--secondary-color), #55efc4);
     /* border: 1px solid rgba(255, 255, 255, 0.2); */
     color: #ffffff;
 }
@@ -427,9 +452,10 @@ footer p {
     overflow: hidden;
     text-align: center;
 }
+
 .career-compass-card {
     /* Reusing your glassmorphism theme */
-    background: rgba(40, 25, 75, 0.4); 
+    background: rgba(40, 25, 75, 0.4);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
@@ -442,10 +468,12 @@ footer p {
     margin: 5rem auto 0 auto;
     padding: 2.5rem;
     text-align: center;
-    
+
     /* CRUCIAL for containing the background image */
-    position: relative; /* Establishes a positioning context for the ::before element */
-    overflow: hidden;  /* Clips the ::before element to the card's rounded corners */
+    position: relative;
+    /* Establishes a positioning context for the ::before element */
+    overflow: hidden;
+    /* Clips the ::before element to the card's rounded corners */
 }
 
 /* This pseudo-element holds the background image */
@@ -456,21 +484,25 @@ footer p {
     left: 0;
     right: 0;
     bottom: 0;
-    
+
     /* --- IMPORTANT: Place your image path here --- */
-    background-image: url('images/career-background.png'); /* Make sure this path is correct */
+    background-image: url('images/career-background.png');
+    /* Make sure this path is correct */
     object-fit: fill;
     /* This makes the image fit WITHOUT stretching the card */
     background-size: cover;
     background-position: center;
-    
-    opacity: 0.15; /* Adjust for desired subtlety */
-    z-index: -1; /* Puts the image BEHIND the content */
+
+    opacity: 0.15;
+    /* Adjust for desired subtlety */
+    z-index: -1;
+    /* Puts the image BEHIND the content */
     transition: transform 0.4s ease;
 }
 
 .career-compass-card:hover::before {
-    transform: scale(1.05); /* Optional: subtle zoom on hover */
+    transform: scale(1.05);
+    /* Optional: subtle zoom on hover */
     opacity: 0.2;
 }
 
@@ -523,6 +555,7 @@ footer p {
         font-size: 1rem;
     }
 }
+
 .index-page .background-video {
     position: absolute;
     top: 50%;
@@ -552,13 +585,15 @@ footer p {
     margin-left: auto;
     margin-right: auto;
 }
-.index-page .page-header-index p{
+
+.index-page .page-header-index p {
     font-size: 21px;
     margin-left: auto;
     margin-right: auto;
 
 
 }
+
 .index-page .features-grid {
     padding-top: 4rem;
     max-width: 1000px;
@@ -576,21 +611,25 @@ footer p {
     margin-bottom: 1rem;
     filter: brightness(0) saturate(100%) invert(100%) sepia(41%) saturate(3894%) hue-rotate(142deg) brightness(97%) contrast(92%);
 }
+
 /* Login/Signup Pages */
 .login-page main,
 .signup-page main {
     max-width: 500px;
     margin-top: 5rem;
 }
+
 .login-page a,
 .signup-page a {
-    color:var(--subtle-text);
+    color: var(--subtle-text);
     text-decoration: none;
 }
+
 .login-page a:hover,
 .signup-page a:hover {
-    text-decoration:none;
+    text-decoration: none;
 }
+
 /* Dashboard Page */
 .dashboard-page .profile-header {
     display: flex;
@@ -628,6 +667,7 @@ footer p {
 .dashboard-page .grid-span-2 {
     grid-column: span 2;
 }
+
 /* Tax/Pocket CFO Summary Cards */
 .summary-cards {
     grid-template-columns: repeat(3, 1fr);
@@ -904,7 +944,7 @@ footer p {
     }
 
     .nav-menu,
-     .nav-actions {
+    .nav-actions {
         display: inline-block;
         position: absolute;
         top: 70px;
@@ -968,7 +1008,7 @@ footer p {
     }
 }
 
- 
+
 
 .index-page .video-section {
     padding: 15rem 2rem 5rem;
@@ -1003,17 +1043,20 @@ footer p {
 .index-page .page-header-index h1 {
     font-size: 4rem;
 }
+
 .index-page .page-header-index h1 {
     font-size: 4rem;
     margin-top: -100px;
     margin-left: auto;
     margin-right: auto;
 }
+
 .index-page .page-header-index p {
     font-size: 21px;
     margin-left: auto;
     margin-right: auto;
 }
+
 .index-page .features-grid {
     padding-top: 4rem;
     max-width: 1000px;
@@ -1036,15 +1079,16 @@ footer p {
 .gradient-text {
     font-weight: bolder;
     font-size: 40px;
-    font-family:'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', Times, serif;
     background: linear-gradient(to right, #8E44AD, #3498DB);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-shadow: none;
 }
-.gradient-text-main{
-     background: linear-gradient(to right, #b04fda, #44acf2);
+
+.gradient-text-main {
+    background: linear-gradient(to right, #b04fda, #44acf2);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -1064,7 +1108,8 @@ footer p {
 /* Style for the "Complete Toolkit" headline */
 .toolkit-intro {
     text-align: center;
-    padding-bottom: 1rem; /* Reduced padding to bring it closer to the grid */
+    padding-bottom: 1rem;
+    /* Reduced padding to bring it closer to the grid */
 }
 
 .toolkit-intro h2 {
@@ -1081,7 +1126,8 @@ footer p {
 
 /* Two-column layout for Empowering Features section */
 .empower-section {
-    background-color: rgba(255, 255, 255, 0.03); /* Subtle background to stand out */
+    background-color: rgba(255, 255, 255, 0.03);
+    /* Subtle background to stand out */
     border-radius: 20px;
     margin-top: 4rem;
     padding: 4rem;
@@ -1103,6 +1149,7 @@ footer p {
     margin-bottom: 2rem;
     margin-top: 0;
 }
+
 .empower-text h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
@@ -1118,33 +1165,41 @@ footer p {
 }
 
 .empower-image {
-    flex: 1; 
-    text-align: center; /* Helps center the image if needed */
+    flex: 1;
+    text-align: center;
+    /* Helps center the image if needed */
 }
 
 .empower-image img {
-    max-width: 100%; /* Ensures the image is never wider than its container */
-    height: auto; /* Maintains the image's aspect ratio */
-    border-radius: 15px; /* Matches the rounded corners in your video */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    max-width: 100%;
+    /* Ensures the image is never wider than its container */
+    height: auto;
+    /* Maintains the image's aspect ratio */
+    border-radius: 15px;
+    /* Matches the rounded corners in your video */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    /* Adds a subtle shadow */
 }
-.empower-text h2{
+
+.empower-text h2 {
     position: relative;
     padding-bottom: 15px;
 
 }
-.empower-text h2 span::after{
+
+.empower-text h2 span::after {
     content: '';
     position: absolute;
-    left:0;
-    bottom:0;
-    height:4px;
-    width:50%;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 50%;
     background-color: var(--glow-green);
     border-radius: 2px;
-    box-shadow: 0 0 15px var(--glow-green); 
+    box-shadow: 0 0 15px var(--glow-green);
 
 }
+
 @media (max-width: 768px) {
     .empower-content {
         /* Stacks the columns vertically on top of each other */
@@ -1181,13 +1236,14 @@ footer p {
 }
 
 .empower-image img {
-    height:576.39px;
+    height: 576.39px;
     width: 100%;
     max-width: 500px;
     border-radius: 15px;
     object-fit: cover;
-    filter: contrast(1); /* Black and white effect like the video */
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    filter: contrast(1);
+    /* Black and white effect like the video */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Process Flow Section */
@@ -1218,7 +1274,8 @@ footer p {
 .process-flow::before {
     content: '';
     position: absolute;
-    top: 40px; /* Vertically center with the icons */
+    top: 40px;
+    /* Vertically center with the icons */
     left: 10%;
     width: 80%;
     height: 2px;
@@ -1244,19 +1301,22 @@ footer p {
     justify-content: center;
     align-items: center;
     /* Placeholder for actual icons */
-   background-image: url(../images/data-analysis);
+    background-image: url(../images/data-analysis);
     background-position: center;
 }
-.process-icon img{
+
+.process-icon img {
     width: 40px;
     height: 40px;
-    filter: 
-   invert(86%) sepia(21%) saturate(938%) hue-rotate(94deg) brightness(96%) contrast(92%) drop-shadow(0 0 0px #55efc4) drop-shadow(0 0 0px #55efc4)
+    filter:
+        invert(86%) sepia(21%) saturate(938%) hue-rotate(94deg) brightness(96%) contrast(92%) drop-shadow(0 0 0px #55efc4) drop-shadow(0 0 0px #55efc4)
 }
+
 .process-step span {
     font-weight: 600;
     color: var(--light-text);
 }
+
 /* NEW: Styles for the features grid */
 .features-section {
     padding: 4rem 2rem;
@@ -1268,7 +1328,8 @@ footer p {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    padding-top: 0; /* Removed padding-top from here */
+    padding-top: 0;
+    /* Removed padding-top from here */
 }
 
 .feature-card {
@@ -1296,11 +1357,13 @@ footer p {
 
 .feature-icon {
     color: #55efc4;
-    height: 60px; /* Increased size for better visibility */
+    height: 60px;
+    /* Increased size for better visibility */
     width: 60px;
     margin-bottom: 1.5rem;
-    
+
 }
+
 /* 9. FOOTER STYLING */
 .feature-title {
     font-family: 'Poppins', sans-serif;
@@ -1308,13 +1371,16 @@ footer p {
     font-weight: 600;
     color: #ffffff;
 }
+
 .site-footer {
-    background-color: #0d0817; /* Darker than the body background */
+    background-color: #0d0817;
+    /* Darker than the body background */
     color: var(--subtle-text);
     padding: 4rem 2rem 0 2rem;
     margin-top: 5rem;
     border-top: 1px solid var(--glass-border);
-    display: block; /* Ensures the footer is visible and takes up space */
+    display: block;
+    /* Ensures the footer is visible and takes up space */
 }
 
 .footer-content {
@@ -1374,15 +1440,16 @@ footer p {
     font-size: 1.1rem;
     color: #fff;
 }
+
 .team-card a {
-    color: var(--subtle-text); 
-    text-decoration: none;     
+    color: var(--subtle-text);
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .team-card a:hover {
-    color: var(--glow-green);   
-    text-decoration: underline; 
+    color: var(--glow-green);
+    text-decoration: underline;
 }
 
 .team-card p {
@@ -1396,25 +1463,32 @@ footer p {
     margin-top: 3rem;
     border-top: 1px solid var(--glass-border);
 }
+
 /* --- 10. RESPONSIVENESS FOR NEW SECTIONS (includes footer) --- */
 @media (max-width: 992px) {
     .empower-content {
         flex-direction: column;
         gap: 2rem;
     }
+
     .empower-text h2 {
         font-size: 2.2rem;
     }
+
     .team-cards {
-        grid-template-columns: repeat(2, 1fr); /* 2x2 grid on tablets */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2 grid on tablets */
     }
+
     .process-flow {
         flex-wrap: wrap;
         justify-content: center;
         gap: 2rem;
     }
+
     .process-flow::before {
-        display: none; /* Hide connector line on smaller screens */
+        display: none;
+        /* Hide connector line on smaller screens */
     }
 }
 
@@ -1422,34 +1496,43 @@ footer p {
     .section {
         padding: 2rem 1rem;
     }
-    .toolkit-intro h2, .process-section h2 {
+
+    .toolkit-intro h2,
+    .process-section h2 {
         font-size: 2rem;
     }
+
     .empower-text h2 {
         font-size: 1.8rem;
     }
+
     .team-cards {
-        grid-template-columns: 1fr; /* Single column on mobile */
+        grid-template-columns: 1fr;
+        /* Single column on mobile */
     }
 }
 
-.career-card{
+.career-card {
     width: 600px;
 }
+
 /* --- 11. SHOWCASE FEATURES SECTION (NEW) --- */
 
 .showcase-features {
     display: flex;
     flex-direction: column;
-    gap: 6rem; /* Increased gap between feature rows for better visual separation */
+    gap: 6rem;
+    /* Increased gap between feature rows for better visual separation */
 }
 
 .feature-row {
     display: flex;
     align-items: center;
     gap: 4rem;
-    opacity: 0; /* Initially hidden for scroll animation */
-    transform: translateY(50px); /* Initially moved down */
+    opacity: 0;
+    /* Initially hidden for scroll animation */
+    transform: translateY(50px);
+    /* Initially moved down */
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
@@ -1473,7 +1556,7 @@ footer p {
 
 .feature-image img {
     width: 550.1px;
-    height:343.35px;
+    height: 343.35px;
     border-radius: 15px;
     display: block;
 }
@@ -1519,9 +1602,11 @@ footer p {
 
 /* --- 12. RESPONSIVENESS FOR SHOWCASE FEATURES --- */
 @media (max-width: 992px) {
+
     .feature-row,
     .feature-row.layout-right {
-        flex-direction: column; /* Stack image and text on top of each other */
+        flex-direction: column;
+        /* Stack image and text on top of each other */
         gap: 2rem;
         text-align: center;
     }
@@ -1530,6 +1615,7 @@ footer p {
         font-size: 2rem;
     }
 }
+
 /* ========================================================== */
 /* ===  ADD-ON: CAREER COMPASS PROFESSIONAL UI STYLES      === */
 /* ========================================================== */
@@ -1538,19 +1624,24 @@ footer p {
 
 .results-layout {
     display: flex;
-    align-items: flex-start; /* Aligns items to the top */
+    align-items: flex-start;
+    /* Aligns items to the top */
     gap: 2.5rem;
 }
 
 .search-column {
     flex: 1;
-    min-width: 400px; /* Prevents it from getting too small */
+    min-width: 400px;
+    /* Prevents it from getting too small */
 }
 
 .analysis-column {
-    flex: 1.2; /* Makes the analysis column slightly wider */
-    position: sticky; /* Makes the analysis section stick on scroll */
-    top: 90px; /* Position below the fixed navbar */
+    flex: 1.2;
+    /* Makes the analysis column slightly wider */
+    position: sticky;
+    /* Makes the analysis section stick on scroll */
+    top: 90px;
+    /* Position below the fixed navbar */
 }
 
 /* A professional loading spinner */
@@ -1568,14 +1659,20 @@ footer p {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* --- 2. Tabbed Interface for Analysis --- */
 
 .analysis-container {
-    padding: 0; /* Remove padding to let tabs control it */
+    padding: 0;
+    /* Remove padding to let tabs control it */
 }
 
 .tab-nav {
@@ -1614,12 +1711,14 @@ footer p {
 }
 
 .tab-pane {
-    display: none; /* Hide all panes by default */
+    display: none;
+    /* Hide all panes by default */
     animation: fadeIn 0.5s ease;
 }
 
 .tab-pane.active {
-    display: block; /* Show only the active one */
+    display: block;
+    /* Show only the active one */
 }
 
 .tab-pane h4 {
@@ -1638,11 +1737,14 @@ footer p {
     border-left: 3px solid var(--primary-color);
 }
 
-.job-card { /* More specific styling for job cards */
-    display: block; /* Override grid behavior */
+.job-card {
+    /* More specific styling for job cards */
+    display: block;
+    /* Override grid behavior */
     margin-bottom: 1.5rem;
     border-left: 5px solid transparent;
 }
+
 .job-card:hover {
     border-left-color: var(--glow-green);
 }
@@ -1662,12 +1764,14 @@ footer p {
     padding: 8px 15px;
     border-radius: 20px;
     font-weight: 500;
-    border: none; /* Override default list item border */
+    border: none;
+    /* Override default list item border */
     display: block;
 }
+
 /* Remove the icon from the base style */
 #skill-gap-results li::before {
-    content: none; 
+    content: none;
 }
 
 
@@ -1708,7 +1812,7 @@ footer p {
 
 /* Remove the icon from the base style */
 #course-recommendations li::before {
-    content: none; 
+    content: none;
 }
 
 
@@ -1723,19 +1827,23 @@ footer p {
 
 .left-column {
     flex: 1;
-    min-width: 0; /* Allows the column to shrink properly */
+    min-width: 0;
+    /* Allows the column to shrink properly */
 }
 
 .right-column {
-    flex: 1.2; /* Makes analysis column slightly wider */
+    flex: 1.2;
+    /* Makes analysis column slightly wider */
     position: sticky;
-    top: 90px; /* Position below the fixed navbar */
+    top: 90px;
+    /* Position below the fixed navbar */
 }
 
 /* Ensure the main search card isn't overly wide */
 .career-card {
     width: 100%;
-    box-sizing: border-box; /* Important for flexbox children */
+    box-sizing: border-box;
+    /* Important for flexbox children */
 }
 
 /* Make sure the Show More button has some space */
@@ -1748,8 +1856,10 @@ footer p {
     .career-compass-layout {
         flex-direction: column;
     }
+
     .right-column {
-        position: static; /* Unstick the column on smaller screens */
+        position: static;
+        /* Unstick the column on smaller screens */
         width: 100%;
     }
 }
@@ -1765,15 +1875,18 @@ footer p {
 /* --- 1. Main CFO Layout Grid --- */
 .cfo-layout {
     display: grid;
-    grid-template-columns: 1fr 1.2fr; /* Left column is slightly smaller */
+    grid-template-columns: 1fr 1.2fr;
+    /* Left column is slightly smaller */
     align-items: flex-start;
     gap: 2.5rem;
     margin-top: 2rem;
 }
 
-.cfo-left-column, .cfo-right-column {
+.cfo-left-column,
+.cfo-right-column {
     position: relative;
-    z-index: 1; /* Helps prevent any overlap issues */
+    z-index: 1;
+    /* Helps prevent any overlap issues */
 }
 
 /* --- 2. Enhanced Tab and Tool Styling --- */
@@ -1784,27 +1897,33 @@ footer p {
     border-top: 1px solid var(--glass-border);
     padding-top: 1.5rem;
 }
+
 .goal-form-container input {
     flex-grow: 1;
 }
+
 .tool-section {
     margin-bottom: 1.5rem;
 }
+
 .tool-section h5 {
     font-size: 1.2rem;
     margin: 0 0 0.5rem 0;
 }
+
 .tool-section p {
     font-size: 0.9rem;
     color: var(--subtle-text);
     margin-top: 0;
 }
+
 .tool-section hr {
     border: none;
     height: 1px;
     background-color: var(--glass-border);
     margin: 2rem 0;
 }
+
 .boost-buttons {
     display: flex;
     gap: 10px;
@@ -1813,7 +1932,8 @@ footer p {
 /* --- 3. Professional Transactions List --- */
 .transactions-container {
     margin-top: 2rem;
-    display: block; /* Override default card grid behavior */
+    display: block;
+    /* Override default card grid behavior */
     width: 100%;
     box-sizing: border-box;
 }
@@ -1823,22 +1943,27 @@ footer p {
     padding: 0;
     margin: 0;
 }
+
 #transactions-list li {
     display: grid;
-    grid-template-columns: 40px 1fr auto; /* Icon | Description | Amount */
+    grid-template-columns: 40px 1fr auto;
+    /* Icon | Description | Amount */
     align-items: center;
     gap: 1rem;
     padding: 1rem 0;
     border-bottom: 1px solid var(--glass-border);
 }
+
 #transactions-list li:last-child {
     border-bottom: none;
 }
+
 #transactions-list li span:last-child {
     font-weight: 600;
     color: var(--glow-red);
     justify-self: end;
 }
+
 #transactions-list li em {
     font-style: normal;
     font-size: 0.85rem;
@@ -1848,7 +1973,8 @@ footer p {
 
 /* Category Icons */
 #transactions-list li::before {
-    content: '🛒'; /* Default: Shopping */
+    content: '🛒';
+    /* Default: Shopping */
     font-size: 1.5rem;
     background-color: rgba(255, 255, 255, 0.1);
     width: 40px;
@@ -1858,11 +1984,26 @@ footer p {
     align-items: center;
     justify-content: center;
 }
-#transactions-list .category-Food::before { content: '🍕'; }
-#transactions-list .category-Transport::before { content: '🚗'; }
-#transactions-list .category-Bills::before { content: '💡'; }
-#transactions-list .category-Entertainment::before { content: '🎬'; }
-#transactions-list .category-Other::before { content: '📦'; }
+
+#transactions-list .category-Food::before {
+    content: '🍕';
+}
+
+#transactions-list .category-Transport::before {
+    content: '🚗';
+}
+
+#transactions-list .category-Bills::before {
+    content: '💡';
+}
+
+#transactions-list .category-Entertainment::before {
+    content: '🎬';
+}
+
+#transactions-list .category-Other::before {
+    content: '📦';
+}
 
 
 /* --- 4. Polished Goal Items --- */
@@ -1873,16 +2014,19 @@ footer p {
     margin-bottom: 1.5rem;
     background: rgba(0, 0, 0, 0.15);
 }
+
 .goal-item p {
     display: flex;
     justify-content: space-between;
     margin: 0 0 1rem 0;
 }
+
 .goal-buttons {
     display: flex;
     gap: 10px;
     margin-top: 1rem;
 }
+
 .goal-buttons .btn {
     flex-grow: 1;
 }
@@ -1890,16 +2034,19 @@ footer p {
 /* --- 5. Responsive Adjustments --- */
 @media (max-width: 992px) {
     .cfo-layout {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        grid-template-columns: 1fr;
+        /* Stack columns on smaller screens */
     }
 }
+
 .modal-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(15, 8, 30, 0.6); /* Semi-transparent dark overlay */
+    background-color: rgba(15, 8, 30, 0.6);
+    /* Semi-transparent dark overlay */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
@@ -1918,13 +2065,14 @@ footer p {
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
-    
+
     color: var(--light-text);
     padding: 2.5rem;
     max-width: 500px;
     width: 90%;
     position: relative;
-    text-align: left; /* Override any inherited center-align */
+    text-align: left;
+    /* Override any inherited center-align */
 }
 
 /* --- 3. The Close Button --- */
@@ -1990,7 +2138,8 @@ footer p {
 
 /* --- Styling for Achieved Goals --- */
 .goal-item.achieved {
-    background: rgba(85, 239, 196, 0.1); /* Use the glow-green color */
+    background: rgba(85, 239, 196, 0.1);
+    /* Use the glow-green color */
     border-color: rgba(85, 239, 196, 0.4);
 }
 
@@ -2032,11 +2181,12 @@ footer p {
 .economy-radar-page .container .currency-container-card,
 .economy-radar-page .container .ai-economist-card {
     /* If the parent is a grid, this makes the item span all columns */
-    grid-column: 1 / -1; 
-    
+    grid-column: 1 / -1;
+
     /* Ensures the card takes up the full available width */
-    width: 100%; 
-    box-sizing: border-box; /* Prevents padding issues */
+    width: 100%;
+    box-sizing: border-box;
+    /* Prevents padding issues */
 }
 
 
@@ -2044,7 +2194,8 @@ footer p {
 .bottom-cards-layout .card {
     /* Change the card's display mode to flex for better control */
     display: flex;
-    flex-direction: column; /* Stack children (title and form) vertically */
+    flex-direction: column;
+    /* Stack children (title and form) vertically */
 }
 
 .bottom-cards-layout .card form {
@@ -2052,29 +2203,28 @@ footer p {
     display: flex;
     flex-direction: column;
     /* This is the key: make the form fill the remaining vertical space in the card */
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .bottom-cards-layout .card form button[type="submit"] {
     /* This pushes the button to the bottom of the form */
     margin-top: auto;
     width: 50%;
-    margin-left:25% ; 
+    margin-left: 25%;
 }
 
 
 /*
-===================================================================
+
 --- Symmetrical Layout for Pocket CFO Summary & Main Sections ---
---- This code will NOT affect the Recent Transactions box.      ---
-===================================================================
 */
 
 /* 1. Target the top row of three summary cards */
 .summary-cards {
     display: flex;
     gap: 2rem;
-    margin-bottom: 4rem; /* Adjust spacing as needed */
+    margin-bottom: 4rem;
+    /* Adjust spacing as needed */
 }
 
 /* Make each of the three cards equal in width */
@@ -2085,16 +2235,19 @@ footer p {
 /* 2. Target the middle row containing the two main columns */
 .cfo-layout {
     display: flex;
-    gap: 2rem; /* Use the same gap for consistency */
+    gap: 2rem;
+    /* Use the same gap for consistency */
 }
 
 /* 3. Set the width ratio for the two columns to align with the top row */
 .cfo-left-column {
-    flex: 1; /* This column will take up 1/3 of the total width */
+    flex: 1;
+    /* This column will take up 1/3 of the total width */
 }
 
 .cfo-right-column {
-    flex: 2; /* This column will take up 2/3 of the total width */
+    flex: 2;
+    /* This column will take up 2/3 of the total width */
 }
 
 
@@ -2106,37 +2259,58 @@ footer p {
 
 /* 1. Turn the form itself into a flex container */
 #invoice-form {
-    display: flex;       /* This is the key: arranges all items inside the form in a row */
-    align-items: center; /* Vertically aligns the inputs and button */
-    gap: 1rem;           /* Creates consistent space between each element */
+    display: flex;
+    /* This is the key: arranges all items inside the form in a row */
+    align-items: center;
+    /* Vertically aligns the inputs and button */
+    gap: 1rem;
+    /* Creates consistent space between each element */
 }
 
 /* 2. Control the width of the tooltip containers that hold your inputs */
 #invoice-form .tooltip-container {
-    display: flex; /* Ensures the input inside fills the container */
+    display: flex;
+    /* Ensures the input inside fills the container */
 }
 
 /* 3. Set the width ratios for the inputs */
 /* The flex property divides the available space according to these ratios */
-#invoice-form .tooltip-container:nth-of-type(1) { flex: 3; } /* Client Name */
-#invoice-form .tooltip-container:nth-of-type(2) { flex: 5; } /* Line Items */
-#invoice-form .tooltip-container:nth-of-type(3) { flex: 1; } /* GST Rate */
+#invoice-form .tooltip-container:nth-of-type(1) {
+    flex: 3;
+}
+
+/* Client Name */
+#invoice-form .tooltip-container:nth-of-type(2) {
+    flex: 5;
+}
+
+/* Line Items */
+#invoice-form .tooltip-container:nth-of-type(3) {
+    flex: 1;
+}
+
+/* GST Rate */
 
 
 /* 4. Ensure the inputs/textarea fill their container */
 #invoice-form input,
 #invoice-form textarea {
-    width: 100%; /* Makes the input field take up the full width of its parent container */
+    width: 100%;
+    /* Makes the input field take up the full width of its parent container */
 }
+
 #line-items {
-    resize: none; /* Optional: prevents the user from resizing the textarea */
+    resize: none;
+    /* Optional: prevents the user from resizing the textarea */
 }
 
 
 /* 5. Style the button */
 #invoice-form .btn {
-    flex-shrink: 0;      /* Prevents the button from shrinking if space is tight */
-    white-space: nowrap; /* Prevents the button text from wrapping to a new line */
+    flex-shrink: 0;
+    /* Prevents the button from shrinking if space is tight */
+    white-space: nowrap;
+    /* Prevents the button text from wrapping to a new line */
 }
 
 
@@ -2148,17 +2322,19 @@ footer p {
 
 /* --- 1. The Container --- */
 .nav-dropdown-container {
-    position: relative; /* This is crucial for positioning the dropdown menu */
+    position: relative;
+    /* This is crucial for positioning the dropdown menu */
     display: inline-block;
 }
 
 /* --- 2. The Dropdown Menu (Hidden by default) --- */
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 10px); /* Position it below the button with a small gap */
+    top: calc(100% + 10px);
+    /* Position it below the button with a small gap */
     left: 50%;
     transform: translateX(-50%);
-    
+
     /* Styling to match your "glassmorphism" theme */
     background: var(--glass-bg);
     backdrop-filter: blur(25px);
@@ -2166,11 +2342,13 @@ footer p {
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    
-    width: 280px; /* Set a comfortable width */
+
+    width: 280px;
+    /* Set a comfortable width */
     padding: 0.5rem;
-    z-index: 1100; /* Ensure it appears above other content */
-    
+    z-index: 1100;
+    /* Ensure it appears above other content */
+
     /* Smooth transition for showing/hiding */
     opacity: 0;
     visibility: hidden;
@@ -2224,11 +2402,15 @@ footer p {
    and are aligned correctly. */
 .new-nav-actions .btn {
     padding: 12px 24px;
-    display: flex; /* Ensures vertical alignment */
-    align-items: center; /* Ensures vertical alignment */
+    display: flex;
+    /* Ensures vertical alignment */
+    align-items: center;
+    /* Ensures vertical alignment */
     justify-content: center;
-    height: 45px; /* Set a fixed height to match other buttons */
-    box-sizing: border-box; /* Includes padding in the height calculation */
+    height: 45px;
+    /* Set a fixed height to match other buttons */
+    box-sizing: border-box;
+    /* Includes padding in the height calculation */
 }
 
 /* --- 2. Fix for the Transparent Dropdown Menu --- */
@@ -2246,7 +2428,7 @@ footer p {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.meme-image{
+.meme-image {
     width: 50%;
     height: auto;
 }
@@ -2257,14 +2439,48 @@ footer p {
 /* ========================================================== */
 
 /* --- 1. Core Page Structure --- */
-.hidden { display: none !important; }
-#quiz-container { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
-.quiz-question { margin-bottom: 1.5rem; text-align: left; }
-.quiz-question p { font-weight: 600; margin-bottom: 0.75rem; }
-.quiz-options { list-style: none; padding-left: 0; }
-.quiz-options label { display: block; padding: 0.75rem; border-radius: 8px; transition: background-color 0.2s ease; cursor: pointer; }
-.quiz-options label:hover { background-color: rgba(255, 255, 255, 0.1); }
-.quiz-options input[type="radio"] { margin-right: 10px; accent-color: var(--primary-color); }
+.hidden {
+    display: none !important;
+}
+
+#quiz-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz-question {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.quiz-question p {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.quiz-options {
+    list-style: none;
+    padding-left: 0;
+}
+
+.quiz-options label {
+    display: block;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.quiz-options label:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quiz-options input[type="radio"] {
+    margin-right: 10px;
+    accent-color: var(--primary-color);
+}
 
 /* --- 2. Main Two-Column Layout (Post-Quiz) --- */
 #post-quiz-row {
@@ -2273,18 +2489,26 @@ footer p {
     gap: 2.5rem;
     animation: fadeIn 0.5s ease;
 }
+
 #investor-profile-card {
-    flex: 0 0 320px; /* Fixed width for the profile card */
+    flex: 0 0 320px;
+    /* Fixed width for the profile card */
     position: sticky;
-    top: 90px; /* Sticks below the navbar on scroll */
+    top: 90px;
+    /* Sticks below the navbar on scroll */
 }
+
 #post-quiz-content {
     flex-grow: 1;
-    min-width: 0; /* Prevents flexbox overflow */
+    min-width: 0;
+    /* Prevents flexbox overflow */
 }
 
 /* --- 3. Professional Investor Profile Card --- */
-#profile-summary { text-align: center; }
+#profile-summary {
+    text-align: center;
+}
+
 #profile-summary h3 {
     font-size: 1.1rem;
     font-weight: 500;
@@ -2293,6 +2517,7 @@ footer p {
     padding-bottom: 1rem;
     margin-bottom: 1.5rem;
 }
+
 #risk-profile-result {
     display: inline-block;
     padding: 8px 24px;
@@ -2303,19 +2528,36 @@ footer p {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-#risk-profile-result.conservative { background: linear-gradient(45deg, #3498db, #2980b9); }
-#risk-profile-result.moderate { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); }
-#risk-profile-result.aggressive { background: linear-gradient(45deg, #e74c3c, #c0392b); }
-#risk-profile-description { 
-    margin-top: 1rem;
-    color: var(--subtle-text); 
-    font-size: 0.95rem; 
-    line-height: 1.6; 
+
+#risk-profile-result.conservative {
+    background: linear-gradient(45deg, #3498db, #2980b9);
 }
-#retake-quiz-btn { margin-top: 2rem; }
+
+#risk-profile-result.moderate {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+#risk-profile-result.aggressive {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+#risk-profile-description {
+    margin-top: 1rem;
+    color: var(--subtle-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+#retake-quiz-btn {
+    margin-top: 2rem;
+}
 
 /* --- 4. Content Tabs --- */
-.content-tabs { display: flex; border-bottom: 1px solid var(--glass-border); }
+.content-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--glass-border);
+}
+
 .tab-button {
     flex: 1;
     padding: 1rem;
@@ -2329,78 +2571,198 @@ footer p {
     border-bottom: 3px solid transparent;
     transition: color 0.3s, border-color 0.3s;
 }
-.tab-button.active { color: #fff; border-bottom-color: var(--glow-green); }
+
+.tab-button.active {
+    color: #fff;
+    border-bottom-color: var(--glow-green);
+}
 
 /* --- 5. Professional Investment Idea Cards --- */
-#investment-ideas-section { padding-top: 1.5rem; }
+#investment-ideas-section {
+    padding-top: 1.5rem;
+}
+
 .investment-card {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 1.5rem;
-    background-color: rgba(0,0,0,0.15);
+    background-color: rgba(0, 0, 0, 0.15);
     padding: 1.25rem 1.5rem;
     border-radius: 12px;
     margin-bottom: 1rem;
     border: 1px solid var(--glass-border);
     transition: transform 0.3s;
 }
-.investment-card:hover { transform: scale(1.02); }
-.investment-card .info h4 { margin: 0 0 0.25rem 0; font-size: 1.2rem; color: #fff; }
-.investment-card .info p { margin: 0; color: var(--subtle-text); font-size: 0.9rem; }
-.investment-card .price { text-align: right; }
-.investment-card .price h3 { margin: 0; font-size: 1.5rem; font-weight: 600; color: #fff; }
-.investment-card .price p { margin: 0.25rem 0 0 0; font-weight: 600; font-size: 1rem; }
-.price .positive { color: var(--glow-green); }
-.price .negative { color: var(--glow-red); }
-.error-message { color: var(--glow-red); }
+
+.investment-card:hover {
+    transform: scale(1.02);
+}
+
+.investment-card .info h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.investment-card .info p {
+    margin: 0;
+    color: var(--subtle-text);
+    font-size: 0.9rem;
+}
+
+.investment-card .price {
+    text-align: right;
+}
+
+.investment-card .price h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.investment-card .price p {
+    margin: 0.25rem 0 0 0;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.price .positive {
+    color: var(--glow-green);
+}
+
+.price .negative {
+    color: var(--glow-red);
+}
+
+.error-message {
+    color: var(--glow-red);
+}
 
 /* --- 6. Wealth Tools Section --- */
-#tools-section { padding-top: 1.5rem; }
-.tools-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-#retirement-result ul, #sip-list ul { list-style: none; padding: 0; }
-#retirement-result li, #sip-list li { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border); }
-#sip-list li:last-child { border: none; }
-#sip-list hr { border: none; height: 1px; background-color: var(--glass-border); margin: 1rem 0; }
-.sip-item-remove-btn { background: none; border: none; color: var(--glow-red); cursor: pointer; font-size: 1.2rem; }
-
-#retirement-projection-card { margin-top: 2rem; border-color: var(--glow-green); }
-.projection-summary { font-size: 1.1rem; line-height: 1.6; text-align: center; margin-bottom: 1.5rem; }
-.projection-advice { text-align: center; padding: 1rem; border-radius: 8px; font-size: 1rem; line-height: 1.5; }
-.projection-advice.on-track { background-color: rgba(85, 239, 196, 0.1); color: var(--glow-green); }
-.projection-advice.off-track { background-color: rgba(255, 118, 117, 0.1); color: var(--glow-red); }
-
-/* --- 7. Responsiveness --- */
-@media (max-width: 992px) {
-    #post-quiz-row { flex-direction: column; }
-    #investor-profile-card { position: static; width: 100%; flex: auto; }
-}
-@media (max-width: 768px) {
-    .tools-container { grid-template-columns: 1fr; }
+#tools-section {
+    padding-top: 1.5rem;
 }
 
-/* --- 1. Main Tools Section Layout --- */
-#tools-section { padding-top: 1.5rem; }
 .tools-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
 }
+
+#retirement-result ul,
+#sip-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#retirement-result li,
+#sip-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+#sip-list li:last-child {
+    border: none;
+}
+
+#sip-list hr {
+    border: none;
+    height: 1px;
+    background-color: var(--glass-border);
+    margin: 1rem 0;
+}
+
+.sip-item-remove-btn {
+    background: none;
+    border: none;
+    color: var(--glow-red);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+#retirement-projection-card {
+    margin-top: 2rem;
+    border-color: var(--glow-green);
+}
+
+.projection-summary {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.projection-advice {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.projection-advice.on-track {
+    background-color: rgba(85, 239, 196, 0.1);
+    color: var(--glow-green);
+}
+
+.projection-advice.off-track {
+    background-color: rgba(255, 118, 117, 0.1);
+    color: var(--glow-red);
+}
+
+/* --- 7. Responsiveness --- */
+@media (max-width: 992px) {
+    #post-quiz-row {
+        flex-direction: column;
+    }
+
+    #investor-profile-card {
+        position: static;
+        width: 100%;
+        flex: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .tools-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- 1. Main Tools Section Layout --- */
+#tools-section {
+    padding-top: 1.5rem;
+}
+
+.tools-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
 .tool-card {
     display: flex;
-    flex-direction: column; /* Allows form to be pushed to the bottom */
+    flex-direction: column;
+    /* Allows form to be pushed to the bottom */
 }
+
 .tool-card h3 {
     border-bottom: 1px solid var(--glass-border);
     padding-bottom: 0.75rem;
     margin-bottom: 0.5rem;
 }
+
 .tool-desc {
     font-size: 0.9rem;
     color: var(--subtle-text);
     margin-top: 0;
     margin-bottom: 1.5rem;
-    min-height: 40px; /* Aligns cards even with different text lengths */
+    min-height: 40px;
+    /* Aligns cards even with different text lengths */
 }
 
 /* --- 2. Professional Retirement Calculation Result --- */
@@ -2410,6 +2772,7 @@ footer p {
     margin-top: 1.5rem;
     animation: fadeIn 0.5s;
 }
+
 #retirement-result li {
     display: flex;
     justify-content: space-between;
@@ -2417,26 +2780,40 @@ footer p {
     border-bottom: 1px solid var(--glass-border);
     font-size: 0.95rem;
 }
+
 #retirement-result li:first-child {
     border-top: 1px solid var(--glass-border);
 }
+
 #retirement-result li.grand-total {
     font-size: 1.1rem;
 }
-#retirement-result li span { color: var(--subtle-text); }
-#retirement-result li strong { color: #fff; }
-#retirement-result li.grand-total strong { color: var(--glow-green); }
+
+#retirement-result li span {
+    color: var(--subtle-text);
+}
+
+#retirement-result li strong {
+    color: #fff;
+}
+
+#retirement-result li.grand-total strong {
+    color: var(--glow-green);
+}
 
 
 /* --- 3. Upgraded SIP Tracker --- */
 #sip-list {
-    flex-grow: 1; /* Pushes the form to the bottom of the card */
+    flex-grow: 1;
+    /* Pushes the form to the bottom of the card */
     margin-bottom: 1.5rem;
 }
+
 #sip-list ul {
     list-style: none;
     padding: 0;
 }
+
 #sip-list li {
     display: flex;
     justify-content: space-between;
@@ -2444,6 +2821,7 @@ footer p {
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--glass-border);
 }
+
 #sip-list .sip-item-remove-btn {
     background: none;
     border: none;
@@ -2453,12 +2831,14 @@ footer p {
     padding: 0 5px;
     line-height: 1;
 }
+
 #sip-list hr {
     border: none;
     height: 1px;
     background-color: var(--glass-border);
     margin: 1rem 0;
 }
+
 #sip-list .total-sip-row {
     display: flex;
     justify-content: space-between;
@@ -2471,6 +2851,7 @@ footer p {
     border-color: var(--glow-green);
     animation: fadeIn 0.5s;
 }
+
 .projection-summary {
     font-size: 1.1rem;
     line-height: 1.6;
@@ -2479,6 +2860,7 @@ footer p {
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--glass-border);
 }
+
 .projection-advice {
     text-align: center;
     padding: 1rem;
@@ -2486,10 +2868,12 @@ footer p {
     font-size: 1rem;
     line-height: 1.5;
 }
+
 .projection-advice.on-track {
     background-color: rgba(85, 239, 196, 0.1);
     color: var(--glow-green);
 }
+
 .projection-advice.off-track {
     background-color: rgba(255, 118, 117, 0.1);
     color: var(--glow-red);
@@ -2505,7 +2889,8 @@ footer p {
 .learning-hub-layout {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem; /* Space between the featured card and the grid below */
+    gap: 2.5rem;
+    /* Space between the featured card and the grid below */
 }
 
 /* --- 2. The Featured Card --- */
@@ -2517,12 +2902,12 @@ footer p {
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    
+
     padding: 3rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* border-left: 5px solid var(--glow-green); /* Accent border */
-} 
+}
 
 .featured-card:hover {
     transform: translateY(-8px);
@@ -2559,7 +2944,8 @@ footer p {
 /* --- 4. Styling for Cards within the Secondary Grid --- */
 .secondary-grid .card {
     display: flex;
-    flex-direction: column; /* Stacks content vertically */
+    flex-direction: column;
+    /* Stacks content vertically */
     text-align: center;
 }
 
@@ -2568,11 +2954,572 @@ footer p {
 }
 
 .secondary-grid .card p {
-    flex-grow: 1; /* This is the magic that aligns the buttons */
+    flex-grow: 1;
+    /* This is the magic that aligns the buttons */
     margin-bottom: 2rem;
     color: var(--subtle-text);
 }
 
 .secondary-grid .card .btn {
-    margin-top: auto; /* This pushes the button to the bottom */
+    margin-top: auto;
+    /* This pushes the button to the bottom */
+}
+
+/* /* Extra small mobile devices (e.g., iPhone SE, older Androids, up to 480px)  */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem !important;
+    }
+
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .index-page .page-header-index h1 {
+        font-size: 2.2rem;
+        margin-top: -50px;
+    }
+
+    .gradient-text,
+    .gradient-text-main {
+        font-size: 24px;
+    }
+
+    .empower-text h2 {
+        font-size: 1.4rem;
+    }
+
+    .feature-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .feature-image img {
+        max-width: 95%;
+    }
+
+    .career-compass-card {
+        padding: 1rem;
+    }
+
+    .team-cards {
+        gap: 1.2rem;
+    }
+
+    .navbar {
+        padding: 0 0.8rem;
+    }
+
+    .nav-logo {
+        font-size: 20px;
+    }
+
+    .nav-logo .logo-image {
+        height: 35px;
+        width: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    code Code .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2.2rem !important;
+    }
+
+    h2 {
+        font-size: 1.8rem !important;
+    }
+
+    h3 {
+        font-size: 1.4rem !important;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .page-header p {
+        font-size: 0.95rem;
+    }
+
+    .card {
+        padding: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .grid-container,
+    .two-column-layout,
+    .summary-cards,
+    .features-grid,
+    .tools-container,
+    .secondary-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .cfo-layout,
+    .career-compass-layout {
+        flex-direction: column;
+    }
+
+    .cfo-left-column,
+    .cfo-right-column,
+    .left-column,
+    .right-column {
+        position: static;
+        width: 100%;
+        flex: auto;
+    }
+
+    .navbar {
+        height: 60px;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .nav-logo {
+        font-size: 22px;
+    }
+
+    .nav-logo .logo-image {
+        height: 38px;
+        width: 38px;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--dark-bg, #1a1a2e);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem 0;
+        display: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-item {
+        margin: 0.4rem 0;
+        text-align: center;
+    }
+
+    .nav-item a {
+        padding: 10px 15px;
+        display: block;
+        width: 100%;
+    }
+
+    .new-nav-actions {
+        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .new-nav-actions.active {
+        display: flex;
+    }
+
+    .nav-dropdown-container {
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 90%;
+        margin: 0.5rem auto;
+        box-shadow: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .dropdown-menu.active {
+        transform: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .index-page .video-section {
+        padding: 8rem 1rem 2rem;
+    }
+
+    .index-page .page-header-index h1 {
+        font-size: 2.8rem;
+        margin-top: -70px;
+        line-height: 1.2;
+    }
+
+    .index-page .page-header-index p {
+        font-size: 0.95rem;
+        max-width: 90%;
+    }
+
+    .index-page .feature-icon {
+        height: 180px;
+        width: 180px;
+    }
+
+    .toolkit-intro h2,
+    .process-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .empower-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .empower-text h2 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .empower-image img {
+        height: auto;
+        max-width: 85%;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .process-flow {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .process-flow::before {
+        display: none;
+    }
+
+    .process-step {
+        width: 90%;
+        max-width: 180px;
+    }
+
+    .showcase-features {
+        gap: 2.5rem;
+    }
+
+    .feature-row,
+    .feature-row.layout-right {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .feature-image {
+        padding: 0.5rem;
+    }
+
+    .feature-image img {
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+    }
+
+    .feature-content h3 {
+        font-size: 1.8rem;
+    }
+
+    .btn-feature {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    .career-compass-card {
+        max-width: 95%;
+        width: auto;
+        padding: 1.2rem;
+        margin-top: 2rem;
+    }
+
+    .career-compass-card h3 {
+        font-size: 1.6rem;
+    }
+
+    .career-compass-card p {
+        font-size: 0.95rem;
+    }
+
+    .team-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .site-footer h3 {
+        font-size: 1.6rem;
+    }
+
+    .site-footer h4 {
+        font-size: 1.1rem;
+        margin: 1.2rem 0 0.8rem 0;
+    }
+
+    .cfo-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 1.2rem;
+        width: 90%;
+    }
+
+    .modal-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    #modal-results li {
+        font-size: 0.95rem;
+    }
+
+    #investor-profile-card {
+        position: static;
+        width: 100%;
+        flex: auto;
+    }
+
+    #risk-profile-result {
+        font-size: 0.95rem;
+        padding: 5px 15px;
+    }
+
+    .tools-container {
+        grid-template-columns: 1fr;
+    }
+
+    #invoice-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #invoice-form .tooltip-container,
+    #invoice-form .btn {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem !important;
+    }
+
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .index-page .page-header-index h1 {
+        font-size: 2.2rem;
+        margin-top: -50px;
+    }
+
+    .gradient-text,
+    .gradient-text-main {
+        font-size: 24px;
+    }
+
+    .empower-text h2 {
+        font-size: 1.4rem;
+    }
+
+    .feature-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .feature-image img {
+        max-width: 95%;
+    }
+
+    .career-compass-card {
+        padding: 1rem;
+    }
+
+    .team-cards {
+        gap: 1.2rem;
+    }
+
+    .navbar {
+        padding: 0 0.8rem;
+    }
+
+    .nav-logo {
+        font-size: 20px;
+    }
+
+    .nav-logo .logo-image {
+        height: 35px;
+        width: 35px;
+    }
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    z-index: 1200;
+}
+
+.new-menu,
+.new-menu::before,
+.new-menu::after {
+    content: '';
+    display: block;
+    background-color: white;
+    height: 3px;
+    width: 100%;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.new-menu {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.new-menu ::before {
+    top: -10px;
+}
+
+.new-menu::after {
+    top: 10px;
+}
+
+.nav-toggle.active .new-menu {
+    transform: rotate(45deg);
+}
+
+.nav-toggle.active .new-menu::before {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+.nav-toggle.active .new-menu::after {
+    top: 0;
+    transform: rotate(90deg) scale(0);
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .new-nav-actions {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--dark-bg);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1050;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        padding: 1rem 0;
+        align-items: center;
+    }
+
+    .new-nav-actions.active {
+        display: flex;
+    }
+
+    .new-nav-actions .btn {
+        width: 90%;
+        margin-bottom: 0.5rem;
+    }
+
+    .new-nav-actions .nav-dropdown-container {
+        width: 90%;
+        margin-bottom: 0.5rem;
+    }
+
+    .new-nav-actions .dropdown-menu {
+        position: static;
+        transform: none;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 0;
+        margin-top: 0.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    .new-nav-actions .dropdown-menu.active {
+        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .new-nav-actions .dropdown-item {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0;
+    }
 }
